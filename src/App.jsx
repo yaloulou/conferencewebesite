@@ -228,12 +228,12 @@ const HeroSection = () => {
 
 
     },
-    {
+    /* {
       type: 'image',
       src: 'conference1.jpeg',
       alt: 'Modern technology',
       text: "Kinshasa: Where African Innovation Meets Global Technology"
-    },
+    }, */
     /* {
       type: 'video', 
       src: 'woman_tech.mov',
