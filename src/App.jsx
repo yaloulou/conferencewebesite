@@ -222,7 +222,7 @@ const HeroSection = () => {
   const mediaItems = [
     {
       type: 'video',
-      src: 'conference3.mov',
+      src: 'landing_media_1.webm',
       alt: 'Conference venue',
       text: "Digital Transformation for a Secure and Modern Future"
 
@@ -290,7 +290,7 @@ const HeroSection = () => {
           </div>
 
           {/* Titre principal */}
-          <h1 className={`text-5xl md:text-7xl font-bold mb-6 ${colors.textBright} leading-tight`}>
+          <h1 className={`text-4xl md:text-6xl font-bold mb-6 ${colors.textBright} leading-tight`}>
             <span className={colors.accent}>DIGITAL</span> NATION 2030
           </h1>
 
