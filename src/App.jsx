@@ -289,15 +289,19 @@ const HeroSection = () => {
             November 11-13, 2025 • Kinshasa, DRC
           </div>
 
-          {/* Titre principal */}
-          <h1 className={`text-4xl md:text-6xl font-bold mb-6 ${colors.textBright} leading-tight`}>
-            <span className={colors.accent}>DIGITAL</span> NATION 2030
-          </h1>
-
           {/* Sous-titre dynamique */}
           <p className={`text-xl md:text-2xl ${colors.text} max-w-3xl mx-auto mb-10 transition-opacity duration-500`}>
-            {mediaItems[currentMedia].text}
+            <span className={colors.accent}>DIGITAL</span> NATION 2030
+            
           </p>
+
+          {/* Titre principal */}
+          <h1 className={`text-4xl md:text-6xl font-bold mb-6 ${colors.textBright} leading-tight`}>
+            {mediaItems[currentMedia].text}
+
+          </h1>
+
+          
 
           
 
