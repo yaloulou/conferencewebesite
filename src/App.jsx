@@ -323,8 +323,7 @@ const HeroSection = () => {
   );
 };
 
-  // Composant Speakers
-  const SpeakersSection = () => {
+const SpeakersSection = () => {
   // Configuration des couleurs
   const colors = {
     bg: 'bg-[#1A1A1A]',
@@ -338,69 +337,148 @@ const HeroSection = () => {
     hoverGlow: 'hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]'
   };
 
+  // Données des intervenants
+  const speakersData = [
+    {
+      id: 10,
+      name: "Wilmot Gibson",
+      title: "Expert en Cybersécurité",
+      topic: "Threat Intelligence",
+      bio: "Fondateur d'une société de cybersécurité rachetée par Palo Alto Networks, chercheur en cybermenaces émergentes.",
+      avatar: "/intervenants/Wilmot Gibson.png",
+      social: {
+        twitter: "https://twitter.com/mohamedali",
+        linkedin: "https://linkedin.com/in/mohamedali"
+      }
+    },
+    {
+      id: 1,
+      name: "Aaron Winkler",
+      title: "Directrice de l'Innovation",
+      topic: "Intelligence Artificielle Éthique",
+      bio: "Pionnière dans le développement d'IA responsables, auteure de plusieurs livres sur l'éthique technologique et consultante pour l'UNESCO.",
+      avatar: "/intervenants/Aaron Winkler.png",
+      social: {
+        twitter: "https://twitter.com/sophiemartin",
+        linkedin: "https://linkedin.com/in/sophiemartin"
+      }
+    },
+    {
+      id: 2,
+      name: "Ainsley Rattray",
+      title: "CTO Blockchain",
+      topic: "Web3 & Décentralisation",
+      bio: "Expert en architectures décentralisées, fondateur de deux startups blockchain et contributeur majeur à Ethereum.",
+      avatar: "/intervenants/Ainsley Rattray.png",
+      social: {
+        twitter: "https://twitter.com/thomasdubois",
+        linkedin: "https://linkedin.com/in/thomasdubois"
+      }
+    },
+    {
+      id: 3,
+      name: "Alberto",
+      title: "Chercheuse en Cybersécurité",
+      topic: "Sécurité Cloud Native",
+      bio: "Professeur au MIT, spécialiste des architectures sécurisées pour le cloud et lauréate du prix Turing 2022.",
+      avatar: "/intervenants/Alberto.png",
+      social: {
+        twitter: "https://twitter.com/elenarodriguez",
+        linkedin: "https://linkedin.com/in/elenarodriguez"
+      }
+    },
+    {
+      id: 4,
+      name: "Barry Williams",
+      title: "Architecte Cloud Principal",
+      topic: "Multi-Cloud Strategies",
+      bio: "15 ans d'expérience chez Google Cloud et AWS, architecte de solutions pour Fortune 500 companies.",
+      avatar: "/intervenants/Barry Williams.png",
+      social: {
+        twitter: "https://twitter.com/marclefevre",
+        linkedin: "https://linkedin.com/in/marclefevre"
+      }
+    },
+    {
+      id: 5,
+      name: "Elizabeth Stephens",
+      title: "Responsable R&D IoT",
+      topic: "Villes Intelligentes",
+      bio: "Docteure en informatique urbaine, elle dirige les projets IoT pour des métropoles européennes et asiatiques.",
+      avatar: "/intervenants/Elizabeth Stephens.png",
+      social: {
+        twitter: "https://twitter.com/aminabah",
+        linkedin: "https://linkedin.com/in/aminabah"
+      }
+    },
+    {
+      id: 6,
+      name: "Omar Fahnbulleh",
+      title: "Expert DevOps",
+      topic: "Platform Engineering",
+      bio: "Créateur d'outils open-source utilisés par des millions de développeurs, evangeliste des pratiques DevOps.",
+      avatar: "/intervenants/Omar Fahnbulleh.png",
+      social: {
+        twitter: "https://twitter.com/pierremoreau",
+        linkedin: "https://linkedin.com/in/pierremoreau"
+      }
+    },
+    {
+      id: 7,
+      name: "Pankaj Chugh",
+      title: "Lead Data Scientist",
+      topic: "Machine Learning Opérationnel",
+      bio: "Ancienne de Netflix et Spotify, spécialiste du déploiement de modèles ML à grande échelle.",
+      avatar: "/intervenants/Pankaj Chugh.png",
+      social: {
+        twitter: "https://twitter.com/laurakim",
+        linkedin: "https://linkedin.com/in/laurakim"
+      }
+    },
+    {
+      id: 8,
+      name: "Sabune Winkler",
+      title: "Directeur Digital",
+      topic: "Transformation Digitale",
+      bio: "Accompagne les entreprises du CAC40 dans leur transformation digitale depuis 15 ans, auteur à succès.",
+      avatar: "/intervenants/Sabune Winkler.png",
+      social: {
+        twitter: "https://twitter.com/jacquespetit",
+        linkedin: "https://linkedin.com/in/jacquespetit"
+      }
+    },
+    {
+      id: 9,
+      name: "Shanam Kapoor",
+      title: "Responsable UX Research",
+      topic: "Design Centré Utilisateur",
+      bio: "Pionnière des méthodes de recherche UX appliquées aux produits digitaux complexes, formatrice internationale.",
+      avatar: "/intervenants/Shanam Kapoor.png",
+      social: {
+        twitter: "https://twitter.com/clairedubois",
+        linkedin: "https://linkedin.com/in/clairedubois"
+      }
+    },
+  ];
+
   // État des speakers
   const [visibleCount, setVisibleCount] = useState(8);
-  const [allSpeakers, setAllSpeakers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [expandedSpeaker, setExpandedSpeaker] = useState(null);
-
-  // Chargement initial des données
-  useEffect(() => {
-    const fetchInitialSpeakers = async () => {
-      setIsLoading(true);
-      try {
-        // Simulation d'appel API
-        const initialSpeakers = await mockApiCall(8);
-        setAllSpeakers(initialSpeakers);
-      } catch (error) {
-        console.error("Error fetching speakers:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchInitialSpeakers();
-  }, []);
-
-  // Fonction pour charger plus de speakers
-  const loadMoreSpeakers = async () => {
-    setIsLoading(true);
-    try {
-      // Simulation d'appel API pour 4 speakers supplémentaires
-      const newSpeakers = await mockApiCall(4);
-      setAllSpeakers([...allSpeakers, ...newSpeakers]);
-      setVisibleCount(prev => prev + 4);
-    } catch (error) {
-      console.error("Error loading more speakers:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   // Fonction pour afficher/réduire les détails d'un speaker
   const toggleSpeakerDetails = (id) => {
     setExpandedSpeaker(expandedSpeaker === id ? null : id);
   };
 
-  // Simulation d'appel API
-  const mockApiCall = (count) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const mockSpeakers = Array.from({ length: count }, (_, i) => ({
-          id: `speaker-${allSpeakers.length + i}`,
-          name: `Speaker ${allSpeakers.length + i + 1}`,
-          title: ["CTO", "CEO", "Lead Developer", "Researcher"][i % 4],
-          topic: ["AI", "Blockchain", "Cybersecurity", "Cloud Computing"][i % 4],
-          bio: `Expert with 10+ years experience in the field. Published author and frequent keynote speaker at international conferences.`,
-          avatar: `https://randomuser.me/api/portraits/${i % 2 === 0 ? 'men' : 'women'}/${allSpeakers.length + i}.jpg`,
-          social: {
-            twitter: `https://twitter.com/speaker${allSpeakers.length + i}`,
-            linkedin: `https://linkedin.com/in/speaker${allSpeakers.length + i}`
-          }
-        }));
-        resolve(mockSpeakers);
-      }, 800); // Simule un délai réseau
-    });
+  // Fonction pour charger plus de speakers
+  const loadMoreSpeakers = () => {
+    setIsLoading(true);
+    // Simuler un léger délai pour l'expérience utilisateur
+    setTimeout(() => {
+      setVisibleCount(prev => Math.min(prev + 4, speakersData.length));
+      setIsLoading(false);
+    }, 300);
   };
 
   return (
@@ -418,21 +496,21 @@ const HeroSection = () => {
         </div>
 
         {/* Grille des speakers */}
-        {isLoading && allSpeakers.length === 0 ? (
+        {isLoading && visibleCount === 0 ? (
           <div className="flex justify-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#00FFFF]"></div>
           </div>
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              {allSpeakers.slice(0, visibleCount).map((speaker) => (
+              {speakersData.slice(0, visibleCount).map((speaker) => (
                 <div 
                   key={speaker.id}
                   className={`${colors.card} p-6 rounded-xl border ${colors.divider} transition-all duration-300 hover:${colors.accentBorder} ${colors.hoverGlow}`}
                 >
                   <div className="flex flex-col items-center">
                     {/* Avatar */}
-                    <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-[#333333] hover:border-[#00FFFF] transition-colors">
+                    <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-white bg-white">
                       <img 
                         src={speaker.avatar} 
                         alt={speaker.name}
@@ -504,19 +582,7 @@ const HeroSection = () => {
             </div>
 
             {/* Bouton Load More */}
-            {visibleCount < allSpeakers.length && allSpeakers.length > 0 && (
-              <div className="text-center mb-8">
-                <button
-                  onClick={() => setVisibleCount(prev => Math.min(prev + 8, allSpeakers.length))}
-                  className={`border ${colors.accentBorder} ${colors.accent} px-6 py-2 rounded-lg font-medium hover:${colors.accentBg} hover:text-black transition-colors`}
-                >
-                  Show More ({allSpeakers.length - visibleCount} remaining)
-                </button>
-              </div>
-            )}
-
-            {/* Bouton Load More depuis API */}
-            {visibleCount >= allSpeakers.length && allSpeakers.length < 20 && (
+            {visibleCount < speakersData.length && (
               <div className="text-center">
                 <button
                   onClick={loadMoreSpeakers}
@@ -532,7 +598,7 @@ const HeroSection = () => {
                       Loading...
                     </span>
                   ) : (
-                    `Load More Speakers (${20 - allSpeakers.length} available)`
+                    `Load More Speakers (${speakersData.length - visibleCount} available)`
                   )}
                 </button>
               </div>
