@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Menu, X, ArrowRight, ChevronDown, Check,
   Calendar, MapPin, Users, Mic, Twitter, 
-  Linkedin, Youtube, Star, Award, Cpu, Shield, Server, Wifi, Mail
+  Linkedin, Youtube, Star, Award, Cpu, Shield, Server, Wifi, Mail, Coffee, Clock, Phone, Hotel, Truck, Train, Car, ExternalLink, ScreenShare
 } from 'lucide-react';
 
 const DigitalNation2030 = () => {
@@ -612,52 +612,192 @@ const SpeakersSection = () => {
 
 
 
-  // Composant Program
-  const ProgramSection = () => (
-    <section id ="program" className={`py-20 ${colors.card}`}>
-      <div className=" mx-auto px-6">
+  const ProgramSection = () => {
+  const schedule = [
+    {
+      day: "Day 1 – November 11, 2025",
+      date: "November 11, 2025",
+      events: [
+        { time: "07:30 – 08:30", title: "Registration & Networking Breakfast", type: "networking" },
+        { time: "08:30 – 09:15", title: "Keynote — Digital Transformation for a Secure and Modern Future", speaker: "Desire Cashmir Kologele Eberande, Minister of Digital Transformation, DRC", type: "keynote" },
+        { time: "09:15 – 09:30", title: "Coffee Break", type: "break" },
+        { time: "09:30 – 10:30", title: "Panel — Leading in the Digital Age", speaker: "Moderator: TBD; Panelists: Aaron Winkler, Pankaj Ghemawat, and others", type: "panel" },
+        { time: "10:30 – 10:45", title: "Coffee Break", type: "break" },
+        { time: "10:45 – 11:30", title: "Workshop: Cybersecurity & Risk Management", speaker: "Elizabeth Stevens", type: "workshop" },
+        { time: "10:45 – 11:30", title: "Workshop: Cloud & Emerging Tech", speaker: "David Brussels", type: "workshop" },
+        { time: "10:45 – 11:30", title: "Workshop: Data & AI Innovation", speaker: "Shanam Kapoor", type: "workshop" },
+        { time: "11:30 – 12:15", title: "Workshops Continuation", speaker: "All tracks", type: "workshop" },
+        { time: "12:15 – 13:00", title: "Workshops Continuation", speaker: "All tracks", type: "workshop" }
+      ]
+    },
+    {
+      day: "Day 2 – November 12, 2025",
+      date: "November 12, 2025",
+      events: [
+        { time: "08:00 – 09:00", title: "Networking Breakfast", type: "networking" },
+        { time: "09:00 – 09:45", title: "Keynote — AI and Future of Knowledge Work", speaker: "Pankaj Ghemawat", type: "keynote" },
+        { time: "09:45 – 10:00", title: "Coffee Break", type: "break" },
+        { time: "10:00 – 11:00", title: "Panel — Women Driving Digital Transformation", speaker: "Moderator: TBD; Panelists: Elizabeth Stevens, Shanam Kapoor", type: "panel" },
+        { time: "11:00 – 11:15", title: "Coffee Break", type: "break" },
+        { time: "11:15 – 12:00", title: "Workshop: Cybersecurity Advanced", speaker: "Elizabeth Stevens", type: "workshop" },
+        { time: "11:15 – 12:00", title: "Workshop: Cloud Infrastructure", speaker: "David Brussels", type: "workshop" },
+        { time: "11:15 – 12:00", title: "Workshop: AI & Analytics", speaker: "Shanam Kapoor", type: "workshop" },
+        { time: "12:00 – 12:45", title: "Workshops Continuation", speaker: "All tracks", type: "workshop" },
+        { time: "12:45 – 13:45", title: "Lunch & Networking", type: "networking" },
+        { time: "13:45 – 14:30", title: "Advanced Workshops", speaker: "All tracks", type: "workshop" },
+        { time: "14:30 – 15:15", title: "Workshop Deep Dive", speaker: "All tracks", type: "workshop" },
+        { time: "15:15 – 15:30", title: "Coffee Break", type: "break" },
+        { time: "15:30 – 16:15", title: "Panel — Africa's Digital Economy", speaker: "Industry Leaders", type: "panel" },
+        { time: "16:15 – 16:30", title: "Closing Remarks", type: "closing" }
+      ]
+    },
+    {
+      day: "Day 3 – November 13, 2025",
+      date: "November 13, 2025",
+      events: [
+        { time: "08:00 – 09:00", title: "Networking Breakfast", type: "networking" },
+        { time: "09:00 – 09:45", title: "Keynote — Digital Resilience & Security", speaker: "Elizabeth Stevens", type: "keynote" },
+        { time: "09:45 – 10:00", title: "Coffee Break", type: "break" },
+        { time: "10:00 – 11:00", title: "Panel — Digital Infrastructure Growth", speaker: "Moderator: TBD; Panelists: Barry Williams, Shanam Kapoor", type: "panel" },
+        { time: "11:00 – 11:15", title: "Coffee Break", type: "break" },
+        { time: "11:15 – 12:00", title: "Workshop: Cybersecurity Masterclass", speaker: "Elizabeth Stevens", type: "workshop" },
+        { time: "11:15 – 12:00", title: "Workshop: Emerging Tech", speaker: "David Brussels", type: "workshop" },
+        { time: "11:15 – 12:00", title: "Workshop: Innovation Strategies", speaker: "Shanam Kapoor", type: "workshop" },
+        { time: "12:00 – 12:45", title: "Workshops Final Session", speaker: "All tracks", type: "workshop" },
+        { time: "12:45 – 13:45", title: "Lunch & Networking", type: "networking" },
+        { time: "13:45 – 14:30", title: "Expert Workshops", speaker: "All tracks", type: "workshop" },
+        { time: "14:30 – 15:15", title: "Panel — DRC Digital Future", speaker: "Government & Industry Leaders", type: "panel" },
+        { time: "15:15 – 15:30", title: "Coffee Break", type: "break" },
+        { time: "15:30 – 16:00", title: "Closing Ceremony", speaker: "Organizing Committee", type: "closing" }
+      ]
+    }
+  ];
+
+  const getEventIcon = (type) => {
+    const icons = {
+      keynote: <Mic className="w-4 h-4" />,
+      panel: <Users className="w-4 h-4" />,
+      workshop: <Cpu className="w-4 h-4" />,
+      networking: <Coffee className="w-4 h-4" />,
+      break: <Coffee className="w-4 h-4" />,
+      closing: <Award className="w-4 h-4" />
+    };
+    return icons[type] || <Clock className="w-4 h-4" />;
+  };
+
+  const getEventColor = (type) => {
+    const colors = {
+      keynote: "bg-blue-500",
+      panel: "bg-purple-500",
+      workshop: "bg-green-500",
+      networking: "bg-orange-500",
+      break: "bg-gray-500",
+      closing: "bg-yellow-500"
+    };
+    return colors[type] || "bg-gray-500";
+  };
+
+  return (
+    <section id="program" className={`py-20 ${colors.bg}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-16">
-          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${colors.textBright}`}>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${colors.textBright}`}>
             CONFERENCE <span className={colors.accent}>PROGRAM</span>
           </h2>
-          <div className={`w-20 h-1 ${colors.accentBg} mx-auto mb-6`}></div>
-          <p className={`text-lg ${colors.text} max-w-2xl mx-auto`}>
-            Three days of inspiring keynotes, panels and networking
+          <div className={`w-24 h-1 ${colors.accentBg} mx-auto mb-6`}></div>
+          <p className={`text-xl ${colors.text} max-w-3xl mx-auto leading-relaxed`}>
+            Three immersive days of keynotes, panels, workshops, and networking opportunities
           </p>
         </div>
-        
-        <div className="space-y-12">
-          {schedule.map((day, index) => (
-            <div key={index} className={`${colors.bg} p-8 rounded-xl border ${colors.divider}`}>
-              <h3 className={`text-2xl font-bold mb-6 ${colors.textBright} flex items-center`}>
-                <Calendar className={`w-6 h-6 mr-3 ${colors.accent}`} />
-                {day.day}
-              </h3>
-              
-              <div className="space-y-4">
-                {day.events.map((event, eventIndex) => (
-                  <div 
-                    key={eventIndex} 
-                    className={`${colors.card} p-6 rounded-lg border ${colors.divider} hover:border-[#00FFFF] transition-colors`}
-                  >
-                    <div className="flex items-start">
-                      <div className={`p-2 rounded-lg mr-4 ${colors.accentBg} text-black`}>
-                        {event.icon}
-                      </div>
-                      <div>
-                        <p className={`text-sm font-medium ${colors.text}`}>{event.time}</p>
-                        <h4 className={`text-lg font-bold ${colors.textBright} mt-1`}>{event.title}</h4>
+
+        {/* Program Grid - 3 Columns */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          {schedule.map((day, dayIndex) => (
+            <div key={dayIndex} className="group">
+              {/* Day Card */}
+              <div className={`${colors.card} p-6 rounded-2xl border ${colors.divider} hover:border-[#00FFFF] transition-all duration-300 hover:shadow-xl`}>
+                {/* Day Header */}
+                <div className="text-center mb-6">
+                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${colors.accentBg} text-black font-bold text-lg mb-3`}>
+                    {dayIndex + 1}
+                  </div>
+                  <h3 className={`text-xl font-bold ${colors.textBright} mb-2`}>
+                    {day.day.split(' – ')[0]}
+                  </h3>
+                  <p className={`text-sm ${colors.text} opacity-80`}>
+                    {day.date}
+                  </p>
+                </div>
+
+                {/* Timeline */}
+                <div className="space-y-3">
+                  {day.events.map((event, eventIndex) => (
+                    <div
+                      key={eventIndex}
+                      className={`p-4 rounded-xl border ${colors.divider} hover:border-[#00FFFF] transition-all duration-200 backdrop-blur-sm bg-black/20`}
+                    >
+                      <div className="flex items-start space-x-3">
+                        {/* Icon */}
+                        <div className={`p-2 rounded-lg ${getEventColor(event.type)} text-white flex-shrink-0`}>
+                          {getEventIcon(event.type)}
+                        </div>
+                        
+                        {/* Content */}
+                        <div className="flex-1 min-w-0">
+                          <p className={`text-xs font-semibold ${colors.accent} mb-1`}>
+                            {event.time}
+                          </p>
+                          <h4 className={`text-sm font-bold ${colors.textBright} mb-1 leading-tight`}>
+                            {event.title}
+                          </h4>
+                          {event.speaker && (
+                            <p className={`text-xs ${colors.text} opacity-80 leading-tight`}>
+                              {event.speaker}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Legend */}
+        <div className={`${colors.card} p-8 rounded-2xl border ${colors.divider}`}>
+          <h4 className={`text-xl font-bold ${colors.textBright} mb-6 text-center`}>
+            Event Legend
+          </h4>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {[
+              { type: 'keynote', label: 'Keynote', color: 'bg-blue-500' },
+              { type: 'panel', label: 'Panel', color: 'bg-purple-500' },
+              { type: 'workshop', label: 'Workshop', color: 'bg-green-500' },
+              { type: 'networking', label: 'Networking', color: 'bg-orange-500' },
+              { type: 'break', label: 'Break', color: 'bg-gray-500' },
+              { type: 'closing', label: 'Closing', color: 'bg-yellow-500' }
+            ].map((item, index) => (
+              <div key={index} className="flex items-center justify-center md:justify-start">
+                <div className={`w-4 h-4 rounded ${item.color} mr-3`}></div>
+                <span className={`text-sm ${colors.text}`}>{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <div className="text-center mt-12">
+          <button className={`${colors.accentBg} text-black px-8 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform ${colors.hoverGlow}`}>
+            DOWNLOAD FULL PROGRAM
+          </button>
+        </div>
       </div>
     </section>
   );
+};
 
   // Composant Sponsors
   const SponsorsSection = () => {
@@ -780,59 +920,124 @@ const SpeakersSection = () => {
 };
 
   // Composant Location
-  const LocationSection = () => (
-    <section id ="location" className={`py-20 ${colors.card}`}>
-      <div className=" mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${colors.textBright}`}>
-              CONFERENCE <span className={colors.accent}>VENUE</span>
-            </h2>
-            <div className={`w-20 h-1 ${colors.accentBg} mb-8`}></div>
-            
-            <p className={`text-lg ${colors.text} mb-8`}>
-              The People's Palace in Kinshasa will host this major event on Africa's digital transformation.
-            </p>
-            
-            <div className="space-y-6 mb-8">
-              <div className="flex items-start">
-                <MapPin className={`w-6 h-6 mr-4 ${colors.accent}`} />
-                <div>
-                  <h3 className={`font-bold ${colors.textBright}`}>PEOPLE'S PALACE</h3>
-                  <p className={colors.text}>Boulevard du 30 Juin, Kinshasa, DRC</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <Calendar className={`w-6 h-6 mr-4 ${colors.accent}`} />
-                <div>
-                  <h3 className={`font-bold ${colors.textBright}`}>NOVEMBER 11-13, 2025</h3>
-                  <p className={colors.text}>8:00 AM - 6:00 PM daily</p>
-                </div>
+const LocationSection = () => (
+  <section id="location" className={`py-20 ${colors.card}`}>
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="text-center mb-16">
+        <h2 className={`text-4xl font-bold mb-4 ${colors.textBright}`}>
+          CONFERENCE <span className={colors.accent}>LOCATION</span>
+        </h2>
+        <div className={`w-20 h-1 ${colors.accentBg} mx-auto mb-6`}></div>
+        <p className={`text-xl ${colors.text} max-w-3xl mx-auto`}>
+          Join us at the prestigious Pullman Kinshasa for Africa's premier digital transformation event
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h3 className={`text-2xl font-bold mb-6 ${colors.textBright}`}>
+            Pullman Kinshasa
+          </h3>
+          
+          <div className="space-y-4 mb-8">
+            <div className="flex items-start">
+              <MapPin className={`w-5 h-5 mr-3 ${colors.accent} mt-1`} />
+              <div>
+                <p className={colors.text}>Avenue du Port No. 1</p>
+                <p className={colors.text}>Gombe, Kinshasa</p>
+                <p className={colors.text}>Democratic Republic of Congo</p>
               </div>
             </div>
             
-            <button className={`${colors.accentBg} text-black px-8 py-3 rounded-lg font-bold ${colors.hoverGlow}`}>
-              GET DIRECTIONS
-            </button>
+            <div className="flex items-start">
+              <Calendar className={`w-5 h-5 mr-3 ${colors.accent} mt-1`} />
+              <div>
+                <p className={colors.text}>November 11-13, 2025</p>
+                <p className={`text-sm ${colors.text} opacity-80`}>8:00 AM - 6:00 PM daily</p>
+              </div>
+            </div>
+
+            <div className="flex items-start">
+              <Wifi className={`w-5 h-5 mr-3 ${colors.accent} mt-1`} />
+              <div>
+                <p className={colors.text}>State-of-the-art conference facilities</p>
+                <p className={colors.text}>High-speed WiFi & modern amenities</p>
+              </div>
+            </div>
           </div>
           
-          <div className="h-96 rounded-xl overflow-hidden border-2 border-[#333333]">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.527315559349!2d15.300789315329986!3d-4.317879145735933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a6a3135e3b5a9a7%3A0x1a0d3b9a3a3b5a9a7!2sPalais%20du%20Peuple%2C%20Kinshasa!5e0!3m2!1sfr!2scd!4v1620000000000!5m2!1sfr!2scd" 
-              width="100%" 
-              height="100%" 
-              style={{border:0}} 
-              allowFullScreen 
-              loading="lazy"
-              className="opacity-90 hover:opacity-100 transition-opacity"
-            ></iframe>
+          <div className="flex flex-wrap gap-4">
+            <a
+              href="https://maps.google.com/?q=Pullman+Kinshasa+Gombe"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${colors.accentBg} text-black px-6 py-3 rounded-lg font-bold ${colors.hoverGlow} transition-all flex items-center`}
+            >
+              <MapPin className="w-4 h-4 mr-2" />
+              GET DIRECTIONS
+            </a>
+            <a
+              href="https://www.accorhotels.com/hotel/B79-pullman-kinshasa/index.en.shtml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`border-2 ${colors.accentBorder} ${colors.accent} px-6 py-3 rounded-lg font-bold hover:${colors.accentBg} hover:text-black transition-all flex items-center`}
+            >
+              <ExternalLink className="w-4 h-4 mr-2" />
+              VISIT WEBSITE
+            </a>
           </div>
         </div>
+        
+        {/* Carte Google Maps */}
+        <div className="h-96 rounded-xl overflow-hidden border-2 border-[#333333] shadow-lg">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.456789012345!2d15.298765432109!3d-4.305678901234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a6a3123456789ab%3A0x1a0d3b9a3a3b5a9a7!2sPullman%20Kinshasa!5e0!3m2!1sfr!2scd!4v1620000000000!5m2!1sfr!2scd" 
+            width="100%" 
+            height="100%" 
+            style={{border:0}} 
+            allowFullScreen 
+            loading="lazy"
+            className="opacity-90 hover:opacity-100 transition-opacity"
+            title="Pullman Kinshasa Conference Location"
+          ></iframe>
+        </div>
       </div>
-    </section>
-  );
 
+      {/* Informations pratiques */}
+      {/* <div className={`mt-16 p-8 rounded-xl ${colors.bg} border ${colors.divider} text-center`}>
+        <h3 className={`text-2xl font-bold ${colors.textBright} mb-6`}>
+          CONFERENCE VENUE FEATURES
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div>
+            <div className={`w-12 h-12 ${colors.accentBg} rounded-lg flex items-center justify-center mx-auto mb-3`}>
+              <ScreenShare className="w-6 h-6 text-black" />
+            </div>
+            <p className={colors.text}>Modern AV Equipment</p>
+          </div>
+          <div>
+            <div className={`w-12 h-12 ${colors.accentBg} rounded-lg flex items-center justify-center mx-auto mb-3`}>
+              <Users className="w-6 h-6 text-black" />
+            </div>
+            <p className={colors.text}>1000+ Capacity</p>
+          </div>
+          <div>
+            <div className={`w-12 h-12 ${colors.accentBg} rounded-lg flex items-center justify-center mx-auto mb-3`}>
+              <Coffee className="w-6 h-6 text-black" />
+            </div>
+            <p className={colors.text}>Catering Services</p>
+          </div>
+          <div>
+            <div className={`w-12 h-12 ${colors.accentBg} rounded-lg flex items-center justify-center mx-auto mb-3`}>
+              <Shield className="w-6 h-6 text-black" />
+            </div>
+            <p className={colors.text}>Secure Environment</p>
+          </div>
+        </div>
+      </div> */}
+    </div>
+  </section>
+);
   // Composant Register
   const RegisterSection = () => (
     <section className={`py-20 ${colors.bg}`}>
