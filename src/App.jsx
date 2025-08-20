@@ -390,8 +390,8 @@ const SpeakersSection = () => {
     {
       id: 4,
       name: "Barry Williams",
-      title: "Architecte Cloud Principal",
-      topic: "Multi-Cloud Strategies",
+      title: "Former Executive Director, Comcast Business (USA)",
+      topic: "Leadership, Sales Strategy, and Building Sustainable Partnerships in the Technology Sector",
       bio: "15 ans d'expérience chez Google Cloud et AWS, architecte de solutions pour Fortune 500 companies.",
       avatar: "/intervenants/Barry Williams.png",
       social: {
@@ -402,8 +402,8 @@ const SpeakersSection = () => {
     {
       id: 5,
       name: "Elizabeth Stephens",
-      title: "Responsable R&D IoT",
-      topic: "Villes Intelligentes",
+      title: "CEO, DBS Cyber LLC (Nashville, USA)",
+      topic: "Building a Resilient Digital Future: Cybersecurity, Leadership, and Protecting Families in the Digital Age",
       bio: "Docteure en informatique urbaine, elle dirige les projets IoT pour des métropoles européennes et asiatiques.",
       avatar: "/intervenants/Elizabeth Stephens.png",
       social: {
@@ -426,8 +426,8 @@ const SpeakersSection = () => {
     {
       id: 7,
       name: "Pankaj Chugh",
-      title: "Lead Data Scientist",
-      topic: "Machine Learning Opérationnel",
+      title: "AI Leader and Strategist",
+      topic: "Artificial General Intelligence and the Future of Knowledge Work",
       bio: "Ancienne de Netflix et Spotify, spécialiste du déploiement de modèles ML à grande échelle.",
       avatar: "/intervenants/Pankaj Chugh.png",
       social: {
@@ -450,8 +450,8 @@ const SpeakersSection = () => {
     {
       id: 9,
       name: "Shanam Kapoor",
-      title: "Responsable UX Research",
-      topic: "Design Centré Utilisateur",
+      title: "Strategic Culture & Well-being Leader (USA)",
+      topic: "Conscious Leadership and the Future of Workplace Well-being",
       bio: "Pionnière des méthodes de recherche UX appliquées aux produits digitaux complexes, formatrice internationale.",
       avatar: "/intervenants/Shanam Kapoor.png",
       social: {
