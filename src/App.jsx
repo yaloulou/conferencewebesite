@@ -976,7 +976,7 @@ const LocationSection = () => (
               <MapPin className="w-4 h-4 mr-2" />
               GET DIRECTIONS
             </a>
-            <a
+            {/* <a
               href="https://www.accorhotels.com/hotel/B79-pullman-kinshasa/index.en.shtml"
               target="_blank"
               rel="noopener noreferrer"
@@ -984,7 +984,7 @@ const LocationSection = () => (
             >
               <ExternalLink className="w-4 h-4 mr-2" />
               VISIT WEBSITE
-            </a>
+            </a> */}
           </div>
         </div>
         
