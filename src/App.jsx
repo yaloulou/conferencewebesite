@@ -342,8 +342,8 @@ const SpeakersSection = () => {
     {
       id: 10,
       name: "Wilmot Gibson",
-      title: "Expert en Cybersécurité",
-      topic: "Threat Intelligence",
+      title: "Transformational Business Executive (Global)",
+      topic: "Driving Business Transformation Through Strategy, Technology, and Leadership",
       bio: "Fondateur d'une société de cybersécurité rachetée par Palo Alto Networks, chercheur en cybermenaces émergentes.",
       avatar: "/intervenants/Wilmot Gibson.png",
       social: {
