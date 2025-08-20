@@ -354,8 +354,8 @@ const SpeakersSection = () => {
     {
       id: 1,
       name: "Aaron Winkler",
-      title: "Directrice de l'Innovation",
-      topic: "Intelligence Artificielle Éthique",
+      title: "To be completed",
+      topic: "To be completed",
       bio: "Pionnière dans le développement d'IA responsables, auteure de plusieurs livres sur l'éthique technologique et consultante pour l'UNESCO.",
       avatar: "/intervenants/Aaron Winkler.png",
       social: {
@@ -366,8 +366,8 @@ const SpeakersSection = () => {
     {
       id: 2,
       name: "Ainsley Rattray",
-      title: "CTO Blockchain",
-      topic: "Web3 & Décentralisation",
+      title: "To be completed",
+      topic: "To be completed",
       bio: "Expert en architectures décentralisées, fondateur de deux startups blockchain et contributeur majeur à Ethereum.",
       avatar: "/intervenants/Ainsley Rattray.png",
       social: {
@@ -378,8 +378,8 @@ const SpeakersSection = () => {
     {
       id: 3,
       name: "Alberto",
-      title: "Chercheuse en Cybersécurité",
-      topic: "Sécurité Cloud Native",
+      title: "To be completed",
+      topic: "To be completed",
       bio: "Professeur au MIT, spécialiste des architectures sécurisées pour le cloud et lauréate du prix Turing 2022.",
       avatar: "/intervenants/Alberto.png",
       social: {
@@ -414,8 +414,8 @@ const SpeakersSection = () => {
     {
       id: 6,
       name: "Omar Fahnbulleh",
-      title: "Expert DevOps",
-      topic: "Platform Engineering",
+      title: "To be completed",
+      topic: "To be completed",
       bio: "Créateur d'outils open-source utilisés par des millions de développeurs, evangeliste des pratiques DevOps.",
       avatar: "/intervenants/Omar Fahnbulleh.png",
       social: {
@@ -438,8 +438,8 @@ const SpeakersSection = () => {
     {
       id: 8,
       name: "Sabune Winkler",
-      title: "Directeur Digital",
-      topic: "Transformation Digitale",
+      title: "To be completed",
+      topic: "To be completed",
       bio: "Accompagne les entreprises du CAC40 dans leur transformation digitale depuis 15 ans, auteur à succès.",
       avatar: "/intervenants/Sabune Winkler.png",
       social: {
