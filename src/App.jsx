@@ -307,12 +307,31 @@ const HeroSection = () => {
 
           {/* Boutons CTA */}
           <div className="flex flex-col sm:flex-row justify-center gap-6 mt-4">
-            <button className={`${colors.accentBg} text-black px-8 py-4 rounded-lg font-bold text-lg ${colors.hoverGlow} transition-all hover:scale-105`}>
+            <button
+              type="button"
+              className={`
+                appearance-none
+                !bg-[#00FFFF] !text-white
+                hover:!bg-[#00FFFF] focus:!bg-[#00FFFF] active:!bg-[#00FFFF] disabled:!bg-[#00FFFF]
+                hover:!text-white focus:!text-white active:!text-white disabled:!text-white
+                px-8 py-4 rounded-lg font-bold text-lg ${colors.hoverGlow}
+                transition-all hover:scale-105
+              `}
+              style={{ backgroundColor: '#00FFFF', background: '#00FFFF', color: '#FFFFFF' }}
+            >
               REGISTER NOW
             </button>
-            <button className={`border-2 ${colors.accentBorder} ${colors.accent} px-8 py-4 rounded-lg font-bold text-lg hover:${colors.accentBg} hover:text-black transition-all hover:scale-105`}>
-              VIEW PROGRAM
-            </button>
+            <button
+            type="button"
+            className={`
+              appearance-none border-2 ${colors.accentBorder} ${colors.accent}
+              px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105
+              !bg-black hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
+            `}
+            style={{ backgroundColor: '#000', background: '#000' }}
+          >
+            VIEW PROGRAM
+          </button>
           </div>
         </div>
       </div>
@@ -535,7 +554,13 @@ const SpeakersSection = () => {
                     {/* Bouton pour voir plus */}
                     <button
                       onClick={() => toggleSpeakerDetails(speaker.id)}
-                      className={`flex items-center ${colors.accent} text-sm font-medium mb-3`}
+                      className={`
+                        flex items-center text-sm font-medium mb-3 appearance-none
+                        !bg-black !text-[#00FFFF]
+                        hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
+                        hover:!text-[#00FFFF] focus:!text-[#00FFFF] active:!text-[#00FFFF] disabled:!text-[#00FFFF]
+                      `}
+                      style={{ backgroundColor: '#000', background: '#000', color: '#00FFFF' }}
                     >
                       {expandedSpeaker === speaker.id ? (
                         <>
@@ -549,7 +574,7 @@ const SpeakersSection = () => {
                         </>
                       )}
                     </button>
-
+                    
                     {/* Détails supplémentaires */}
                     {expandedSpeaker === speaker.id && (
                       <div className={`mt-3 pt-3 border-t ${colors.divider} w-full animate-fadeIn`}>
