@@ -559,6 +559,7 @@ const SpeakersSection = () => {
                         !bg-black !text-[#00FFFF]
                         hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
                         hover:!text-[#00FFFF] focus:!text-[#00FFFF] active:!text-[#00FFFF] disabled:!text-[#00FFFF]
+                        border-2 border-transparent hover:!border-[#00FFFF]
                       `}
                       style={{ backgroundColor: '#000', background: '#000', color: '#00FFFF' }}
                     >
