@@ -613,7 +613,24 @@ const SpeakersSection = () => {
                 <button
                   onClick={loadMoreSpeakers}
                   disabled={isLoading}
-                  className={`border ${colors.accentBorder} ${colors.accent} px-6 py-2 rounded-lg font-medium hover:${colors.accentBg} hover:text-black transition-colors ${isLoading ? 'opacity-50' : ''}`}
+                  className={`
+                    appearance-none
+                    px-6 py-2 rounded-lg font-medium
+                    !bg-[#00FFFF] !text-white
+                    transition-all duration-200 ease-out
+                    hover:scale-105 active:scale-100
+
+                    /* Ombre conservée + glow au hover */
+                    shadow-lg hover:shadow-[0_0_18px_#00FFFF]
+
+                    /* Pas de bordure/ring violet */
+                    border-2 border-transparent hover:!border-transparent active:!border-transparent
+                    outline-none focus:outline-none focus-visible:outline-none
+                    ring-0 focus:ring-0 focus-visible:ring-0
+
+                    ${isLoading ? 'opacity-60 cursor-not-allowed pointer-events-none' : ''}
+                  `}
+                  style={{ backgroundColor: '#00FFFF', color: '#FFFFFF' }}
                 >
                   {isLoading ? (
                     <span className="flex items-center justify-center">
@@ -627,6 +644,7 @@ const SpeakersSection = () => {
                     `Load More Speakers (${speakersData.length - visibleCount} available)`
                   )}
                 </button>
+
               </div>
             )}
           </>
