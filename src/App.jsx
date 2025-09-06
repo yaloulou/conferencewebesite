@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
+
 import { 
-  Menu, X, ArrowRight, ChevronDown, Check,
+  BrowserRouter as Router, 
+  Routes, 
+  Route, 
+  Link,
+  useParams
+} from 'react-router-dom';
+
+import { 
+  Menu, X, ArrowRight, ArrowLeft, ChevronDown, Check,
   Calendar, MapPin, Users, Mic, Twitter, 
   Linkedin, Youtube, Star, Award, Cpu, Shield, Server, Wifi, Mail, Coffee, Clock, Phone, Hotel, Truck, Train, Car, ExternalLink, ScreenShare
 } from 'lucide-react';
 
+
+
 const DigitalNation2030 = () => {
+
+  
   // Palette de couleurs
   const colors = {
     bg: 'bg-[#1A1A1A]',
@@ -215,6 +228,35 @@ const Navbar = () => {
   );
 };
 
+const HomePage = () => {
+  const colors = {
+    bg: 'bg-[#1A1A1A]',
+    card: 'bg-[#252525]',
+    text: 'text-[#E0E0E0]',
+    textBright: 'text-[#FFFFFF]',
+    accent: 'text-[#00FFFF]',
+    accentBg: 'bg-[#00FFFF]',
+    accentBorder: 'border-[#00FFFF]',
+    divider: 'border-[#333333]',
+    hoverGlow: 'hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]'
+  };
+
+  return (
+    <div className={`${colors.bg} ${colors.text} min-h-screen`}>
+      <Navbar />
+      <main>
+        <HeroSection />
+        <SpeakersSection />
+        <ProgramSection />
+        <SponsorsSection />
+        <LocationSection />
+        <RegisterSection />
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
   // Composant Hero
 const HeroSection = () => {
   const [currentMedia, setCurrentMedia] = useState(0);
@@ -356,7 +398,7 @@ const SpeakersSection = () => {
     hoverGlow: 'hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]'
   };
 
-  // Données des intervenants
+  // Données des intervenants (mêmes données que précédemment)
   const speakersData = [
     {
       id: 10,
@@ -483,12 +525,6 @@ const SpeakersSection = () => {
   // État des speakers
   const [visibleCount, setVisibleCount] = useState(8);
   const [isLoading, setIsLoading] = useState(false);
-  const [expandedSpeaker, setExpandedSpeaker] = useState(null);
-
-  // Fonction pour afficher/réduire les détails d'un speaker
-  const toggleSpeakerDetails = (id) => {
-    setExpandedSpeaker(expandedSpeaker === id ? null : id);
-  };
 
   // Fonction pour charger plus de speakers
   const loadMoreSpeakers = () => {
@@ -551,57 +587,41 @@ const SpeakersSection = () => {
                       "{speaker.topic}"
                     </p>
 
-                    {/* Bouton pour voir plus */}
-                    <button
-                      onClick={() => toggleSpeakerDetails(speaker.id)}
+                    {/* Bouton pour voir plus - maintenant un lien */}
+                    <Link
+                      to={`/speaker/${speaker.id}`}
                       className={`
                         flex items-center text-sm font-medium mb-3 appearance-none
                         !bg-black !text-[#00FFFF]
                         hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
                         hover:!text-[#00FFFF] focus:!text-[#00FFFF] active:!text-[#00FFFF] disabled:!text-[#00FFFF]
                         border-2 border-transparent hover:!border-[#00FFFF]
+                        px-4 py-2 rounded-md transition-all
                       `}
-                      style={{ backgroundColor: '#000', background: '#000', color: '#00FFFF' }}
                     >
-                      {expandedSpeaker === speaker.id ? (
-                        <>
-                          <ChevronUp className="w-4 h-4 mr-1" />
-                          Less details
-                        </>
-                      ) : (
-                        <>
-                          <ChevronDown className="w-4 h-4 mr-1" />
-                          More details
-                        </>
-                      )}
-                    </button>
+                      <ArrowRight className="w-4 h-4 mr-1" />
+                      More details
+                    </Link>
                     
-                    {/* Détails supplémentaires */}
-                    {expandedSpeaker === speaker.id && (
-                      <div className={`mt-3 pt-3 border-t ${colors.divider} w-full animate-fadeIn`}>
-                        <p className={`${colors.text} text-sm mb-3`}>
-                          {speaker.bio}
-                        </p>
-                        <div className="flex justify-center space-x-4">
-                          <a 
-                            href={speaker.social.twitter} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className={`${colors.text} hover:${colors.accent} transition-colors`}
-                          >
-                            <Twitter className="w-5 h-5" />
-                          </a>
-                          <a 
-                            href={speaker.social.linkedin} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className={`${colors.text} hover:${colors.accent} transition-colors`}
-                          >
-                            <Linkedin className="w-5 h-5" />
-                          </a>
-                        </div>
-                      </div>
-                    )}
+                    {/* Liens sociaux */}
+                    <div className="flex justify-center space-x-4">
+                      <a 
+                        href={speaker.social.twitter} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={`${colors.text} hover:${colors.accent} transition-colors`}
+                      >
+                        <Twitter className="w-5 h-5" />
+                      </a>
+                      <a 
+                        href={speaker.social.linkedin} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={`${colors.text} hover:${colors.accent} transition-colors`}
+                      >
+                        <Linkedin className="w-5 h-5" />
+                      </a>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -644,7 +664,6 @@ const SpeakersSection = () => {
                     `Load More Speakers (${speakersData.length - visibleCount} available)`
                   )}
                 </button>
-
               </div>
             )}
           </>
@@ -1144,6 +1163,262 @@ const LocationSection = () => (
     </section>
   );
 
+const SpeakerDetailWrapper = () => {
+  return (
+    <div className="min-h-screen bg-[#1A1A1A] w-full overflow-x-hidden">
+      <Navbar />
+      <SpeakerDetail />
+    </div>
+  );
+};
+
+// Composant de détail du speaker
+const SpeakerDetail = () => {
+  const { id } = useParams();
+  const colors = {
+    bg: 'bg-[#1A1A1A]',
+    card: 'bg-[#252525]',
+    text: 'text-[#E0E0E0]',
+    textBright: 'text-[#FFFFFF]',
+    accent: 'text-[#00FFFF]',
+    accentBg: 'bg-[#00FFFF]',
+    accentBorder: 'border-[#00FFFF]',
+    divider: 'border-[#333333]',
+    hoverGlow: 'hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]'
+  };
+
+  const speakersData = [
+    {
+      id: 10,
+      name: "Wilmot Gibson",
+      title: "Transformational Business Executive (Global)",
+      topic: "Driving Business Transformation Through Strategy, Technology, and Leadership",
+      bio: "Fondateur d'une société de cybersécurité rachetée par Palo Alto Networks, chercheur en cybermenaces émergentes.",
+      detailedBio: "Wilmot Gibson est un leader visionnaire avec plus de 20 ans d'expérience dans la transformation digitale des entreprises. Après avoir fondé et dirigé une startup de cybersécurité qui a été rachetée par Palo Alto Networks, il conseille désormais les entreprises du Fortune 500 sur leur stratégie technologique.",
+      avatar: "/intervenants/Wilmot Gibson.png",
+      social: {
+        twitter: "https://twitter.com/wilmotgibson",
+        linkedin: "https://linkedin.com/in/wilmotgibson"
+      }
+    },
+    {
+      id: 1,
+      name: "Aaron Winkler",
+      title: "AI Ethics Researcher & Author",
+      topic: "Responsible AI Development for the Future",
+      bio: "Pionnière dans le développement d'IA responsables, auteure de plusieurs livres sur l'éthique technologique et consultante pour l'UNESCO.",
+      detailedBio: "Aaron Winkler est une voix respectée dans le domaine de l'éthique de l'intelligence artificielle. Docteure en philosophie des technologies de l'Université d'Oxford, elle a consacré sa carrière à promouvoir le développement responsable de l'IA.",
+      avatar: "/intervenants/Aaron Winkler.png",
+      social: {
+        twitter: "https://twitter.com/aaronwinkler",
+        linkedin: "https://linkedin.com/in/aaronwinkler"
+      }
+    },
+    {
+      id: 2,
+      name: "Ainsley Rattray",
+      title: "Blockchain Architect & Entrepreneur",
+      topic: "Decentralized Systems for the Next Digital Economy",
+      bio: "Expert en architectures décentralisées, fondateur de deux startups blockchain et contributeur majeur à Ethereum.",
+      detailedBio: "Ainsley Rattray est un pionnier des technologies blockchain avec une expertise reconnue internationalement. Après des études en cryptographie à l'Université de Cambridge, il a cofondé EtherCore, une startup spécialisée dans les solutions de scaling pour Ethereum.",
+      avatar: "/intervenants/Ainsley Rattray.png",
+      social: {
+        twitter: "https://twitter.com/ainsleyrattray",
+        linkedin: "https://linkedin.com/in/ainsleyrattray"
+      }
+    },
+    {
+      id: 3,
+      name: "Alberto",
+      title: "Cloud Security Specialist",
+      topic: "Secure Cloud Architectures for Modern Enterprises",
+      bio: "Professeur au MIT, spécialiste des architectures sécurisées pour le cloud et lauréate du prix Turing 2022.",
+      detailedBio: "Alberto est un expert renommé en sécurité cloud avec plus de 15 ans d'expérience. Professeur au MIT, ses recherches ont contribué à l'élaboration de normes de sécurité internationales pour les infrastructures cloud.",
+      avatar: "/intervenants/Alberto.png",
+      social: {
+        twitter: "https://twitter.com/alberto",
+        linkedin: "https://linkedin.com/in/alberto"
+      }
+    },
+    {
+      id: 4,
+      name: "Barry Williams",
+      title: "Former Executive Director, Comcast Business (USA)",
+      topic: "Leadership, Sales Strategy, and Building Sustainable Partnerships in the Technology Sector",
+      bio: "15 ans d'expérience chez Google Cloud et AWS, architecte de solutions pour Fortune 500 companies.",
+      detailedBio: "Barry Williams possède une vaste expérience dans le secteur technologique, ayant occupé des postes de direction chez Google Cloud et AWS. Il est spécialisé dans la conception de solutions cloud pour les entreprises du Fortune 500.",
+      avatar: "/intervenants/Barry Williams.png",
+      social: {
+        twitter: "https://twitter.com/barrywilliams",
+        linkedin: "https://linkedin.com/in/barrywilliams"
+      }
+    },
+    {
+      id: 5,
+      name: "Elizabeth Stephens",
+      title: "CEO, DBS Cyber LLC (Nashville, USA)",
+      topic: "Building a Resilient Digital Future: Cybersecurity, Leadership, and Protecting Families in the Digital Age",
+      bio: "Docteure en informatique urbaine, elle dirige les projets IoT pour des métropoles européennes et asiatiques.",
+      detailedBio: "Elizabeth Stephens est une experte en cybersécurité avec plus de 20 ans d'expérience. En tant que CEO de DBS Cyber LLC, elle conseille des gouvernements et des entreprises sur les stratégies de cybersécurité et la protection des infrastructures critiques.",
+      avatar: "/intervenants/Elizabeth Stephens.png",
+      social: {
+        twitter: "https://twitter.com/elizabethstephens",
+        linkedin: "https://linkedin.com/in/elizabethstephens"
+      }
+    },
+    {
+      id: 6,
+      name: "Omar Fahnbulleh",
+      title: "DevOps Evangelist",
+      topic: "Open Source Tools for Modern Development",
+      bio: "Créateur d'outils open-source utilisés par des millions de développeurs, evangeliste des pratiques DevOps.",
+      detailedBio: "Omar Fahnbulleh est un passionné des pratiques DevOps et des outils open-source. Il a créé plusieurs outils largement adoptés par la communauté des développeurs et est un conférencier régulier dans les conférences techniques internationales.",
+      avatar: "/intervenants/Omar Fahnbulleh.png",
+      social: {
+        twitter: "https://twitter.com/omarfahnbulleh",
+        linkedin: "https://linkedin.com/in/omarfahnbulleh"
+      }
+    },
+    {
+      id: 7,
+      name: "Pankaj Chugh",
+      title: "AI Leader and Strategist",
+      topic: "Artificial General Intelligence and the Future of Knowledge Work",
+      bio: "Ancienne de Netflix et Spotify, spécialiste du déploiement de modèles ML à grande échelle.",
+      detailedBio: "Pankaj Chugh est un leader dans le domaine de l'intelligence artificielle, avec une expérience significative chez Netflix et Spotify. Il est spécialisé dans le déploiement de modèles de machine learning à grande échelle et l'optimisation des systèmes d'IA.",
+      avatar: "/intervenants/Pankaj Chugh.png",
+      social: {
+        twitter: "https://twitter.com/pankajchugh",
+        linkedin: "https://linkedin.com/in/pankajchugh"
+      }
+    },
+    {
+      id: 8,
+      name: "Sabune Winkler",
+      title: "Digital Transformation Consultant",
+      topic: "Enterprise Digital Transformation Strategies",
+      bio: "Accompagne les entreprises du CAC40 dans leur transformation digitale depuis 15 ans, auteur à succès.",
+      detailedBio: "Sabune Winkler est un consultant expérimenté en transformation digitale, ayant accompagné de nombreuses entreprises du CAC40 dans leur transition vers le numérique. Il est également l'auteur de plusieurs livres à succès sur le sujet.",
+      avatar: "/intervenants/Sabune Winkler.png",
+      social: {
+        twitter: "https://twitter.com/sabunewinkler",
+        linkedin: "https://linkedin.com/in/sabunewinkler"
+      }
+    },
+    {
+      id: 9,
+      name: "Shanam Kapoor",
+      title: "Strategic Culture & Well-being Leader (USA)",
+      topic: "Conscious Leadership and the Future of Workplace Well-being",
+      bio: "Pionnière des méthodes de recherche UX appliquées aux produits digitaux complexes, formatrice internationale.",
+      detailedBio: "Shanam Kapoor est une experte en culture d'entreprise et bien-être au travail. Elle a développé des méthodes innovantes de recherche UX appliquées aux produits digitaux complexes et forme des équipes à l'international.",
+      avatar: "/intervenants/Shanam Kapoor.png",
+      social: {
+        twitter: "https://twitter.com/shanamkapoor",
+        linkedin: "https://linkedin.com/in/shanamkapoor"
+      }
+    },
+  ];
+
+  const [speaker, setSpeaker] = useState(null);
+
+  useEffect(() => {
+    const foundSpeaker = speakersData.find(s => s.id === parseInt(id));
+    setSpeaker(foundSpeaker);
+  }, [id]);
+
+  if (!speaker) {
+    return (
+      <div className="min-h-screen flex items-center justify-center w-full bg-[#1A1A1A] px-4">
+        <div className="text-center">
+          <p className="text-white text-xl">Speaker not found</p>
+          <Link to="/" className="text-[#00FFFF] hover:underline mt-4 inline-block">
+            Return to homepage
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+  <div className={`min-h-screen ${colors.bg} w-full overflow-x-clip`}>
+    {/* Section plein écran */}
+    <div className="w-full py-20">
+      {/* Conteneur principal centré (marges intérieures contrôlées ici) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Lien retour, sans classes de largeur/centrage conflictuelles */}
+        <Link
+          to="/"
+          className="inline-flex items-center text-[#00FFFF] mb-8 hover:underline"
+        >
+          <ArrowLeft className="w-5 h-5 mr-2" />
+          Back to speakers
+        </Link>
+
+        {/* Carte de détail */}
+        <div className={`${colors.card} p-6 md:p-8 rounded-xl border ${colors.divider}`}>
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Avatar + réseaux */}
+            <div className="flex-shrink-0 mx-auto lg:mx-0">
+              <img
+                src={speaker.avatar}
+                alt={speaker.name}
+                className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-[#00FFFF] block"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://via.placeholder.com/150';
+                }}
+              />
+
+              <div className="flex justify-center mt-4 space-x-4">
+                <a
+                  href={speaker.social.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${colors.text} hover:${colors.accent} transition-colors`}
+                >
+                  <Twitter className="w-5 h-5 md:w-6 md:h-6" />
+                </a>
+                <a
+                  href={speaker.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${colors.text} hover:${colors.accent} transition-colors`}
+                >
+                  <Linkedin className="w-5 h-5 md:w-6 md:h-6" />
+                </a>
+              </div>
+            </div>
+
+            {/* Texte */}
+            <div className="flex-1 min-w-0">
+              <h1 className={`text-2xl md:text-3xl font-bold ${colors.textBright} mb-2 break-words`}>
+                {speaker.name}
+              </h1>
+              <p className={`${colors.accent} text-base md:text-lg mb-4 break-words`}>
+                {speaker.title}
+              </p>
+              <p className={`text-lg md:text-xl italic mb-6 ${colors.text} break-words`}>
+                "{speaker.topic}"
+              </p>
+
+              <div className="prose prose-invert max-w-none break-words">
+                <p className={`${colors.text} whitespace-pre-line text-sm md:text-base`}>
+                  {speaker.detailedBio || speaker.bio}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* /Carte de détail */}
+      </div>
+      {/* /Conteneur principal */}
+    </div>
+    {/* /Section plein écran */}
+  </div>
+);
+
+};
+
   // Composant Footer
   const Footer = () => (
     <footer className={`py-12 ${colors.card} border-t ${colors.divider}`}>
@@ -1210,6 +1485,17 @@ const LocationSection = () => (
   );
 
   return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/speaker/:id" element={<SpeakerDetailWrapper />} />
+      </Routes>
+    </Router>
+  );
+
+    
+
+  /* return (
     <div className={`${colors.bg} ${colors.text} min-h-screen`}>
       <Navbar />
       <main>
@@ -1222,7 +1508,7 @@ const LocationSection = () => (
       </main>
       <Footer />
     </div>
-  );
+  ); */
 };
 
 export default DigitalNation2030;

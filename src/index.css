@@ -1,71 +1,49 @@
 @import "tailwindcss";
 
+/* --- Reset & full-width layout --- */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-width: 0;           /* évite les min-width héritées */
+  min-height: 100%;
+  overflow-x: clip;        /* coupe tout débordement horizontal */
+  background: #1A1A1A;     /* cohérent avec ton thème */
+}
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+/* ⚠️ Supprimer le centrage global du template Vite */
+body {
+  /* display:flex; place-items:center;  <-- À NE PAS FAIRE ICI */
+  display: block;
   line-height: 1.5;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: rgba(255,255,255,0.87);
+}
+
+/* médias ne doivent pas forcer la largeur */
+img, video, iframe, svg { 
+  max-width: 100%; 
+  display: block; 
+}
+
+/* textes très longs (URLs, noms) ne cassent pas la mise en page */
+.prose, .break-words, .content, body { 
+  word-break: break-word; 
+  overflow-wrap: anywhere; 
+}
+
+/* (optionnel) lisser rendu police */
+:root {
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+/* liens/boutons – gardez simple, tailwind gère déjà le style */
+a { text-decoration: none; }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
+/* mode clair (si tu le veux) */
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  :root { color: #213547; background: #ffffff; }
 }
