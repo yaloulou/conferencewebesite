@@ -1194,7 +1194,7 @@ const SpeakerDetail = () => {
       title: "Transformational Business Executive (Global)",
       topic: "Driving Business Transformation Through Strategy, Technology, and Leadership",
       bio: "Fondateur d'une société de cybersécurité rachetée par Palo Alto Networks, chercheur en cybermenaces émergentes.",
-      detailedBio: "Wilmot Gibson est un leader visionnaire avec plus de 20 ans d'expérience dans la transformation digitale des entreprises. Après avoir fondé et dirigé une startup de cybersécurité qui a été rachetée par Palo Alto Networks, il conseille désormais les entreprises du Fortune 500 sur leur stratégie technologique.",
+      detailedBio: "A transformational business executive achieving outcomes for top-tier multi-national organizations through implementing business and technology strategies and growing new revenue streams through transformation models. Defining and building transformational virtual teams, general management discipline, optimization of consulting services sales and delivery programs, building deep client relationships, and organizational alignment. Leading delivery teams to define and leverage solutions for clients. Motivating and unifying teams to sell and deliver solutions and services. My career focuses on Global Financial, Health and Insurance Services, and Technology businesses. Able to take charge quickly, develop well-thought-out plans, and drive results for organizations. I consistently pursue new opportunities to build on my abilities, expand my knowledge and bring greater returns to organizations.",
       avatar: "/intervenants/Wilmot Gibson.png",
       social: {
         twitter: "https://twitter.com/wilmotgibson",
