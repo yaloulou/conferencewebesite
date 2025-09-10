@@ -28,14 +28,14 @@ const speakers = [
     {
       id: 2,
       name: "Ainsley Rattray",
-      title: "Blockchain Architect & Entrepreneur",
-      topic: "Decentralized Systems for the Next Digital Economy",
-      bio: "Expert en architectures décentralisées, fondateur de deux startups blockchain et contributeur majeur à Ethereum.",
-      detailedBio: "Ainsley Rattray est un pionnier des technologies blockchain avec une expertise reconnue internationalement. Après des études en cryptographie à l'Université de Cambridge, il a cofondé EtherCore, une startup spécialisée dans les solutions de scaling pour Ethereum.",
+      title: "Cybersecurity Leader | Cloud Security Architect",
+      topic: "Turning Security into a Business Enabler in the Cloud & AI Era",
+      bio: "Cybersecurity leader with 10+ years helping global financial institutions and tech firms strengthen security posture and accelerate cloud adoption at JPMorganChase, HSBC, and AWS. Led enterprise cloud-security transformations, built global teams, and deployed automated controls that cut deployment timelines from weeks to hours while meeting strict regulatory requirements.",
+      detailedBio: "Ainsley Rattray has designed and led large-scale cloud security programs for highly regulated enterprises across three continents. At JPMorganChase, HSBC, and Amazon Web Services, he architected enterprise-wide security patterns and automated guardrails that consistently reduced time-to-deploy from weeks to hours—without compromising auditability or compliance. He has built and mentored high-performing global security teams, translating complex risk and compliance needs into actionable engineering solutions, and enabling the secure migration of thousands of applications to the cloud. Known for making security a catalyst for innovation, Ainsley bridges engineering, business, and regulatory priorities to deliver results at scale. He now focuses on helping organizations of all sizes harness Security and AI technologies to innovate faster while enhancing their defenses.",
       avatar: "/intervenants/Ainsley Rattray.png",
       social: {
-        twitter: "https://twitter.com/ainsleyrattray",
-        linkedin: "https://linkedin.com/in/ainsleyrattray"
+        twitter: "",
+        linkedin: ""
       }
     },
     {
