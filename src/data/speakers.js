@@ -43,12 +43,12 @@ const speakers = [
       name: "Elizabeth Stephens",
       title: "CEO, DBS Cyber LLC (Nashville, USA)",
       topic: "Building a Resilient Digital Future: Cybersecurity, Leadership, and Protecting Families in the Digital Age",
-      bio: "Docteure en informatique urbaine, elle dirige les projets IoT pour des métropoles européennes et asiatiques.",
-      detailedBio: "Elizabeth Stephens est une experte en cybersécurité avec plus de 20 ans d'expérience. En tant que CEO de DBS Cyber LLC, elle conseille des gouvernements et des entreprises sur les stratégies de cybersécurité et la protection des infrastructures critiques.",
+      bio: "Cybersecurity leader and CEO of DBS Cyber LLC dedicated to protecting families in the digital age. Former Microsoft Director of Data Center Cyber Risk Intelligence and Principal PM/Chief of Staff for Microsoft 365 Defender. Combat-decorated U.S. Marine Corps aviator—first Black Female Tactical Aircraft Commander and Naval Aviator in the Marine Corps; first woman to pilot the CH-46E and MV-22 Osprey. PMP-certified with a track record managing multi-million-dollar programs.",
+      detailedBio: "Elizabeth Stephens is a dynamic cybersecurity executive and community advocate whose mission is to safeguard American families online. As CEO of DBS Cyber LLC, she leads initiatives that combine cyber risk monitoring, education, and practical tools for households and local organizations. Previously at Microsoft, she served as Director of Data Center Cyber Risk Intelligence, focusing on the security of critical cloud infrastructure, and as Principal Product Manager & Chief of Staff for Microsoft 365 Defender, where she drove product strategy, launched innovative security solutions, and scaled global threat analysis. A sought-after voice in cyber resilience, she authored “Building a Resilient Digital Future: A Comprehensive Guide to Cyber Risk Monitoring” and contributes to programs such as the Cyber Risk Manifesto, Cyber Kids, and TOVA, expanding awareness and leveraging technology for mental-health support. Her leadership foundation was forged in the U.S. Marine Corps: as the first Black Female Tactical Aircraft Commander and Naval Aviator in the Corps—and the first woman to fly the CH-46E and MV-22 Osprey—she also served as Deputy Director of Logistics and Supply, overseeing complex operations and mission readiness. With PMP certification and extensive experience leading multi-million-dollar projects, Stephens blends technical depth, operational rigor, and public-minded service to advance cyber safety in Nashville and beyond.",
       avatar: "/intervenants/Elizabeth Stephens.png",
       social: {
-        twitter: "https://twitter.com/elizabethstephens",
-        linkedin: "https://linkedin.com/in/elizabethstephens"
+        twitter: "",
+        linkedin: ""
       }
     },
     {
@@ -65,16 +65,16 @@ const speakers = [
       }
     },
     {
-      "id": 8,
-      "name": "Sabune Joane Winkler, JD",
-      "title": "Global Legal Strategist, Regulatory Architect & Serial Entrepreneur",
-      "topic": "Building Ethical, Scalable Innovation Across Law, Life Sciences, and Emerging Markets",
-      "bio": "U.S.-trained attorney and life sciences executive with 25 years bridging complex regulation and high-growth ventures. Chief Legal Officer & Co-Founder of Musau Enterprises (DRC) and Principal & Co-Founder of Cambridge Life Sciences Law Partners (Cambridge Lex). Former Harvard Medical School leader who built the multi-institutional Regulatory Foundations, Ethics & Law program and helped launch the national SMART IRB platform.",
-      "detailedBio": "Sabune Joane Winkler is a cross-border legal and business leader whose career spans high-stakes counsel, national policy infrastructure, and company formation on two continents. As Chief Legal Officer and Co-Founder of Musau Enterprises, SARL (DRC), she aligns diversified operations in IT, infrastructure, agriculture, health, and finance with international compliance and investment standards. In parallel, as Principal and Co-Founder of Cambridge Life Sciences Law Partners (Cambridge Lex), she advises cutting-edge biopharma and psychedelic-medicine companies from pre-clinical research through global commercialization. Previously at Harvard Medical School, she established and directed the Regulatory Foundations, Ethics & Law Program for the Clinical & Translational Science Center, harmonizing policies across 22 affiliated hospitals and research institutes and negotiating landmark IRB, IACUC, data-sharing, and laboratory agreements. At NIH’s request, she helped lead SMART IRB, enrolling 100+ institutions and delivering the U.S. gold-standard IRB reliance platform for multisite trials. A frequent keynote speaker with 30+ invited talks, her scholarship in AJOB, Clinical & Translational Science, IRB: Ethics & Human Research, and Nursing Ethics shaped best practices in social-media recruitment, community-engaged research, and distributed regulatory support. Recognitions include the Health Improvement Institute Award for Excellence in Human Research Protection, Harvard Medical School’s Daniel Federman Award, and the Sharon P. Clayborne Diversity Award. She advises Liberia’s National Research Ethics Board and continues pro bono mentorship and legal service. An active entrepreneur, she also founded Salt Larder (circular-economy gourmet salts) and co-founded the Whisky & Cigar Library in Kinshasa.",
-      "avatar": "/intervenants/Sabune Winkler.png",
-      "social": {
-        "twitter": "",
-        "linkedin": ""
+      id: 8,
+      name: "Sabune Joane Winkler, JD",
+      title: "Global Legal Strategist, Regulatory Architect & Serial Entrepreneur",
+      topic: "Building Ethical, Scalable Innovation Across Law, Life Sciences, and Emerging Markets",
+      bio: "U.S.-trained attorney and life sciences executive with 25 years bridging complex regulation and high-growth ventures. Chief Legal Officer & Co-Founder of Musau Enterprises (DRC) and Principal & Co-Founder of Cambridge Life Sciences Law Partners (Cambridge Lex). Former Harvard Medical School leader who built the multi-institutional Regulatory Foundations, Ethics & Law program and helped launch the national SMART IRB platform.",
+      detailedBio: "Sabune Joane Winkler is a cross-border legal and business leader whose career spans high-stakes counsel, national policy infrastructure, and company formation on two continents. As Chief Legal Officer and Co-Founder of Musau Enterprises, SARL (DRC), she aligns diversified operations in IT, infrastructure, agriculture, health, and finance with international compliance and investment standards. In parallel, as Principal and Co-Founder of Cambridge Life Sciences Law Partners (Cambridge Lex), she advises cutting-edge biopharma and psychedelic-medicine companies from pre-clinical research through global commercialization. Previously at Harvard Medical School, she established and directed the Regulatory Foundations, Ethics & Law Program for the Clinical & Translational Science Center, harmonizing policies across 22 affiliated hospitals and research institutes and negotiating landmark IRB, IACUC, data-sharing, and laboratory agreements. At NIH’s request, she helped lead SMART IRB, enrolling 100+ institutions and delivering the U.S. gold-standard IRB reliance platform for multisite trials. A frequent keynote speaker with 30+ invited talks, her scholarship in AJOB, Clinical & Translational Science, IRB: Ethics & Human Research, and Nursing Ethics shaped best practices in social-media recruitment, community-engaged research, and distributed regulatory support. Recognitions include the Health Improvement Institute Award for Excellence in Human Research Protection, Harvard Medical School’s Daniel Federman Award, and the Sharon P. Clayborne Diversity Award. She advises Liberia’s National Research Ethics Board and continues pro bono mentorship and legal service. An active entrepreneur, she also founded Salt Larder (circular-economy gourmet salts) and co-founded the Whisky & Cigar Library in Kinshasa.",
+      avatar: "/intervenants/Sabune Winkler.png",
+      social: {
+        twitter: "",
+        linkedin: ""
       }
     },
     {
@@ -82,53 +82,53 @@ const speakers = [
       name: "Barry Williams",
       title: "Former Executive Director, Comcast Business (USA)",
       topic: "Leadership, Sales Strategy, and Building Sustainable Partnerships in the Technology Sector",
-      bio: "15 ans d'expérience chez Google Cloud et AWS, architecte de solutions pour Fortune 500 companies.",
-      detailedBio: "Barry Williams possède une vaste expérience dans le secteur technologique, ayant occupé des postes de direction chez Google Cloud et AWS. Il est spécialisé dans la conception de solutions cloud pour les entreprises du Fortune 500.",
+      bio: "Seasoned telecom and IT executive with 30+ years of leadership in sales, marketing, and indirect channels. Former Executive Director of Indirect Channel Sales at Comcast Business; senior roles at Sun Microsystems and Okidata. Though retired in 2023, continues to consult and advise across the technology sector.",
+      detailedBio: "Barry Williams is a veteran leader in telecommunications and information technology with deep expertise in sales strategy, partner ecosystems, and national account growth. Most recently as Executive Director of Indirect Channel Sales at Comcast Business, he led teams of Partner Sales Managers and Directors covering SMB to enterprise, expanding national and regional partnerships and delivering significant revenue results. Previously he directed National Accounts for Comcast’s Central Division, following a distinguished tenure at Sun Microsystems, where he oversaw more than $4B in annual revenue across high-level roles in Channel Sales and regional leadership. Earlier at Okidata, he managed national sales forces generating hundreds of millions in revenue. Retired in 2023, he remains active as a consultant and industry contributor. Williams has served on boards including CompTIA, Channel Focus, and as Chair of the Burlington County College Foundation, and is a frequent speaker and trainer on leadership, personal branding, and career development for organizations such as the Jackie Robinson Foundation and Junior ROTC.",
       avatar: "/intervenants/Barry Williams.png",
       social: {
-        twitter: "https://twitter.com/barrywilliams",
-        linkedin: "https://linkedin.com/in/barrywilliams"
+        twitter: "",
+        linkedin: ""
       }
     },
     {
       id: 6,
-      name: "Omar Fahnbulleh",
-      title: "DevOps Evangelist",
-      topic: "Open Source Tools for Modern Development",
-      bio: "Créateur d'outils open-source utilisés par des millions de développeurs, evangeliste des pratiques DevOps.",
-      detailedBio: "Omar Fahnbulleh est un passionné des pratiques DevOps et des outils open-source. Il a créé plusieurs outils largement adoptés par la communauté des développeurs et est un conférencier régulier dans les conférences techniques internationales.",
+      name: "Omar Fahnbulleh, MBA, CISSP, MS-Cybersecurity",
+      title: "Senior Technology & Cybersecurity Leader | Solutions Architect | Digital Transformation Specialist",
+      topic: "Protecting, modernizing, and optimizing enterprise IT infrastructures",
+      bio: "IT and cybersecurity executive with 20+ years leading global digital transformation, cloud migrations, and large-scale security initiatives across unified communications, enterprise networking, and telecom.",
+      detailedBio: "With over two decades of experience, Omar Fahnbulleh has led major programs in digital transformation, cloud adoption, and enterprise security worldwide. His background spans unified communications, large corporate networks, and telecom services, where he helps organizations fortify, modernize, and streamline their IT estates to meet evolving risk and performance demands.",
       avatar: "/intervenants/Omar Fahnbulleh.png",
       social: {
-        twitter: "https://twitter.com/omarfahnbulleh",
-        linkedin: "https://linkedin.com/in/omarfahnbulleh"
+        twitter: "",
+        linkedin: ""
       }
     },
     {
       id: 7,
       name: "Pankaj Chugh",
-      title: "AI Leader and Strategist",
-      topic: "Artificial General Intelligence and the Future of Knowledge Work",
-      bio: "Ancienne de Netflix et Spotify, spécialiste du déploiement de modèles ML à grande échelle.",
-      detailedBio: "Pankaj Chugh est un leader dans le domaine de l'intelligence artificielle, avec une expérience significative chez Netflix et Spotify. Il est spécialisé dans le déploiement de modèles de machine learning à grande échelle et l'optimisation des systèmes d'IA.",
+      title: "Partner, SAI Group (Bay Area) — Commercialization & Partnerships for AGI (JazzX AI)",
+      topic: "The Future of Work in the Age of Agentic AI",
+      bio: "AI executive and investor focused on AGI-enabled knowledge work. Partner at SAI Group, leading commercialization and partnerships for JazzX AI; former President & COO at an AI services firm; ex-BCG tech strategist with $1B+ impact programs; earlier career in banking ops and digital transformation at ABN Amro and Citigroup.",
+      detailedBio: "Pankaj Chugh is a partner at SAI Group, a $1B AI-focused investment firm in the San Francisco Bay Area, where he leads commercialization, partnerships, and customer success for JazzX AI—an AGI platform redefining knowledge work. Previously, he served as President & COO of an AI services company backed by Sunstone Partners and led digital transformation businesses for global system integrators. At Boston Consulting Group (BCG), he advised enterprises on technology-driven competitive advantage, shaping initiatives with billion-dollar impact. Earlier, he spent years inside banks such as ABN Amro and Citigroup, supporting operations and digital transformation. As a speaker, he presents on the future of work with agentic AI and on the economics of AI, and he contributes to leadership panels and fireside chats on talent, digital health, and banking.",
       avatar: "/intervenants/Pankaj Chugh.png",
       social: {
-        twitter: "https://twitter.com/pankajchugh",
-        linkedin: "https://linkedin.com/in/pankajchugh"
+        twitter: "",
+        linkedin: ""
       }
     },
     {
-      id: 9,
-      name: "Shanam Kapoor",
-      title: "Strategic Culture & Well-being Leader (USA)",
-      topic: "Conscious Leadership and the Future of Workplace Well-being",
-      bio: "Pionnière des méthodes de recherche UX appliquées aux produits digitaux complexes, formatrice internationale.",
-      detailedBio: "Shanam Kapoor est une experte en culture d'entreprise et bien-être au travail. Elle a développé des méthodes innovantes de recherche UX appliquées aux produits digitaux complexes et forme des équipes à l'international.",
-      avatar: "/intervenants/Shanam Kapoor.png",
-      social: {
-        twitter: "https://twitter.com/shanamkapoor",
-        linkedin: "https://linkedin.com/in/shanamkapoor"
-      }
-    },
+    id: 9,
+    name: "Shanam Kapoor",
+    title: "Strategic Culture & Well-being Leader",
+    topic: "Conscious Leadership and the Future of Workplace Well-being",
+    bio: "Strategic culture and well-being leader with 15+ years driving global employee engagement, inclusion, and organizational transformation. Doctor of Physical Therapy background; builds data-driven, human-centered programs that scale and deliver measurable business outcomes.",
+    detailedBio: "Shanam Kapoor integrates data-driven strategy with human-centered design to architect enterprise well-being frameworks, lead global observance strategies across ERGs, and develop engagement models adopted by leadership teams worldwide. With experience in complex corporate environments such as Amazon, her approach is rooted in conscious leadership—aligning purpose, performance, and people to foster belonging, resilience, and lasting impact.",
+    avatar: "/intervenants/Shanam Kapoor.png",
+    social: {
+      twitter: "",
+      linkedin: ""
+    }
+  },
   ];
 
   export default speakers;
