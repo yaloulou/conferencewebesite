@@ -1384,11 +1384,11 @@ const SpeakerDetail = () => {
             <ul className={`space-y-2 text-sm ${colors.text}`}>
               <li className="flex items-start">
                 <Mail className="w-4 h-4 mr-2 mt-0.5" />
-                info@digitalnation2030.cd
+                contact@ss4d.org
               </li>
               <li className="flex items-start">
                 <MapPin className="w-4 h-4 mr-2 mt-0.5" />
-                People's Palace, Kinshasa
+                8 bis Avenue Marinelle, Kinshasa
               </li>
             </ul>
           </div>
