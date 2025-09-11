@@ -909,9 +909,13 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`
 
         {/* CTA Button */}
         <div className="text-center mt-12">
-          <button className={`${colors.accentBg} text-black px-8 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform ${colors.hoverGlow}`}>
+          <a
+            href="/conf_schedule.xlsx" // Le chemin d'accès au fichier
+            download="Programme-Complet.xlsx" // L'attribut `download` force le téléchargement et permet de renommer le fichier
+            className={`${colors.accentBg} text-black px-8 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform ${colors.hoverGlow}`}
+          >
             DOWNLOAD FULL PROGRAM
-          </button>
+          </a>
         </div>
       </div>
     </section>
