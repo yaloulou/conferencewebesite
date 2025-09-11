@@ -561,64 +561,236 @@ const SpeakersSection = () => {
 
   const ProgramSection = () => {
   const schedule = [
-    {
-      day: "Day 1 – November 11, 2025",
-      date: "November 11, 2025",
-      events: [
-        { time: "07:30 – 08:30", title: "Registration & Networking Breakfast", type: "networking" },
-        { time: "08:30 – 09:15", title: "Keynote — Digital Transformation for a Secure and Modern Future", speaker: "Desire Cashmir Kologele Eberande, Minister of Digital Transformation, DRC", type: "keynote" },
-        { time: "09:15 – 09:30", title: "Coffee Break", type: "break" },
-        { time: "09:30 – 10:30", title: "Panel — Leading in the Digital Age", speaker: "Moderator: TBD; Panelists: Aaron Winkler, Pankaj Ghemawat, and others", type: "panel" },
-        { time: "10:30 – 10:45", title: "Coffee Break", type: "break" },
-        { time: "10:45 – 11:30", title: "Workshop: Cybersecurity & Risk Management", speaker: "Elizabeth Stevens", type: "workshop" },
-        { time: "10:45 – 11:30", title: "Workshop: Cloud & Emerging Tech", speaker: "David Brussels", type: "workshop" },
-        { time: "10:45 – 11:30", title: "Workshop: Data & AI Innovation", speaker: "Shanam Kapoor", type: "workshop" },
-        { time: "11:30 – 12:15", title: "Workshops Continuation", speaker: "All tracks", type: "workshop" },
-        { time: "12:15 – 13:00", title: "Workshops Continuation", speaker: "All tracks", type: "workshop" }
-      ]
-    },
-    {
-      day: "Day 2 – November 12, 2025",
-      date: "November 12, 2025",
-      events: [
-        { time: "08:00 – 09:00", title: "Networking Breakfast", type: "networking" },
-        { time: "09:00 – 09:45", title: "Keynote — AI and Future of Knowledge Work", speaker: "Pankaj Ghemawat", type: "keynote" },
-        { time: "09:45 – 10:00", title: "Coffee Break", type: "break" },
-        { time: "10:00 – 11:00", title: "Panel — Women Driving Digital Transformation", speaker: "Moderator: TBD; Panelists: Elizabeth Stevens, Shanam Kapoor", type: "panel" },
-        { time: "11:00 – 11:15", title: "Coffee Break", type: "break" },
-        { time: "11:15 – 12:00", title: "Workshop: Cybersecurity Advanced", speaker: "Elizabeth Stevens", type: "workshop" },
-        { time: "11:15 – 12:00", title: "Workshop: Cloud Infrastructure", speaker: "David Brussels", type: "workshop" },
-        { time: "11:15 – 12:00", title: "Workshop: AI & Analytics", speaker: "Shanam Kapoor", type: "workshop" },
-        { time: "12:00 – 12:45", title: "Workshops Continuation", speaker: "All tracks", type: "workshop" },
-        { time: "12:45 – 13:45", title: "Lunch & Networking", type: "networking" },
-        { time: "13:45 – 14:30", title: "Advanced Workshops", speaker: "All tracks", type: "workshop" },
-        { time: "14:30 – 15:15", title: "Workshop Deep Dive", speaker: "All tracks", type: "workshop" },
-        { time: "15:15 – 15:30", title: "Coffee Break", type: "break" },
-        { time: "15:30 – 16:15", title: "Panel — Africa's Digital Economy", speaker: "Industry Leaders", type: "panel" },
-        { time: "16:15 – 16:30", title: "Closing Remarks", type: "closing" }
-      ]
-    },
-    {
-      day: "Day 3 – November 13, 2025",
-      date: "November 13, 2025",
-      events: [
-        { time: "08:00 – 09:00", title: "Networking Breakfast", type: "networking" },
-        { time: "09:00 – 09:45", title: "Keynote — Digital Resilience & Security", speaker: "Elizabeth Stevens", type: "keynote" },
-        { time: "09:45 – 10:00", title: "Coffee Break", type: "break" },
-        { time: "10:00 – 11:00", title: "Panel — Digital Infrastructure Growth", speaker: "Moderator: TBD; Panelists: Barry Williams, Shanam Kapoor", type: "panel" },
-        { time: "11:00 – 11:15", title: "Coffee Break", type: "break" },
-        { time: "11:15 – 12:00", title: "Workshop: Cybersecurity Masterclass", speaker: "Elizabeth Stevens", type: "workshop" },
-        { time: "11:15 – 12:00", title: "Workshop: Emerging Tech", speaker: "David Brussels", type: "workshop" },
-        { time: "11:15 – 12:00", title: "Workshop: Innovation Strategies", speaker: "Shanam Kapoor", type: "workshop" },
-        { time: "12:00 – 12:45", title: "Workshops Final Session", speaker: "All tracks", type: "workshop" },
-        { time: "12:45 – 13:45", title: "Lunch & Networking", type: "networking" },
-        { time: "13:45 – 14:30", title: "Expert Workshops", speaker: "All tracks", type: "workshop" },
-        { time: "14:30 – 15:15", title: "Panel — DRC Digital Future", speaker: "Government & Industry Leaders", type: "panel" },
-        { time: "15:15 – 15:30", title: "Coffee Break", type: "break" },
-        { time: "15:30 – 16:00", title: "Closing Ceremony", speaker: "Organizing Committee", type: "closing" }
-      ]
-    }
-  ];
+  {
+    day: "Day 1: Setting the Stage for Transformation",
+    date: "",
+    events: [
+      {
+        time: "Morning",
+        title: "Registration and Breakfast Networking",
+        type: "break"
+      },
+      {
+        time: "Morning",
+        title: `Opening Keynote:
+"Digital Transformation for a Secure and Modern Future"`,
+        type: "keynote",
+        speaker: "Desire Cashmir Kologele Eberande | Moderator: Introduction by Wilmot Gibson"
+      },
+      {
+        time: "Morning",
+        title: "Break",
+        type: "break"
+      },
+      {
+        time: "Morning",
+        title: `Executive Panel:
+"Leading in the Digital Age"`,
+        type: "panel",
+        speaker: `Sabune Winkler -health Services; 
+Pankaj Chugh-disruptive technologies, 
+Mining (Min. Watum )and Energy, 
+Congolese Sperkers needed for Banking (Rawbank : Hugues Bosala),  and Fellly Samuna :Industries(Manufacturing, Engineering, etc)
+Min Intérieur ( | Moderator: Renowned industry analyst. – Find a Congolese
+
+Bijou Sumbu`
+      },
+      {
+        time: "Afternoon",
+        title: "Lunch & Expo Hall Tour",
+        type: "networking"
+      },
+      {
+        time: "Late Morning",
+        title: "Breakout Sessions (Choose from Tracks A, B, C or D)",
+        type: "workshop",
+        speaker: "Elizabeth Stevens / Alberto"
+      },
+      {
+        time: "Afternoon",
+        title: "Break",
+        type: "break"
+      },
+      {
+        time: "Afternoon",
+        title: "Breakout Sessions (Choose from Tracks A, B, C or D)",
+        type: "workshop"
+      },
+      {
+        time: "Afternoon",
+        title: "Break",
+        type: "break"
+      },
+      {
+        time: "Afternoon",
+        title: "Industry-Specific Sessions",
+        type: "session",
+        speaker: "Malid (Africell)"
+      },
+      {
+        time: "Afternoon",
+        title: "Networking and Exhibit hall",
+        type: "networking"
+      },
+      {
+        time: "Evening",
+        title: "Keynote Speaker",
+        type: "keynote"
+      },
+      {
+        time: "Evening",
+        title: "Networking Reception & Welcome Dinner",
+        type: "networking",
+        speaker: "All attendees"
+      }
+    ]
+  },
+  {
+    day: "Day 2: Deep Dives & Technical Workshops",
+    date: "",
+    events: [
+      {
+        time: "Morning",
+        title: "Networking Breakfast",
+        type: "break"
+      },
+      {
+        time: "Morning",
+        title: `Keynote Session
+The Evolving Cyber Threat Landscape"`,
+        type: "keynote",
+        speaker: `Ainsley Rattray, 
+Renowned cybersecurity expert | Moderator: Grace Ngoya`
+      },
+      {
+        time: "Morning",
+        title: "Keynote mining",
+        type: "keynote",
+        speaker: "Jean-Marie Kande Tumba | Moderator: Moderator: Industry analyst or government representative. Norbert Wupona"
+      },
+      {
+        time: "Morning",
+        title: "Networking Break",
+        type: "break"
+      },
+      {
+        time: "Late Morning",
+        title: "Concurrent Workshops & Hands-On Labs (Advanced Track Focus)",
+        type: "workshop",
+        speaker: "Alberto Urena (SecRails)"
+      },
+      {
+        time: "12:15:00 – 13:30:00",
+        title: "Lunch and Exhibit hall",
+        type: "networking"
+      },
+      {
+        time: "Afternoon",
+        title: "Panel /Breakout Sessions",
+        type: "panel"
+      },
+      {
+        time: "Afternoon",
+        title: "Networking Break",
+        type: "break"
+      },
+      {
+        time: "Evening",
+        title: `Fireside Chat: "Securing the Future of Digital Health & Banking"`,
+        type: "session",
+        speaker: "Aaron Winkler, Ainsley | Moderator: Industry journalist or analyst. TBD"
+      },
+      {
+        time: "Evening",
+        title: `Fireside Chat: "Securing the Future of Telecommunications Network and Cyber resiliency`,
+        type: "session",
+        speaker: "Congolese, Alberto"
+      },
+      {
+        time: "Evening",
+        title: "Exhibit hall tour",
+        type: "session"
+      }
+    ]
+  },
+  {
+    day: "Day 3: Future Planning & Collaborative Strategies",
+    date: "",
+    events: [
+      {
+        time: "Morning",
+        title: `Keynote:
+ "Innovation & Emerging Technologies: AI, Blockchain, and Beyond"`,
+        type: "keynote",
+        speaker: "Technology futurist or innovation leader. TBD"
+      },
+      {
+        time: "Morning",
+        title: "Industry-Specific Technical Sessions",
+        type: "session",
+        speaker: "TBD"
+      },
+      {
+        time: "Morning",
+        title: "Networking Break",
+        type: "break"
+      },
+      {
+        time: "Late Morning",
+        title: "Cross-Industry Collaboration Workshops",
+        type: "workshop",
+        speaker: "TBD"
+      },
+      {
+        time: "Afternoon",
+        title: "Networking Lunch",
+        type: "networking"
+      },
+      {
+        time: "Afternoon",
+        title: `Leadership Panel: "Sustaining Innovation & Talent in a Rapidly Changing World" TBD`,
+        type: "panel",
+        speaker: "Executives from diverse industries. Kevin? | Moderator: Barry Williams"
+      },
+      {
+        time: "Afternoon",
+        title: `Panel Discussion " The Future of Mining and Energy tecnologies in the DRC"`,
+        type: "panel",
+        speaker: "Conference chair or organizer. Wilmot Gibson"
+      },
+      {
+        time: "Evening",
+        title: `Cybersecurity resilency workshop Topic - TBD"`,
+        type: "workshop"
+      },
+      {
+        time: "Evening",
+        title: "Additional Elements",
+        type: "session"
+      },
+      {
+        time: "Evening",
+        title: "1. Expo Hall",
+        type: "networking"
+      },
+      {
+        time: "Evening",
+        title: "2. Networking & Matchmaking Sessions",
+        type: "networking"
+      },
+      {
+        time: "Evening",
+        title: "3. Resource Library & On-Demand Access",
+        type: "session"
+      },
+      {
+        time: "Evening",
+        title: "4. CSR & Sustainability Commitment",
+        type: "session"
+      }
+    ]
+  }
+];
 
   const getEventIcon = (type) => {
     const icons = {
