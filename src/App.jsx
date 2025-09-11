@@ -922,19 +922,27 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`
   const SponsorsSection = () => {
   // Liste des sponsors avec leurs vrais logos
   const sponsors = [
+
     {
+      name: "Africell",
+      tier: "Platinum",
+      logo: "logo_africell.png", // Placeholder, replace with actual logo URL
+      url: "https://www.africell.com"
+    },
+
+   /*  {
       name: "Visa",
       tier: "Platinum",
       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png",
       url: "https://www.visa.com"
-    },
+    }, */
    /*  {
       name: "MTN",
       tier: "Platinum",
       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/MTN_Logo.svg/1280px-MTN_Logo.svg.png",
       url: "https://www.mtn.com"
     }, */
-    {
+    /* {
       name: "Orange",
       tier: "Gold",
       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/1280px-Orange_logo.svg.png",
@@ -951,13 +959,8 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`
       tier: "Silver",
       logo: "logo_airtel.png", // Placeholder, replace with actual logo URL
       url: "https://www.airtel.com"
-    },
-    {
-      name: "Africell",
-      tier: "Silver",
-      logo: "logo_africell.png", // Placeholder, replace with actual logo URL
-      url: "https://www.africell.com"
-    }/* ,
+    }, */
+    /* ,
     {
       name: "Ecobank",
       tier: "Silver",
