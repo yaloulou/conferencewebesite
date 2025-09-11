@@ -1036,7 +1036,7 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`
         </div>
 
         {/* Section Devenir Sponsor */}
-        <div className={`mt-20 p-8 rounded-xl ${colors.card} border ${colors.divider} text-center`}>
+        {/* <div className={`mt-20 p-8 rounded-xl ${colors.card} border ${colors.divider} text-center`}>
           <h3 className={`text-2xl font-bold mb-4 ${colors.textBright}`}>
             Want to become a sponsor?
           </h3>
@@ -1046,7 +1046,7 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`
           <button className={`${colors.accentBg} text-black px-8 py-3 rounded-lg font-bold hover:bg-opacity-90 transition-all ${colors.hoverGlow}`}>
             CONTACT OUR PARTNERSHIP TEAM
           </button>
-        </div>
+        </div> */}
       </div>
     </section>
   );
