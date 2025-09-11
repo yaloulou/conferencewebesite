@@ -267,7 +267,7 @@ const HeroSection = () => {
   const mediaItems = [
     {
       type: 'video',
-      src: 'landing_media_1.webm',
+      src: 'conference3.mov',
       alt: 'Conference venue',
       text: "Digital Transformation for a Secure and Modern Future"
 
