@@ -930,6 +930,13 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`
       url: "https://www.africell.com"
     },
 
+    {
+      name: "Banque Centrale du Congo",
+      tier: "Platinum",
+      logo: "bcc.png", // Placeholder, replace with actual logo URL
+      url: "https://www.bcc.cd"
+    },
+
    /*  {
       name: "Visa",
       tier: "Platinum",
