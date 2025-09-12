@@ -270,8 +270,6 @@ const HeroSection = () => {
       src: 'landing_media.mp4',
       alt: 'Conference venue',
       text: "Digital Transformation for a Secure and Modern Future"
-
-
     },
     {
       type: 'image',
@@ -284,7 +282,6 @@ const HeroSection = () => {
       src: 'woman_tech.mov',
       alt: 'Kinshasa skyline'
     }, */
-    
   ];
 
   useEffect(() => {
@@ -328,58 +325,55 @@ const HeroSection = () => {
 
       {/* Contenu principal */}
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-        <div className="flex flex-col items-center justify-center text-center">
-          {/* Badge de date */}
-          <div className={`mb-8 ${colors.card} ${colors.text} px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider border ${colors.accentBorder} ${colors.hoverGlow} transform transition-all hover:scale-105`}>
-            November 11-13, 2025 • Kinshasa, DRC
-          </div>
+        <div className={`flex flex-col ${currentMedia === 1 ? 'items-start' : 'items-center'} justify-center text-${currentMedia === 1 ? 'left' : 'center'}`}>
+          {/* Badge de date - caché pour le deuxième média */}
+          {currentMedia !== 1 && (
+            <div className={`mb-8 ${colors.card} ${colors.text} px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider border ${colors.accentBorder} ${colors.hoverGlow} transform transition-all hover:scale-105 self-center`}>
+              November 11-13, 2025 • Kinshasa, DRC
+            </div>
+          )}
 
           {/* Sous-titre dynamique */}
-          <p className={`text-xl md:text-2xl ${colors.text} max-w-3xl mx-auto mb-10 transition-opacity duration-500`}>
+          <p className={`text-xl md:text-2xl ${colors.text} max-w-3xl mb-10 transition-opacity duration-500 ${currentMedia === 1 ? 'text-left' : 'text-center mx-auto'}`}>
             <span className={colors.accent}>DIGITAL</span> NATION 2030
-            
           </p>
 
           {/* Titre principal */}
-          <h1 className={`text-4xl md:text-6xl font-bold mb-6 ${colors.textBright} leading-tight`}>
+          <h1 className={`text-4xl md:text-6xl font-bold mb-6 ${colors.textBright} leading-tight ${currentMedia === 1 ? 'text-left max-w-2xl' : 'text-center'}`}>
             {mediaItems[currentMedia].text}
-
           </h1>
 
-          
-
-          
-
-          {/* Boutons CTA */}
-          <div className="flex flex-col sm:flex-row justify-center gap-6 mt-4">
-            <button
-              type="button"
-              className={`
-                appearance-none
-                !bg-[#00FFFF] !text-white
-                hover:!bg-[#00FFFF] focus:!bg-[#00FFFF] active:!bg-[#00FFFF] disabled:!bg-[#00FFFF]
-                hover:!text-white focus:!text-white active:!text-white disabled:!text-white
-                px-8 py-4 rounded-lg font-bold text-lg ${colors.hoverGlow}
-                transition-all hover:scale-105
-              `}
-              style={{ backgroundColor: '#00FFFF', background: '#00FFFF', color: '#FFFFFF' }}
-            >
-              REGISTER NOW
-            </button>
-            
-            <button
-            type="button"
-            className={`
-              appearance-none border-2 ${colors.accentBorder} ${colors.accent}
-              px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105
-              !bg-black hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
-              `}
-              style={{ backgroundColor: '#000', background: '#000' }}
-            >
-              VIEW PROGRAM
-            </button>
-
-          </div>
+          {/* Boutons CTA - cachés pour le deuxième média */}
+          {currentMedia !== 1 && (
+            <div className="flex flex-col sm:flex-row justify-center gap-6 mt-4">
+              <button
+                type="button"
+                className={`
+                  appearance-none
+                  !bg-[#00FFFF] !text-white
+                  hover:!bg-[#00FFFF] focus:!bg-[#00FFFF] active:!bg-[#00FFFF] disabled:!bg-[#00FFFF]
+                  hover:!text-white focus:!text-white active:!text-white disabled:!text-white
+                  px-8 py-4 rounded-lg font-bold text-lg ${colors.hoverGlow}
+                  transition-all hover:scale-105
+                `}
+                style={{ backgroundColor: '#00FFFF', background: '#00FFFF', color: '#FFFFFF' }}
+              >
+                REGISTER NOW
+              </button>
+              
+              <button
+                type="button"
+                className={`
+                  appearance-none border-2 ${colors.accentBorder} ${colors.accent}
+                  px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105
+                  !bg-black hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
+                `}
+                style={{ backgroundColor: '#000', background: '#000' }}
+              >
+                VIEW PROGRAM
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
