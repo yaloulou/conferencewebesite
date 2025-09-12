@@ -366,17 +366,19 @@ const HeroSection = () => {
             >
               REGISTER NOW
             </button>
+            
             <button
             type="button"
             className={`
               appearance-none border-2 ${colors.accentBorder} ${colors.accent}
               px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105
               !bg-black hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
-            `}
-            style={{ backgroundColor: '#000', background: '#000' }}
-          >
-            VIEW PROGRAM
-          </button>
+              `}
+              style={{ backgroundColor: '#000', background: '#000' }}
+            >
+              VIEW PROGRAM
+            </button>
+
           </div>
         </div>
       </div>
