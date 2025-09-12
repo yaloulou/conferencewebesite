@@ -290,7 +290,7 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentMedia((prev) => (prev + 1) % mediaItems.length);
-    }, 5000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, []);
