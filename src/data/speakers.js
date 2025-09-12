@@ -53,11 +53,11 @@ const speakers = [
     },
     {
       id: 3,
-      name: "Alberto",
-      title: "Cloud Security Specialist",
+      name: "Alberto Ureña",
+      title: "Co-founder Secrails",
       topic: "Secure Cloud Architectures for Modern Enterprises",
       bio: "Professeur au MIT, spécialiste des architectures sécurisées pour le cloud et lauréate du prix Turing 2022.",
-      detailedBio: "Alberto est un expert renommé en sécurité cloud avec plus de 15 ans d'expérience. Professeur au MIT, ses recherches ont contribué à l'élaboration de normes de sécurité internationales pour les infrastructures cloud.",
+      detailedBio:"Alberto Ureña is a seasoned security leader and entrepreneur with deep expertise in cloud, enterprise cybersecurity and AI/ML innovation. At Amazon Web Services, he served as Principal Architect and Engineer across EMEA and North America, where he advised some of the world’s largest financial institutions on strengthening their defenses and improving their security posture. His career also includes senior roles at BBVA and Siemens, leading transformative programs across security, software, and innovation. Today, he brings this experience together with applied AI/ML to simplify complex security challenges and build solutions that help organizations scale securely and efficiently.", 
       avatar: "/intervenants/Alberto.png",
       social: {
         twitter: "https://twitter.com/alberto",
