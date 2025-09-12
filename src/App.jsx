@@ -273,12 +273,12 @@ const HeroSection = () => {
 
 
     },
-    /* {
+    {
       type: 'image',
-      src: 'conference1.jpeg',
+      src: 'hero_leaders.jpeg',
       alt: 'Modern technology',
-      text: "Kinshasa: Where African Innovation Meets Global Technology"
-    }, */
+      text: "In Kinshasa, the annual summit where global leaders meet to forge a secure and modern digital future."
+    },
     /* {
       type: 'video', 
       src: 'woman_tech.mov',
