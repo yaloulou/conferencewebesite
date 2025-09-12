@@ -369,6 +369,12 @@ const HeroSection = () => {
                   !bg-black hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
                 `}
                 style={{ backgroundColor: '#000', background: '#000' }}
+                onClick={() => {
+                  const programSection = document.getElementById('program');
+                  if (programSection) {
+                    programSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 VIEW PROGRAM
               </button>
