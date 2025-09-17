@@ -1278,13 +1278,23 @@ const RegisterSection = () => {
         };
       }
 
-      const response = await fetch(endpoint, {
+      // Utilisation d'un proxy CORS public
+      const proxyUrl = 'https://corsproxy.io/?';
+      // Alternative: 'https://cors-anywhere.herokuapp.com/'
+      // Alternative: 'https://api.allorigins.win/raw?url='
+
+      const response = await fetch(proxyUrl + encodeURIComponent(endpoint), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest"
         },
         body: JSON.stringify(payload)
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const data = await response.json();
 
@@ -1298,6 +1308,31 @@ const RegisterSection = () => {
     } catch (error) {
       setPaymentStatus("error");
       console.error("Payment processing error:", error);
+      
+      // Fallback: essayer sans proxy en cas d'échec
+      if (!error.message.includes('CORS')) {
+        try {
+          const directResponse = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+            mode: 'cors',
+            credentials: 'omit'
+          });
+          
+          if (directResponse.ok) {
+            const directData = await directResponse.json();
+            if (directData.Status === "Success" || directData.ResponseCode === "00") {
+              setPaymentStatus("success");
+              return;
+            }
+          }
+        } catch (fallbackError) {
+          console.error("Fallback also failed:", fallbackError);
+        }
+      }
     } finally {
       setIsProcessing(false);
     }
