@@ -1234,109 +1234,109 @@ const RegisterSection = () => {
     setIsProcessing(true);
     setPaymentStatus(null);
 
+    // Fonction pour déterminer le PayType et formater le numéro de téléphone
+    const getPayTypeAndFormatTelephone = (tel) => {
+        let payType = null;
+        let formattedTel = tel.replace(/[^0-9]/g, ''); // Supprime tout ce qui n'est pas un chiffre
+
+        if (formattedTel.startsWith("0")) {
+            formattedTel = "243" + formattedTel.substring(1);
+        } else if (formattedTel.startsWith("243") && formattedTel.length === 12) {
+            // Le numéro est déjà au bon format
+        } else {
+            // Gère d'autres formats non standard si nécessaire
+            formattedTel = "243" + formattedTel; // Fallback par défaut
+        }
+
+        // Détection de l'opérateur en fonction des préfixes
+        if (formattedTel.startsWith("24381") || formattedTel.startsWith("24382") || formattedTel.startsWith("24383") || formattedTel.startsWith("24384")) {
+            payType = 2; // Vodacom
+        } else if (formattedTel.startsWith("24397") || formattedTel.startsWith("24399")) {
+            payType = 1; // Airtel
+        } else if (formattedTel.startsWith("24385") || formattedTel.startsWith("24389")) {
+            payType = 3; // Orange
+        } else {
+            // Fallback si l'opérateur n'est pas reconnu. 
+            // Vous pouvez choisir un PayType par défaut ou gérer une erreur.
+            console.warn("Opérateur non reconnu pour le numéro :", formattedTel);
+        }
+
+        return { payType, formattedTel };
+    };
+
     try {
-      let endpoint, payload;
+        let endpoint, payload;
 
-      if (paymentMethod === "mobile") {
-        // Paiement Mobile Money
-        endpoint = "https://webapi.maxicashapp.com/Integration/PayNowSync";
-        payload = {
-          MerchantID: "bc9077ad10fc4e1ab15fb3866e2d594b",
-          MerchantPassword: "8aea979903cf4d65be52fd0122de09db",
-          RequestData: {
-            Amount: formData.amount,
-            Reference: formData.reference,
-            Telephone: formData.telephone
-          },
-          PayType: 3,
-          CurrencyCode: "USD"
-        };
-      } else {
-        // Paiement Carte Bancaire
-        endpoint = "https://webapi.maxicashapp.com/Integration/PayCreditCard";
-        payload = {
-          PayType: "MaxiCash",
-          MerchantID: "bc9077ad10fc4e1ab15fb3866e2d594b",
-          MerchantPassword: "8aea979903cf4d65be52fd0122de09db",
-          Amount: formData.amount,
-          Currency: "USD",
-          Telephone: formData.telephone,
-          Language: "en",
-          Reference: formData.reference,
-          SuccessURL: "https://www.drcdigitalnation.org/success",
-          FailureURL: "https://www.drcdigitalnation.org/failure",
-          CancelURL: "https://www.drcdigitalnation.org/cancel",
-          NotifyURL: "https://www.drcdigitalnation.org/notify",
-          FirstName: formData.firstName,
-          LastName: formData.lastName,
-          Email: formData.email,
-          cData: {
-            cDate: formData.expiryDate,
-            cNumber: formData.cardNumber,
-            vCVV: formData.cvv
-          }
-        };
-      }
+        if (paymentMethod === "mobile") {
+            // Paiement Mobile Money
+            const { payType, formattedTel } = getPayTypeAndFormatTelephone(formData.telephone);
 
-      // Utilisation d'un proxy CORS public
-      const proxyUrl = 'https://corsproxy.io/?';
-      // Alternative: 'https://cors-anywhere.herokuapp.com/'
-      // Alternative: 'https://api.allorigins.win/raw?url='
+            if (payType === null) {
+                setPaymentStatus("error");
+                console.error("Erreur : Opérateur mobile non reconnu.");
+                setIsProcessing(false);
+                return;
+            }
 
-      const response = await fetch(proxyUrl + encodeURIComponent(endpoint), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Requested-With": "XMLHttpRequest"
-        },
-        body: JSON.stringify(payload)
-      });
+            endpoint = "https://maxi-cash-proxy-sc2gs.ondigitalocean.app/pay/mobile";
+            payload = {
+                RequestData: {
+                    Amount: formData.amount,
+                    Reference: formData.reference,
+                    Telephone: formattedTel // Utilise le numéro formaté
+                },
+                PayType: payType, // Utilise le PayType détecté
+                CurrencyCode: "USD"
+            };
+        } else {
+            // Paiement Carte Bancaire (pas de changement ici)
+            endpoint = "https://maxi-cash-proxy-sc2gs.ondigitalocean.app/pay/card";
+            payload = {
+                PayType: "MaxiCash",
+                Amount: formData.amount,
+                Currency: "USD",
+                Telephone: formData.telephone,
+                Language: "en",
+                Reference: formData.reference,
+                SuccessURL: "https://www.drcdigitalnation.org/success",
+                FailureURL: "https://www.drcdigitalnation.org/failure",
+                CancelURL: "https://www.drcdigitalnation.org/cancel",
+                NotifyURL: "https://www.drcdigitalnation.org/notify",
+                FirstName: formData.firstName,
+                LastName: formData.lastName,
+                Email: formData.email,
+                cData: {
+                    cDate: formData.expiryDate,
+                    cNumber: formData.cardNumber,
+                    vCVV: formData.cvv
+                }
+            };
+        }
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.Status === "Success" || data.ResponseCode === "00") {
-        setPaymentStatus("success");
-        // Rediriger ou afficher un message de succès
-      } else {
-        setPaymentStatus("error");
-        console.error("Payment error:", data);
-      }
-    } catch (error) {
-      setPaymentStatus("error");
-      console.error("Payment processing error:", error);
-      
-      // Fallback: essayer sans proxy en cas d'échec
-      if (!error.message.includes('CORS')) {
-        try {
-          const directResponse = await fetch(endpoint, {
+        const response = await fetch(endpoint, {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(payload),
-            mode: 'cors',
-            credentials: 'omit'
-          });
-          
-          if (directResponse.ok) {
-            const directData = await directResponse.json();
-            if (directData.Status === "Success" || directData.ResponseCode === "00") {
-              setPaymentStatus("success");
-              return;
-            }
-          }
-        } catch (fallbackError) {
-          console.error("Fallback also failed:", fallbackError);
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (data.Status === "Success" || data.ResponseCode === "00") {
+            setPaymentStatus("success");
+            // Rediriger ou afficher un message de succès
+        } else {
+            setPaymentStatus("error");
+            console.error("Payment error:", data);
         }
-      }
+    } catch (error) {
+        setPaymentStatus("error");
+        console.error("Payment processing error:", error);
     } finally {
-      setIsProcessing(false);
+        setIsProcessing(false);
     }
-  };
+};
 
   return (
     <section id="register" className={`py-20 ${colors.bg}`}>
