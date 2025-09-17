@@ -1174,35 +1174,156 @@ const LocationSection = () => (
   </section>
 );
   // Composant Register
-  const RegisterSection = () => (
-    <section className={`py-20 ${colors.bg}`}>
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${colors.textBright}`}>
-          READY TO <span className={colors.accent}>JOIN US</span>?
-        </h2>
-        
+const RegisterSection = () => {
+  const [selectedTier, setSelectedTier] = useState("Standard");
+  const [paymentMethod, setPaymentMethod] = useState("mobile");
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    telephone: "",
+    amount: "150",
+    reference: `REF_${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
+    cardNumber: "",
+    expiryDate: "",
+    cvv: ""
+  });
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState(null);
+
+  const tiers = [
+    {
+      name: "Standard",
+      price: "$150",
+      amount: "150",
+      features: ["3-Day Access", "Conference Materials", "Coffee Breaks"]
+    },
+    {
+      name: "Premium",
+      price: "$250",
+      amount: "250",
+      features: ["3-Day Access", "Conference Materials", "Lunches", "VIP Access"],
+      popular: true
+    },
+    {
+      name: "Student",
+      price: "$50",
+      amount: "50",
+      features: ["3-Day Access", "Conference Materials"]
+    }
+  ];
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleTierSelect = (tierName, amount) => {
+    setSelectedTier(tierName);
+    setFormData(prev => ({
+      ...prev,
+      amount: amount
+    }));
+  };
+
+  const handlePayment = async (e) => {
+    e.preventDefault();
+    setIsProcessing(true);
+    setPaymentStatus(null);
+
+    try {
+      let endpoint, payload;
+
+      if (paymentMethod === "mobile") {
+        // Paiement Mobile Money
+        endpoint = "https://webapi.maxicashapp.com/Integration/PayNowSync";
+        payload = {
+          MerchantID: "bc9077ad10fc4e1ab15fb3866e2d594b",
+          MerchantPassword: "8aea979903cf4d65be52fd0122de09db",
+          RequestData: {
+            Amount: formData.amount,
+            Reference: formData.reference,
+            Telephone: formData.telephone
+          },
+          PayType: 3,
+          CurrencyCode: "USD"
+        };
+      } else {
+        // Paiement Carte Bancaire
+        endpoint = "https://webapi.maxicashapp.com/Integration/PayCreditCard";
+        payload = {
+          PayType: "MaxiCash",
+          MerchantID: "bc9077ad10fc4e1ab15fb3866e2d594b",
+          MerchantPassword: "8aea979903cf4d65be52fd0122de09db",
+          Amount: formData.amount,
+          Currency: "USD",
+          Telephone: formData.telephone,
+          Language: "en",
+          Reference: formData.reference,
+          SuccessURL: "https://www.drcdigitalnation.org/success",
+          FailureURL: "https://www.drcdigitalnation.org/failure",
+          CancelURL: "https://www.drcdigitalnation.org/cancel",
+          NotifyURL: "https://www.drcdigitalnation.org/notify",
+          FirstName: formData.firstName,
+          LastName: formData.lastName,
+          Email: formData.email,
+          cData: {
+            cDate: formData.expiryDate,
+            cNumber: formData.cardNumber,
+            vCVV: formData.cvv
+          }
+        };
+      }
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (data.Status === "Success" || data.ResponseCode === "00") {
+        setPaymentStatus("success");
+        // Rediriger ou afficher un message de succès
+      } else {
+        setPaymentStatus("error");
+        console.error("Payment error:", data);
+      }
+    } catch (error) {
+      setPaymentStatus("error");
+      console.error("Payment processing error:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <section id="register" className={`py-20 ${colors.bg}`}>
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${colors.textBright}`}>
+            READY TO <span className={colors.accent}>JOIN US</span>?
+          </h2>
+          <p className={`${colors.text} max-w-2xl mx-auto`}>
+            Choose your registration package and complete your payment securely.
+          </p>
+        </div>
+
+        {/* Sélection du forfait */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {[
-            {
-              name: "Standard",
-              price: "$150",
-              features: ["3-Day Access", "Conference Materials", "Coffee Breaks"]
-            },
-            {
-              name: "Premium",
-              price: "$250",
-              features: ["3-Day Access", "Conference Materials", "Lunches", "VIP Access"],
-              popular: true
-            },
-            {
-              name: "Student",
-              price: "$50",
-              features: ["3-Day Access", "Conference Materials"]
-            }
-          ].map((tier, index) => (
+          {tiers.map((tier, index) => (
             <div 
               key={index} 
-              className={`${colors.card} p-8 rounded-xl border ${tier.popular ? colors.accentBorder : colors.divider} ${tier.popular ? 'transform md:scale-105' : ''}`}
+              className={`${colors.card} p-6 rounded-xl border ${
+                selectedTier === tier.name ? colors.accentBorder : colors.divider
+              } ${tier.popular ? 'transform md:scale-105' : ''} cursor-pointer transition-all`}
+              onClick={() => handleTierSelect(tier.name, tier.amount)}
             >
               {tier.popular && (
                 <div className={`${colors.accentBg} text-black text-xs font-bold px-3 py-1 rounded-full inline-block mb-4`}>
@@ -1213,7 +1334,7 @@ const LocationSection = () => (
               <h3 className={`text-xl font-bold mb-2 ${colors.textBright}`}>{tier.name}</h3>
               <p className={`text-3xl font-bold mb-6 ${colors.accent}`}>{tier.price}</p>
               
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3 mb-6">
                 {tier.features.map((feature, i) => (
                   <li key={i} className={`flex items-center ${colors.text}`}>
                     <Check className={`w-4 h-4 mr-2 ${colors.accent}`} /> {feature}
@@ -1221,19 +1342,225 @@ const LocationSection = () => (
                 ))}
               </ul>
               
-              <button className={`w-full py-3 rounded-lg font-bold ${
-                tier.popular 
-                  ? `${colors.accentBg} text-black hover:bg-opacity-90`
-                  : `border ${colors.accentBorder} ${colors.accent} hover:${colors.accentBg} hover:text-black`
-              } transition-all`}>
-                REGISTER NOW
-              </button>
+              <div className={`w-6 h-6 rounded-full border-2 ${
+                selectedTier === tier.name ? colors.accentBg + ' border-transparent' : colors.divider
+              } flex items-center justify-center mx-auto`}>
+                {selectedTier === tier.name && <Check className="w-4 h-4 text-black" />}
+              </div>
             </div>
           ))}
+        </div>
+
+        {/* Formulaire de paiement */}
+        <div className={`${colors.card} p-8 rounded-xl border ${colors.divider}`}>
+          <h3 className={`text-2xl font-bold mb-6 ${colors.textBright}`}>Registration Details</h3>
+          
+          <form onSubmit={handlePayment}>
+            {/* Informations personnelles */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                  First Name *
+                </label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  required
+                  className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                />
+              </div>
+              <div>
+                <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                  Last Name *
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  required
+                  className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                />
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                Email Address *
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+                className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+              />
+            </div>
+
+            <div className="mb-6">
+              <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                Phone Number *
+              </label>
+              <input
+                type="tel"
+                name="telephone"
+                value={formData.telephone}
+                onChange={handleInputChange}
+                required
+                placeholder="243850292020"
+                className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+              />
+            </div>
+
+            {/* Méthode de paiement */}
+            <div className="mb-6">
+              <label className={`block text-sm font-medium mb-4 ${colors.text}`}>
+                Payment Method *
+              </label>
+              <div className="flex space-x-4">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("mobile")}
+                  className={`px-4 py-2 rounded-lg font-medium ${
+                    paymentMethod === "mobile" 
+                      ? `${colors.accentBg} text-black`
+                      : `border ${colors.divider} ${colors.text}`
+                  }`}
+                >
+                  Mobile Money
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("card")}
+                  className={`px-4 py-2 rounded-lg font-medium ${
+                    paymentMethod === "card" 
+                      ? `${colors.accentBg} text-black`
+                      : `border ${colors.divider} ${colors.text}`
+                  }`}
+                >
+                  Credit Card
+                </button>
+              </div>
+            </div>
+
+            {/* Détails de la carte (affichés seulement si carte sélectionnée) */}
+            {paymentMethod === "card" && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div className="md:col-span-2">
+                  <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                    Card Number *
+                  </label>
+                  <input
+                    type="text"
+                    name="cardNumber"
+                    value={formData.cardNumber}
+                    onChange={handleInputChange}
+                    required={paymentMethod === "card"}
+                    placeholder="1234 5678 9012 3456"
+                    className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                  />
+                </div>
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                    Expiry Date *
+                  </label>
+                  <input
+                    type="text"
+                    name="expiryDate"
+                    value={formData.expiryDate}
+                    onChange={handleInputChange}
+                    required={paymentMethod === "card"}
+                    placeholder="MM/YY"
+                    className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                  />
+                </div>
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                    CVV *
+                  </label>
+                  <input
+                    type="text"
+                    name="cvv"
+                    value={formData.cvv}
+                    onChange={handleInputChange}
+                    required={paymentMethod === "card"}
+                    placeholder="123"
+                    className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Montant et référence */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                  Amount (USD)
+                </label>
+                <input
+                  type="text"
+                  value={`$${formData.amount}`}
+                  readOnly
+                  className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} opacity-70`}
+                />
+              </div>
+              <div>
+                <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                  Reference Number
+                </label>
+                <input
+                  type="text"
+                  value={formData.reference}
+                  readOnly
+                  className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} opacity-70`}
+                />
+              </div>
+            </div>
+
+            {/* Bouton de soumission */}
+            <button
+              type="submit"
+              disabled={isProcessing}
+              className={`w-full py-4 rounded-lg font-bold text-lg ${
+                isProcessing 
+                  ? 'bg-gray-500 cursor-not-allowed' 
+                  : `${colors.accentBg} text-black hover:bg-opacity-90 ${colors.hoverGlow}`
+              } transition-all flex items-center justify-center`}
+            >
+              {isProcessing ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Processing Payment...
+                </>
+              ) : (
+                `PAY NOW - $${formData.amount}`
+              )}
+            </button>
+
+            {/* Message de statut */}
+            {paymentStatus === "success" && (
+              <div className={`mt-4 p-4 rounded-lg bg-green-500/20 border border-green-500 text-green-300`}>
+                Payment successful! Your registration is confirmed.
+              </div>
+            )}
+
+            {paymentStatus === "error" && (
+              <div className={`mt-4 p-4 rounded-lg bg-red-500/20 border border-red-500 text-red-300`}>
+                Payment failed. Please try again or contact support.
+              </div>
+            )}
+          </form>
         </div>
       </div>
     </section>
   );
+};
 
 const SpeakerDetailWrapper = () => {
   return (
