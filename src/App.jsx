@@ -1253,7 +1253,7 @@ const RegisterSection = () => {
             payType = 2; // Vodacom
         } else if (formattedTel.startsWith("24397") || formattedTel.startsWith("24399")) {
             payType = 1; // Airtel
-        } else if (formattedTel.startsWith("24385") || formattedTel.startsWith("24389")) {
+        } else if (formattedTel.startsWith("24385") || formattedTel.startsWith("24389") || formattedTel.startsWith("24384")) {
             payType = 3; // Orange
         } else {
             // Fallback si l'opérateur n'est pas reconnu. 
@@ -1323,7 +1323,7 @@ const RegisterSection = () => {
 
         const data = await response.json();
 
-        if (data.Status === "Success" || data.ResponseCode === "00") {
+        if (data.ResponseStatus === "Success") {
             setPaymentStatus("success");
             // Rediriger ou afficher un message de succès
         } else {
