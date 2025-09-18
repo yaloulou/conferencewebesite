@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import QRCode from 'qrcode'; // Import de la bibliothèque QRCode
+
 
 import { 
   BrowserRouter as Router, 
@@ -1190,6 +1192,7 @@ const RegisterSection = () => {
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState(null);
+  const [transactionData, setTransactionData] = useState(null);
 
   const tiers = [
     {
@@ -1212,6 +1215,124 @@ const RegisterSection = () => {
       features: ["3-Day Access", "Conference Materials"]
     }
   ];
+
+  async function downloadQRCodeWithLabel_viaCanvas(transactionID) {
+
+  try {
+    const qrSize = 300;
+    const labelText = "SS4D Conference";
+    const fontSize = 20;
+    const labelPadding = 12; // espace autour du texte
+    const textHeight = fontSize + labelPadding;
+
+    // 1) créer un canvas temporaire et y dessiner le QR (QRCode.toCanvas écrit directement)
+    const tmp = document.createElement('canvas');
+    tmp.width = qrSize;
+    tmp.height = qrSize;
+    await new Promise((resolve, reject) => {
+      QRCode.toCanvas(
+        tmp,
+        transactionID,
+        { width: qrSize, margin: 2, color: { dark: '#000000', light: '#FFFFFF' } },
+        (err) => (err ? reject(err) : resolve())
+      );
+    });
+
+    // 2) créer canvas final en support HiDPI
+    const scale = window.devicePixelRatio || 1;
+    const finalCanvas = document.createElement('canvas');
+    finalCanvas.width = qrSize * scale;
+    finalCanvas.height = (qrSize + textHeight) * scale;
+    finalCanvas.style.width = `${qrSize}px`;
+    finalCanvas.style.height = `${qrSize + textHeight}px`;
+
+    const ctx = finalCanvas.getContext('2d');
+    ctx.scale(scale, scale);
+
+    // fond blanc (important si fond transparent)
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, qrSize, qrSize + textHeight);
+
+    // dessiner le QR du canvas temporaire
+    ctx.drawImage(tmp, 0, 0, qrSize, qrSize);
+
+    // dessiner le texte centré en dessous
+    ctx.fillStyle = '#000';
+    ctx.font = `${fontSize}px Arial, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(labelText, qrSize / 2, qrSize + textHeight / 2);
+
+    // exporter en blob et forcer téléchargement
+    const blob = await new Promise((res) => finalCanvas.toBlob(res, 'image/png'));
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `SS4D_QR_${transactionID}.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error('Erreur génération QR (canvas):', err);
+  }
+}
+
+  // Fonction pour générer et télécharger le QR code
+  const downloadQRCode = async (transactionID) => {
+  try {
+    // Générer le QR code avec uniquement transactionID
+    const qrData = transactionID;
+
+    // Générer le QR code sous forme DataURL
+    const qrUrl = await QRCode.toDataURL(qrData, {
+      width: 300,
+      margin: 2,
+      color: {
+        dark: "#000000",
+        light: "#FFFFFF",
+      },
+    });
+
+    // Charger l'image QR dans un objet Image()
+    const qrImage = new Image();
+    qrImage.src = qrUrl;
+
+    qrImage.onload = () => {
+      const qrSize = 300;
+      const textHeight = 40;
+
+      // Créer un canvas pour fusionner QR + texte
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = qrSize;
+      canvas.height = qrSize + textHeight;
+
+      // Dessiner le QR
+      ctx.drawImage(qrImage, 0, 0, qrSize, qrSize);
+
+      // Ajouter le texte en dessous
+      ctx.font = "20px Arial";
+      ctx.fillStyle = "#000000";
+      ctx.textAlign = "center";
+      ctx.fillText("SS4D Conference", qrSize / 2, qrSize + 25);
+
+      // Convertir en image PNG finale
+      const finalUrl = canvas.toDataURL("image/png");
+
+      // Créer un lien de téléchargement
+      const link = document.createElement("a");
+      link.download = `SS4D_QR_${transactionID}.png`;
+      link.href = finalUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+  } catch (err) {
+    console.error("Erreur lors de la génération du QR code:", err);
+  }
+};
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -1249,11 +1370,11 @@ const RegisterSection = () => {
         }
 
         // Détection de l'opérateur en fonction des préfixes
-        if (formattedTel.startsWith("24381") || formattedTel.startsWith("24382") || formattedTel.startsWith("24383") || formattedTel.startsWith("24384")) {
+        if (formattedTel.startsWith("24381") || formattedTel.startsWith("24382") || formattedTel.startsWith("24383") || formattedTel.startsWith("24386")) {
             payType = 2; // Vodacom
-        } else if (formattedTel.startsWith("24397") || formattedTel.startsWith("24399")) {
+        } else if (formattedTel.startsWith("24397") || formattedTel.startsWith("24399") || formattedTel.startsWith("24398") || formattedTel.startsWith("24396")) {
             payType = 1; // Airtel
-        } else if (formattedTel.startsWith("24385") || formattedTel.startsWith("24389") || formattedTel.startsWith("24384")) {
+        } else if (formattedTel.startsWith("24385") || formattedTel.startsWith("24389") || formattedTel.startsWith("24384") || formattedTel.startsWith("24380")) {
             payType = 3; // Orange
         } else {
             // Fallback si l'opérateur n'est pas reconnu. 
@@ -1325,7 +1446,8 @@ const RegisterSection = () => {
 
         if (data.ResponseStatus === "Success") {
             setPaymentStatus("success");
-            // Rediriger ou afficher un message de succès
+            setTransactionData(data);
+            // On ne télécharge plus automatiquement le QR code
         } else {
             setPaymentStatus("error");
             console.error("Payment error:", data);
@@ -1337,6 +1459,15 @@ const RegisterSection = () => {
         setIsProcessing(false);
     }
 };
+
+  // Fonction séparée pour gérer le clic sur le bouton de téléchargement
+  const handleDownloadQRCode = (e) => {
+    e.preventDefault(); // Empêche la soumission du formulaire
+    if (transactionData && transactionData.TransactionID) {
+      //downloadQRCode(transactionData.TransactionID);
+      downloadQRCodeWithLabel_viaCanvas(transactionData.TransactionID);
+    }
+  };
 
   return (
     <section id="register" className={`py-20 ${colors.bg}`}>
@@ -1580,8 +1711,22 @@ const RegisterSection = () => {
 
             {/* Message de statut */}
             {paymentStatus === "success" && (
-              <div className={`mt-4 p-4 rounded-lg bg-green-500/20 border border-green-500 text-green-300`}>
-                Payment successful! Your registration is confirmed.
+              <div className="mt-4">
+                <div className={`p-4 rounded-lg bg-green-500/20 border border-green-500 text-green-300 mb-4`}>
+                  Payment successful! Your registration is confirmed.
+                </div>
+                {transactionData && transactionData.TransactionID && (
+                  <div className="text-center">
+                    <p className={`${colors.text} mb-2`}>Your access ID: {transactionData.TransactionID}</p>
+                    <button
+                      type="button" // Important: type="button" pour éviter de soumettre le formulaire
+                      onClick={handleDownloadQRCode}
+                      className={`px-4 py-2 rounded-lg ${colors.accentBg} text-black font-medium`}
+                    >
+                      Download QR Code
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 
