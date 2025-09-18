@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import QRCode from 'qrcode'; // Import de la bibliothèque QRCode
 
 
@@ -1276,7 +1276,22 @@ const RegisterSection = () => {
   } catch (err) {
     console.error('Erreur génération QR (canvas):', err);
   }
-}
+  }
+
+  const downloadButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (paymentStatus === "success" && downloadButtonRef.current) {
+      // Petit délai pour s'assurer que le bouton est rendu
+      setTimeout(() => {
+        downloadButtonRef.current.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center'
+        });
+      }, 300);
+    }
+  }, [paymentStatus]);
+
 
   // Fonction pour générer et télécharger le QR code
   const downloadQRCode = async (transactionID) => {
@@ -1716,7 +1731,7 @@ const RegisterSection = () => {
                   Payment successful! Your registration is confirmed.
                 </div>
                 {transactionData && transactionData.TransactionID && (
-                  <div className="text-center">
+                  <div className="text-center" ref={downloadButtonRef}>
                     <p className={`${colors.text} mb-2`}>Your access ID: {transactionData.TransactionID}</p>
                     <button
                       type="button" // Important: type="button" pour éviter de soumettre le formulaire
