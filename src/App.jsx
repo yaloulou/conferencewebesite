@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import QRCode from "qrcode"; // Import de la bibliothèque QRCode
+import { translations } from "/src/translations.js";
 
 import {
   BrowserRouter as Router,
@@ -56,6 +57,41 @@ const DigitalNation2030 = () => {
   // States for speaker modal
   const [selectedSpeaker, setSelectedSpeaker] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // Language state
+  const [currentLanguage, setCurrentLanguage] = useState('en');
+  
+  // Get current translations
+  const t = translations[currentLanguage];
+  
+  // Language toggle function
+  const toggleLanguage = () => {
+    setCurrentLanguage(prev => prev === 'en' ? 'fr' : 'en');
+  };
+
+  // Function to translate speaker titles
+  const translateTitle = (title) => {
+    if (currentLanguage === 'fr' && t.speakers.titleTranslations[title]) {
+      return t.speakers.titleTranslations[title];
+    }
+    return title;
+  };
+
+  // Function to translate speaker bios using bioKey
+  const translateBio = (speaker) => {
+    if (currentLanguage === 'fr' && t.speakers.bioTranslations && speaker.bioKey && t.speakers.bioTranslations[speaker.bioKey]) {
+      return t.speakers.bioTranslations[speaker.bioKey];
+    }
+    return speaker.detailedBio;
+  };
+
+  // Function to translate speaker topics
+  const translateTopic = (topic) => {
+    if (currentLanguage === 'fr' && t.speakers.topicTranslations && t.speakers.topicTranslations[topic]) {
+      return t.speakers.topicTranslations[topic];
+    }
+    return topic;
+  };
 
   // Palette de couleurs
   const colors = {
@@ -119,10 +155,10 @@ const DigitalNation2030 = () => {
                 </p>
                 <div className={`${colors.card} p-3 sm:p-4 rounded-lg border ${colors.divider} mb-4 sm:mb-6`}>
                   <h3 className={`text-base sm:text-lg font-semibold ${colors.textBright} mb-2`}>
-                    Speaking Topic:
+                    {t.modal.speakingTopic}
                   </h3>
                   <p className={`${colors.text} italic text-sm sm:text-base md:text-lg leading-relaxed`}>
-                    "{speaker.topic}"
+                    "{translateTopic(speaker.topic)}"
                   </p>
                 </div>
 
@@ -156,10 +192,10 @@ const DigitalNation2030 = () => {
                 {speaker.detailedBio && (
                   <div className={`${colors.card} p-3 sm:p-4 rounded-lg border ${colors.divider} text-left`}>
                     <h3 className={`text-base sm:text-lg font-semibold ${colors.textBright} mb-2`}>
-                      Biography:
+                      {t.modal.biography}
                     </h3>
                     <div className={`${colors.text} text-sm sm:text-base leading-relaxed whitespace-pre-line`}>
-                      {speaker.detailedBio}
+                      {translateBio(speaker)}
                     </div>
                   </div>
                 )}
@@ -222,7 +258,7 @@ const DigitalNation2030 = () => {
       {isKeynote && (
         <div className="absolute top-3 left-3 z-10">
           <span className="bg-[#00FFFF] text-black text-xs font-bold px-2 py-1 rounded">
-            KEYNOTE
+            {t.speakers.executiveKeynote}
           </span>
         </div>
       )}
@@ -238,8 +274,8 @@ const DigitalNation2030 = () => {
         />
       </div>
       <h4 className="text-lg font-bold text-[#FFFFFF] text-center">{speaker.name}</h4>
-      <p className="text-[#00FFFF] text-sm text-center mb-1">{speaker.title}</p>
-      <p className="text-[#E0E0E0] text-sm text-center italic mb-2">"{speaker.topic}"</p>
+      <p className="text-[#00FFFF] text-sm text-center mb-1">{translateTitle(speaker.title)}</p>
+      <p className="text-[#E0E0E0] text-sm text-center italic mb-2">"{translateTopic(speaker.topic)}"</p>
       <div className="flex justify-center space-x-2 mb-2">
         {speaker?.social?.twitter && (
           <a
@@ -274,7 +310,7 @@ const DigitalNation2030 = () => {
           cursor-not-allowed
         ">
           <span className="mr-1">⏳</span>
-          Coming Soon
+          {t.speakers.comingSoon}
         </div>
       ) : (
         <button
@@ -294,7 +330,7 @@ const DigitalNation2030 = () => {
           style={{ backgroundColor: "#000", color: "#00FFFF" }}
         >
           <span className="mr-1">→</span>
-          More details
+          {t.speakers.viewDetails}
         </button>
       )}
     </div>
@@ -329,7 +365,7 @@ const DigitalNation2030 = () => {
               outline-none
             `}
           >
-            More speakers ({speakers.length - visibleCount} available)
+            {t.speakers.loadMore} ({speakers.length - visibleCount} available)
           </button>
         </div>
       )}
@@ -540,9 +576,19 @@ const DigitalNation2030 = () => {
                       : "hover:text-cyan-300"
                   }`}
                 >
-                  {capitalizeFirstLetter(item.label)}
+                  {capitalizeFirstLetter(t.nav[item.id] || item.label)}
                 </div>
               ))}
+              
+              {/* Language Selector */}
+              <button
+                onClick={toggleLanguage}
+                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white font-medium transition-colors"
+              >
+                <span className="text-sm">{currentLanguage.toUpperCase()}</span>
+                <span className="text-xs opacity-70">|</span>
+                <span className="text-xs opacity-70">{currentLanguage === 'en' ? 'FR' : 'EN'}</span>
+              </button>
             </div>
 
             {/* Menu Mobile Toggle */}
@@ -576,9 +622,23 @@ const DigitalNation2030 = () => {
                         : "hover:text-cyan-300 hover:bg-gray-800"
                     }`}
                   >
-                    {capitalizeFirstLetter(item.label)}
+                    {capitalizeFirstLetter(t.nav[item.id] || item.label)}
                   </div>
                 ))}
+                
+                {/* Language Selector Mobile */}
+                <div className="pt-2 border-t border-gray-700 mt-2">
+                  <button
+                    onClick={() => {
+                      toggleLanguage();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="w-full flex items-center justify-between py-3 px-2 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white font-bold transition-colors"
+                  >
+                    <span>Language / Langue</span>
+                    <span className="text-sm">{currentLanguage.toUpperCase()} → {currentLanguage === 'en' ? 'FR' : 'EN'}</span>
+                  </button>
+                </div>
               </div>
             </div>
           )}
@@ -660,8 +720,8 @@ const DigitalNation2030 = () => {
             <div
               className={`mb-6 md:mb-8 ${colors.card} ${colors.text} px-4 md:px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider border ${colors.accentBorder} ${colors.hoverGlow} transform transition-all hover:scale-105`}
             >
-              <span className="hidden sm:inline">November 11-13, 2025 • Kinshasa-DRC, Heart of Africa</span>
-              <span className="sm:hidden">Nov 11-13, 2025 • Kinshasa, DRC</span>
+              <span className="hidden sm:inline">{t.hero.date} • {t.hero.location}</span>
+              <span className="sm:hidden">{t.hero.date} • Kinshasa</span>
             </div>
 
             {/* Hook accrocheur centré RDC */}
@@ -682,7 +742,7 @@ const DigitalNation2030 = () => {
             <h1
               className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6 ${colors.textBright} leading-tight max-w-5xl px-4 text-center`}
             >
-              Digital Transformation for a Secure and Modern Future
+              {t.hero.title}
             </h1>
 
             {/* Sous-texte descriptif */}
@@ -696,17 +756,17 @@ const DigitalNation2030 = () => {
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 mb-6 md:mb-10 text-sm px-4">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#00FFFF]" />
-                <span className={colors.text}>3 Days</span>
+                <span className={colors.text}>{t.hero.stats.days}</span>
               </div>
               <div className="hidden sm:block w-px h-4 bg-gray-600"></div>
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#00FFFF]" />
-                <span className={colors.text}>50+ Speakers</span>
+                <span className={colors.text}>{t.hero.stats.speakers}</span>
               </div>
               <div className="hidden sm:block w-px h-4 bg-gray-600"></div>
               <div className="flex items-center gap-2">
                 <Mic className="w-4 h-4 sm:w-5 sm:h-5 text-[#00FFFF]" />
-                <span className={colors.text}>500+ Attendees</span>
+                <span className={colors.text}>{t.hero.stats.attendees}</span>
               </div>
             </div>
 
@@ -734,7 +794,7 @@ const DigitalNation2030 = () => {
                   color: "#FFFFFF",
                 }}
               >
-                REGISTER NOW
+                {t.hero.registerBtn}
               </button>
 
               <button
@@ -753,7 +813,7 @@ const DigitalNation2030 = () => {
                   }
                 }}
               >
-                VIEW PROGRAM
+                {t.hero.viewProgramBtn}
               </button>
             </div>
           </div>
@@ -776,16 +836,16 @@ const SpeakersSection = () => {
       <div className="max-w-6xl mx-auto px-6"> {/* plus de padding à gauche/droite */}
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold mb-3 text-[#FFFFFF]">
-            <span className="text-[#00FFFF]">SPEAKERS</span>
+            <span className="text-[#00FFFF]">{t.speakers.title}</span>
           </h2>
           <div className="w-20 h-1 bg-[#00FFFF] mx-auto mb-4"></div>
           <p className="text-lg text-[#E0E0E0] max-w-3xl mx-auto">
-            Experts and visionaries sharing insights on digital transformation
+          {t.speakers.subtitle}
           </p>
         </div>
-        <SpeakerGrid speakers={speakersExecutif} gridLabel="Executive Leadership" speakerType="executif" />
-        <SpeakerGrid speakers={speakers} gridLabel="Global Expert Leaders" speakerType="principaux" />
-        <SpeakerGrid speakers={congoleseVisionnary} gridLabel="Congolese Transformation Leaders and Catalysts" speakerType="visionnaires" />
+        <SpeakerGrid speakers={speakersExecutif} gridLabel={t.speakers.executivePanel} speakerType="executif" />
+        <SpeakerGrid speakers={speakers} gridLabel={t.speakers.globalExperts} speakerType="principaux" />
+        <SpeakerGrid speakers={congoleseVisionnary} gridLabel={t.speakers.congoleseVisionaries} speakerType="visionnaires" />
       </div>
     </section>
   );
@@ -810,300 +870,300 @@ const ProgramSection = () => {
 
     const schedule = [
       {
-        day: "Day 1: Setting the Stage for Transformation",
+        day: "day1",
         date: "",
         events: [
           {
             time: "07:30 - 08:15",
-            title: "Registration and Breakfast Networking",
+            title: "registration_breakfast",
             type: "break",
           },
           {
             time: "08:30 - 09:00",
-            title: `Opening Keynote: Security and Digital Sovereignty: An Imperative for a Modern Nation`,
+            title: "opening_keynote",
             type: "keynote",
             speaker: "Desire Cashmir Kologele Eberande | Moderator: Introduction by Wilmot Gibson",
           },
           {
             time: "09:00 - 09:30",
-            title: "American Ambassador Speech",
+            title: "ambassador_speech_us",
             type: "keynote",
           },
           {
             time: "09:30 - 10:15",
-            title: `The Strategic Role of Central Banking`,
+            title: "strategic_banking",
             type: "keynote",
             speaker: "André Wameso | Moderator: Lucien B",
           },
           {
             time: "10:15 - 10:30",
-            title: "British Ambassador Speech",
+            title: "ambassador_speech_uk",
             type: "keynote",
           },
           {
             time: "10:30 - 11:15",
-            title: `Strategy for DRC Investment and Global Engagement`,
+            title: "drc_investment",
             type: "keynote",
             speaker: "JOE DUMBI KABANGU | Moderator: Antoine Kayisu",
           },
           {
             time: "11:15 - 11:30",
-            title: "Break",
+            title: "break_morning",
             type: "break",
           },
           {
             time: "11:30 - 12:30",
-            title: `Executive Panel: "Leading in the Digital Age"`,
+            title: "executive_panel",
             type: "panel",
             speaker: `Sabune Winkler (Health Services); Pankaj Chugh (Disruptive Technologies); Min. Louis Watum Kabamba (Mining and Energy); Min. Intérieur Jacquemain Shabani; Hugues Bosala (Rawbank); Fellly Samuna (Industries) | Moderator: Bijou Nsumbu`,
           },
           {
             time: "12:30 - 13:30",
-            title: "Lunch & Expo Hall Tour",
+            title: "lunch_expo",
             type: "networking",
           },
           {
             time: "13:30 - 14:30",
-            title: "Breakout Sessions (Choose from Tracks A, B, C or D)",
+            title: "breakout_morning",
             type: "workshop",
             tracks: [
-              "Track A: Cybersecurity Fundamentals Across Critical Industries - Elizabeth Stevens / Alberto",
-              "Track B: Modernizing Legacy Infrastructure: Cloud vs. Hybrid Models - Eragy Bashonga Alpha, Pankaj Chugh, Omar",
-              "Track C: Developing Future-Ready Talent in DRC - Shanam Kapoor (Video)",
-              "Track D: Digital Identity & E-Services - Eli NKumbi"
+              "cybersecurity_fundamentals",
+              "legacy_infrastructure", 
+              "future_talent",
+              "digital_identity"
             ]
           },
           {
             time: "14:30 - 14:45",
-            title: "Break",
+            title: "break_afternoon",
             type: "break",
           },
           {
             time: "14:45 - 15:30",
-            title: "Breakout Sessions (Choose from Tracks A, B, C or D)",
+            title: "breakout_afternoon",
             type: "workshop",
             tracks: [
-              "Track A: Mobile Money",
-              "Track B: Development and Manufacture of Vaccine - Aaron Winkler",
-              "Track C: Securing the Digital Nation and Public",
-              "Track D: Future of Telecommunications - Barry"
+              "mobile_money",
+              "vaccine_development",
+              "digital_security",
+              "telecom_future"
             ]
           },
           {
             time: "15:30 - 15:45",
-            title: "Break",
+            title: "break_afternoon",
             type: "break",
           },
           {
             time: "15:45 - 16:30",
-            title: "Industry-Specific Sessions",
+            title: "industry_sessions",
             type: "session",
             tracks: [
-              "Telecommunications: Modernization of the DRC - Malid (Africell)",
-              "Financial Services & Government: Balancing Innovation and Data Security - Alberto Urena, Ainsley Rattray, Desire Kazadi",
-              "Health Services: Satellite Observation of the DRC - FREDDY BANGELESA"
+              "telecom_modernization",
+              "financial_security",
+              "satellite_observation"
             ]
           },
           {
             time: "16:30 - 17:30",
-            title: "Networking and Exhibit Hall",
+            title: "networking_exhibits",
             type: "networking",
           },
           {
             time: "18:00 - 18:15",
-            title: "Keynote Speaker",
+            title: "evening_keynote",
             type: "keynote",
             speaker: "Inspirational leader or technology innovator",
           },
           {
             time: "18:00 - 19:30",
-            title: "Networking Reception & Welcome Dinner",
+            title: "welcome_dinner",
             type: "networking",
             speaker: "All attendees",
           },
         ],
       },
       {
-        day: "Day 2: Deep Dives & Technical Workshops",
+        day: "day2",
         date: "",
         events: [
           {
             time: "07:30 - 08:15",
-            title: "Networking Breakfast",
+            title: "breakfast_networking",
             type: "break",
           },
           {
             time: "08:30 - 09:15",
-            title: `Keynote Session: The Evolving Cyber Threat Landscape`,
+            title: "cyber_threats",
             type: "keynote",
             speaker: `Ainsley Rattray | Moderator: Grace Ngoya`,
           },
           {
             time: "09:30 - 10:15",
-            title: "Keynote: Strategy for Modernizing Mining and Energy Industries for DRC",
+            title: "mining_energy",
             type: "keynote",
             speaker: "Jean-Marie Kande Tumba | Moderator: Norbert Wupona",
           },
           {
             time: "10:30 - 11:15",
-            title: "Keynote: Technology and Healthcare",
+            title: "tech_healthcare",
             type: "keynote",
             speaker: "Aaron Winkler | Moderator: Sabune W.",
           },
           {
             time: "11:15 - 11:30",
-            title: "Networking Break",
+            title: "networking_break",
             type: "break",
           },
           {
             time: "11:30 - 12:15",
-            title: "Concurrent Workshops & Hands-On Labs (Advanced Track Focus)",
+            title: "advanced_workshops",
             type: "workshop",
             tracks: [
-              "Track A: Building a Zero-Trust Network - Alberto Urena (SecRails)",
-              "Track B: Cloud Technology and Solutions - Omar Fahnbullah",
-              "Track C: Nyota Connect: Telemedicine in DRC - Dr. PATRICK NGOMA",
-              "Track D: E-Mining Cadastre & Traceability"
+              "zero_trust",
+              "cloud_solutions",
+              "telemedicine",
+              "mining_cadastre"
             ]
           },
           {
             time: "12:15 - 13:30",
-            title: "Lunch and Exhibit Hall",
+            title: "lunch_exhibits",
             type: "networking",
           },
           {
             time: "13:30 - 14:15",
-            title: "Panel / Breakout Sessions",
+            title: "panel_breakout",
             type: "panel",
             tracks: [
-              "Track A: FinTech Innovations",
-              "Track B: Microservices & Containerization - Pankaj Chugh (JazzX AI)",
-              "Track C: Certifications in Telecom & IT - Wilmot Gibson, Barry, Lucien, Johnnathan",
-              "Track D: Cybersecurity - Elizabeth Stephens, Ainsley, Omar, Alberto"
+              "fintech_innovations",
+              "microservices",
+              "it_certifications",
+              "cybersecurity_panel"
             ]
           },
           {
             time: "14:15 - 14:30",
-            title: "Networking Break",
+            title: "networking_break",
             type: "break",
           },
           {
             time: "14:30 - 15:15",
-            title: `Fireside Chat: "Securing the Future of Digital Health & Banking"`,
+            title: "fireside_health",
             type: "session",
             speaker: "Aaron Winkler, Ainsley | Moderator: Industry journalist or analyst TBD",
           },
           {
             time: "14:30 - 15:15",
-            title: `Fireside Chat: "Securing the Future of Telecommunications Network and Data Centers"`,
+            title: "fireside_telecom",
             type: "session",
             speaker: "Congolese, Alberto",
           },
           {
             time: "15:15 - 15:30",
-            title: "Break",
+            title: "break_afternoon",
             type: "break",
           },
           {
             time: "15:30 - 16:15",
-            title: "Panel / Breakout Sessions",
+            title: "panel_sessions",
             type: "panel",
             tracks: [
-              "Track A: Securing the Digital Nation - Jean Claude Bukasa",
-              "Track B: AgriTech: Remote Sensing & Digital Value Chains - Tisya Mukuna",
-              "Track C: Cybersecurity Panel - Ainsley, Elisabeth, Alberto, Jean Claude Bukasa",
-              "Track D: Large-Scale Training: Coding, Cybersecurity, Data & AI - Elisabeth, Lucien"
+              "digital_nation_security",
+              "agritech",
+              "cyber_panel",
+              "large_scale_training"
             ]
           },
           {
             time: "16:15 - 17:30",
-            title: "Exhibit Hall Tour",
+            title: "exhibit_tour",
             type: "networking",
           },
         ],
       },
       {
-        day: "Day 3: Future Planning & Collaborative Strategies",
+        day: "day3",
         date: "",
         events: [
           {
             time: "08:00 - 09:30",
-            title: `Keynote: Innovation & Emerging Technologies: AI, Blockchain, and Beyond`,
+            title: "innovation_keynote",
             type: "keynote",
             speaker: "Benjamin Katabuka (KoBold)",
           },
           {
             time: "09:30 - 09:48",
-            title: "Mining: Real-Time Analytics with IoT and Predictive Maintenance",
+            title: "mining_analytics",
             type: "session",
             speaker: "Prof Nzuru (Ivanoe)",
           },
           {
             time: "09:48 - 10:06",
-            title: "Health Services: Enhancing Patient Outcomes Through Telemedicine & AI",
+            title: "health_telemedicine",
             type: "session",
             speaker: "Sabune Turner",
           },
           {
             time: "10:06 - 10:24",
-            title: "Banking: Digital-First Banking Models & Customer-Centric Platforms",
+            title: "banking_digital",
             type: "session",
             speaker: "Ainsley Rattray",
           },
           {
             time: "10:24 - 10:42",
-            title: "Civil & Electrical Engineering: Smart Cities, Smart Grids",
+            title: "smart_cities",
             type: "session",
             speaker: "Wilmot Gibson",
           },
           {
             time: "10:42 - 11:00",
-            title: "Telecommunications & IT: 5G & Edge Computing",
+            title: "telecom_5g",
             type: "session",
             speaker: "Omar Fahnbullah",
           },
           {
             time: "11:00 - 11:15",
-            title: "Networking Break",
+            title: "networking_break",
             type: "break",
           },
           {
             time: "11:15 - 12:00",
-            title: "Cross-Industry Collaboration Workshops",
+            title: "collaboration_workshop",
             type: "workshop",
             speaker: "Eragy Bashonga Alpha",
           },
           {
             time: "12:00 - 12:45",
-            title: "Policy Recommendations and Standardization Discussion",
+            title: "policy_discussion",
             type: "workshop",
             speaker: "TBD",
           },
           {
             time: "13:00 - 13:45",
-            title: "Networking Lunch",
+            title: "networking_lunch",
             type: "networking",
           },
           {
             time: "13:00 - 13:45",
-            title: `Leadership Panel: Sustaining Innovation & Talent in a Rapidly Changing World`,
+            title: "leadership_panel",
             type: "panel",
             speaker: "Barry Williams, Pankaj Chugh",
           },
           {
             time: "13:00 - 13:45",
-            title: `Panel Discussion: The Future of Mining and Energy Technologies in the DRC`,
+            title: "mining_panel",
             type: "panel",
             speaker: "Prof Nzuru (Ivanoe) | Moderator: Wilmot Gibson",
           },
           {
             time: "13:00 - 13:45",
-            title: "Cybersecurity Resilience Workshop",
+            title: "cybersecurity_workshop",
             type: "workshop",
           },
           {
             time: "15:45 - 17:00",
-            title: "Expo Hall Open",
+            title: "expo_open",
             type: "networking",
           },
         ],
@@ -1144,13 +1204,13 @@ const ProgramSection = () => {
             <h2
               className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 ${colors.textBright}`}
             >
-              CONFERENCE <span className={colors.accent}>PROGRAM</span>
+              {t.program.title}
             </h2>
             <div className={`w-16 sm:w-20 md:w-24 h-1 ${colors.accentBg} mx-auto mb-4 sm:mb-6`}></div>
             <p
               className={`text-base sm:text-lg md:text-xl ${colors.text} max-w-3xl mx-auto leading-relaxed px-4`}
             >
-              Three immersive days of keynotes, panels, workshops, and networking opportunities
+              {t.program.subtitle}
             </p>
           </div>
 
@@ -1175,7 +1235,7 @@ const ProgramSection = () => {
                     <h3
                       className={`text-lg sm:text-xl font-bold ${colors.textBright} mb-1 sm:mb-2`}
                     >
-                      {day.day.split(":")[0]}
+                      {t.program.days[day.day]}
                     </h3>
                     <p className={`text-xs sm:text-sm ${colors.text} opacity-80 mb-2 sm:mb-3`}>
                       {day.date}
@@ -1189,7 +1249,7 @@ const ProgramSection = () => {
                         }`}
                       />
                       <span className={`ml-2 text-xs sm:text-sm ${colors.accent} font-medium`}>
-                        {openDays[dayIndex] ? 'Hide Schedule' : 'View Schedule'}
+                        {openDays[dayIndex] ? t.program.hideSchedule : t.program.viewSchedule}
                       </span>
                     </div>
                   </button>
@@ -1224,7 +1284,7 @@ const ProgramSection = () => {
                             <h4
                               className={`text-xs sm:text-sm font-bold ${colors.textBright} mb-1 leading-tight`}
                             >
-                              {event.title}
+                              {t.program.events[event.title]}
                             </h4>
                             {event.speaker && (
                               <p
@@ -1240,7 +1300,7 @@ const ProgramSection = () => {
                                     key={index}
                                     className={`text-xs ${colors.text} opacity-70 leading-tight mt-1`}
                                   >
-                                    • {track}
+                                    • {t.program.tracks[track]}
                                   </p>
                                 ))}
                               </div>
@@ -1263,21 +1323,21 @@ const ProgramSection = () => {
             <h4
               className={`text-lg sm:text-xl font-bold ${colors.textBright} mb-4 sm:mb-6 text-center`}
             >
-              Event Legend
+              {t.program.eventLegend}
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
               {[
-                { type: "keynote", label: "Keynote", color: "bg-blue-500" },
-                { type: "panel", label: "Panel", color: "bg-purple-500" },
-                { type: "workshop", label: "Workshop", color: "bg-green-500" },
-                { type: "session", label: "Session", color: "bg-indigo-500" },
+                { type: "keynote", label: t.program.eventTypes.keynote, color: "bg-blue-500" },
+                { type: "panel", label: t.program.eventTypes.panel, color: "bg-purple-500" },
+                { type: "workshop", label: t.program.eventTypes.workshop, color: "bg-green-500" },
+                { type: "session", label: t.program.eventTypes.session, color: "bg-indigo-500" },
                 {
                   type: "networking",
-                  label: "Networking",
+                  label: t.program.eventTypes.networking,
                   color: "bg-orange-500",
                 },
-                { type: "break", label: "Break", color: "bg-gray-500" },
-                { type: "closing", label: "Closing", color: "bg-yellow-500" },
+                { type: "break", label: t.program.eventTypes.break, color: "bg-gray-500" },
+                { type: "closing", label: t.program.eventTypes.closing, color: "bg-yellow-500" },
               ].map((item, index) => (
                 <div
                   key={index}
@@ -1297,7 +1357,7 @@ const ProgramSection = () => {
               download="Digital-Nation-2030-Conference-Schedule.xlsx"
               className={`${colors.accentBg} text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:scale-105 transition-transform ${colors.hoverGlow} inline-block w-full sm:w-auto text-center touch-manipulation`}
             >
-              DOWNLOAD FULL PROGRAM
+              {t.program.downloadProgram}
             </a>
           </div>
         </div>
@@ -1367,18 +1427,18 @@ const ProgramSection = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className={`text-4xl font-bold mb-4 ${colors.textBright}`}>
-              OUR <span className={colors.accent}>SPONSORS</span>
+              {t.sponsors.title}
             </h2>
             <div className={`w-20 h-1 ${colors.accentBg} mx-auto mb-6`}></div>
             <p className={`text-xl ${colors.text} max-w-3xl mx-auto`}>
-              Leading organizations supporting digital transformation in Africa
+              {t.sponsors.subtitle}
             </p>
           </div>
 
           {/* Organisateur Principal */}
           <div className="text-center mb-20">
             <h3 className={`text-3xl font-bold mb-8 ${colors.textBright}`}>
-              ORGANIZED BY
+              {t.sponsors.organizedBy}
             </h3>
             <div className="flex justify-center">
               <div className={`${colors.card} p-8 rounded-2xl border-2 ${colors.accentBorder} bg-gradient-to-br from-[#1a1a2e] to-[#16213e] shadow-2xl max-w-md`}>
@@ -1394,7 +1454,7 @@ const ProgramSection = () => {
                   SS4D
                 </h4>
                 <p className={`text-sm ${colors.text} opacity-80`}>
-                  Digital Transformation Leader
+                  {t.sponsors.organizerDescription}
                 </p>
               </div>
             </div>
@@ -1410,7 +1470,9 @@ const ProgramSection = () => {
                   <h3
                     className={`text-2xl font-bold mb-12 ${colors.textBright} uppercase tracking-wider`}
                   >
-                    {tier} Sponsors
+                    {tier === "Platinum" ? t.sponsors.platinumSponsors : 
+                     tier === "Gold" ? t.sponsors.goldSponsors :
+                     t.sponsors.silverSponsors}
                   </h3>
                   <div className="flex flex-wrap justify-center items-center gap-12">
                     {tierSponsors.map((sponsor, index) => (
@@ -1477,12 +1539,11 @@ const ProgramSection = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className={`text-4xl font-bold mb-4 ${colors.textBright}`}>
-            CONFERENCE <span className={colors.accent}>LOCATION</span>
+            {t.location.title}
           </h2>
           <div className={`w-20 h-1 ${colors.accentBg} mx-auto mb-6`}></div>
           <p className={`text-xl ${colors.text} max-w-3xl mx-auto`}>
-            Join us at the prestigious Pullman Kinshasa for Africa's premier
-            digital transformation event
+            {t.location.subtitle}
           </p>
         </div>
 
@@ -1505,7 +1566,7 @@ const ProgramSection = () => {
               <div className="flex items-start">
                 <Calendar className={`w-5 h-5 mr-3 ${colors.accent} mt-1`} />
                 <div>
-                  <p className={colors.text}>November 11-13, 2025</p>
+                  <p className={colors.text}>{t.hero.date}</p>
                   <p className={`text-sm ${colors.text} opacity-80`}>
                     8:00 AM - 6:00 PM daily
                   </p>
@@ -1533,7 +1594,7 @@ const ProgramSection = () => {
                 className={`${colors.accentBg} text-black px-6 py-3 rounded-lg font-bold ${colors.hoverGlow} transition-all flex items-center`}
               >
                 <MapPin className="w-4 h-4 mr-2" />
-                GET DIRECTIONS
+                {t.location.getDirections}
               </a>
               {/* <a
               href="https://www.accorhotels.com/hotel/B79-pullman-kinshasa/index.en.shtml"
@@ -1599,7 +1660,7 @@ const ProgramSection = () => {
   );
   // Composant Register
   const RegisterSection = () => {
-    const [selectedTier, setSelectedTier] = useState("Standard");
+    const [selectedTier, setSelectedTier] = useState("standard");
     const [paymentMethod, setPaymentMethod] = useState("mobile");
     const [formData, setFormData] = useState({
       firstName: "",
@@ -1621,28 +1682,26 @@ const ProgramSection = () => {
 
     const tiers = [
       {
-        name: "Standard",
+        name: "standard",
         price: "$150",
         amount: "150",
-        features: ["3-Day Access", "Conference Materials", "Coffee Breaks"],
+        features: t.register.tiers.standard.features,
+        displayName: t.register.tiers.standard.name,
       },
       {
-        name: "Premium",
+        name: "premium",
         price: "$250",
         amount: "250",
-        features: [
-          "3-Day Access",
-          "Conference Materials",
-          "Lunches",
-          "VIP Access",
-        ],
+        features: t.register.tiers.premium.features,
+        displayName: t.register.tiers.premium.name,
         popular: true,
       },
       {
-        name: "Student",
+        name: "student",
         price: "$50",
         amount: "50",
-        features: ["3-Day Access", "Conference Materials"],
+        features: t.register.tiers.student.features,
+        displayName: t.register.tiers.student.name,
       },
     ];
 
@@ -1955,11 +2014,10 @@ const ProgramSection = () => {
             <h2
               className={`text-3xl md:text-4xl font-bold mb-6 ${colors.textBright}`}
             >
-              READY TO <span className={colors.accent}>JOIN US</span>?
+              {t.register.detailsTitle}
             </h2>
             <p className={`${colors.text} max-w-2xl mx-auto`}>
-              Choose your registration package and complete your payment
-              securely.
+              Choose your registration tier and secure your spot
             </p>
           </div>
 
@@ -1981,12 +2039,12 @@ const ProgramSection = () => {
                   <div
                     className={`${colors.accentBg} text-black text-xs font-bold px-3 py-1 rounded-full inline-block mb-4`}
                   >
-                    MOST POPULAR
+                    {t.register.badges.mostPopular}
                   </div>
                 )}
 
                 <h3 className={`text-xl font-bold mb-2 ${colors.textBright}`}>
-                  {tier.name}
+                  {tier.displayName}
                 </h3>
                 <p className={`text-3xl font-bold mb-6 ${colors.accent}`}>
                   {tier.price}
@@ -2031,7 +2089,7 @@ const ProgramSection = () => {
                   <label
                     className={`block text-sm font-medium mb-2 ${colors.text}`}
                   >
-                    First Name *
+                    {t.register.form.firstName}
                   </label>
                   <input
                     type="text"
@@ -2046,7 +2104,7 @@ const ProgramSection = () => {
                   <label
                     className={`block text-sm font-medium mb-2 ${colors.text}`}
                   >
-                    Last Name *
+                    {t.register.form.lastName}
                   </label>
                   <input
                     type="text"
@@ -2063,7 +2121,7 @@ const ProgramSection = () => {
                 <label
                   className={`block text-sm font-medium mb-2 ${colors.text}`}
                 >
-                  Email Address *
+                  {t.register.form.email}
                 </label>
                 <input
                   type="email"
@@ -2079,7 +2137,7 @@ const ProgramSection = () => {
                 <label
                   className={`block text-sm font-medium mb-2 ${colors.text}`}
                 >
-                  Phone Number *
+                  {t.register.form.phone}
                 </label>
                 <input
                   type="tel"
@@ -2097,7 +2155,7 @@ const ProgramSection = () => {
                 <label
                   className={`block text-sm font-medium mb-4 ${colors.text}`}
                 >
-                  Payment Method *
+                  {t.register.form.paymentMethod}
                 </label>
                 <div className="flex space-x-4">
                   <button
@@ -2109,7 +2167,7 @@ const ProgramSection = () => {
                         : `border ${colors.divider} ${colors.text}`
                     }`}
                   >
-                    Mobile Money
+                    {t.register.form.mobileMoney}
                   </button>
                   <button
                     type="button"
@@ -2120,7 +2178,7 @@ const ProgramSection = () => {
                         : `border ${colors.divider} ${colors.text}`
                     }`}
                   >
-                    Credit Card
+                    {t.register.form.creditCard}
                   </button>
                 </div>
               </div>
@@ -2136,7 +2194,7 @@ const ProgramSection = () => {
                   <label
                     className={`block text-sm font-medium mb-2 ${colors.text}`}
                   >
-                    Amount (USD)
+                    {t.register.form.amount}
                   </label>
                   <input
                     type="text"
@@ -2149,7 +2207,7 @@ const ProgramSection = () => {
                   <label
                     className={`block text-sm font-medium mb-2 ${colors.text}`}
                   >
-                    Reference Number
+                    {t.register.form.reference}
                   </label>
                   <input
                     type="text"
@@ -2192,10 +2250,10 @@ const ProgramSection = () => {
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       ></path>
                     </svg>
-                    Processing Payment...
+                    {t.register.buttons.processing}
                   </>
                 ) : (
-                  `PAY NOW - $${formData.amount}`
+                  `${t.register.buttons.payNow} - $${formData.amount}`
                 )}
               </button>
 
@@ -2205,19 +2263,19 @@ const ProgramSection = () => {
                   <div
                     className={`p-4 rounded-lg bg-green-500/20 border border-green-500 text-green-300 mb-4`}
                   >
-                    Payment successful! Your registration is confirmed.
+                    {t.register.messages.success}
                   </div>
                   {transactionData && transactionData.TransactionID && (
                     <div className="text-center" ref={downloadButtonRef}>
                       <p className={`${colors.text} mb-2`}>
-                        Your access ID: {transactionData.TransactionID}
+                        {t.register.messages.accessId} {transactionData.TransactionID}
                       </p>
                       <button
                         type="button" // Important: type="button" pour éviter de soumettre le formulaire
                         onClick={handleDownloadQRCode}
                         className={`px-4 py-2 rounded-lg ${colors.accentBg} text-black font-medium`}
                       >
-                        Download QR Code
+                        {t.register.buttons.downloadQR}
                       </button>
                     </div>
                   )}
@@ -2228,7 +2286,7 @@ const ProgramSection = () => {
                 <div
                   className={`mt-4 p-4 rounded-lg bg-red-500/20 border border-red-500 text-red-300`}
                 >
-                  Payment failed. Please try again or contact support.
+                  {t.register.messages.error}
                 </div>
               )}
             </form>
@@ -2366,7 +2424,7 @@ const ProgramSection = () => {
                     <p
                       className={`${colors.text} whitespace-pre-line text-sm md:text-base`}
                     >
-                      {speaker.detailedBio || speaker.bio}
+                      {translateBio(speaker)}
                     </p>
                   </div>
                 </div>
@@ -2382,32 +2440,59 @@ const ProgramSection = () => {
   // Composant Footer
   const Footer = () => (
     <footer className={`py-12 ${colors.card} border-t ${colors.divider}`}>
-      <div className=" mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
-            <div className="flex items-center mb-4">
-              <Cpu className={`h-8 w-8 ${colors.accent} mr-3`} />
-              <span className={`text-xl font-bold ${colors.textBright}`}>
-                DIGITAL NATION 2030
-              </span>
-            </div>
-            <p className={`text-sm ${colors.text}`}>
-              The premier conference on digital transformation in Africa.
+            <span className={`text-xl font-bold ${colors.textBright} mb-6 block`}>
+              {t.footer.title}
+            </span>
+            <p className={`text-sm ${colors.text} mb-6`}>
+              {t.footer.description}
             </p>
+            
+            {/* Section Organisé par */}
+            <div className="mt-6">
+              <p className={`text-sm font-semibold ${colors.accent} mb-3`}>
+                {t.footer.organizedBy}
+              </p>
+              <div className="flex items-center">
+                <img 
+                  src="/logo-SS4D.png" 
+                  alt="SS4D Logo" 
+                  className="h-12 w-auto"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    // Fallback to CPU icon if image fails to load
+                    const fallback = document.createElement('div');
+                    fallback.className = `h-12 w-12 ${colors.accent} flex items-center justify-center border border-current rounded`;
+                    fallback.innerHTML = '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path></svg>';
+                    e.target.parentNode.appendChild(fallback);
+                  }}
+                />
+              </div>
+            </div>
           </div>
 
           <div>
             <h3 className={`font-bold ${colors.textBright} mb-4`}>
-              QUICK LINKS
+              {t.footer.quickLinks}
             </h3>
             <ul className="space-y-2">
-              {["Home", "Speakers", "Program", "Venue"].map((item) => (
-                <li key={item}>
+              {Object.entries(t.footer.links).map(([key, value]) => (
+                <li key={key}>
                   <a
-                    href="#"
-                    className={`text-sm ${colors.text} hover:${colors.accent} transition-colors`}
+                    href={`#${key === 'venue' ? 'location' : key === 'home' ? '' : key}`}
+                    className={`text-sm ${colors.text} hover:${colors.accent} transition-colors cursor-pointer`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const targetId = key === 'venue' ? 'location' : key === 'home' ? 'home' : key;
+                      const element = document.getElementById(targetId);
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }}
                   >
-                    {item}
+                    {value}
                   </a>
                 </li>
               ))}
@@ -2415,7 +2500,7 @@ const ProgramSection = () => {
           </div>
 
           <div>
-            <h3 className={`font-bold ${colors.textBright} mb-4`}>CONTACT</h3>
+            <h3 className={`font-bold ${colors.textBright} mb-4`}>{t.footer.contact}</h3>
             <ul className={`space-y-2 text-sm ${colors.text}`}>
               <li className="flex items-start">
                 <Mail className="w-4 h-4 mr-2 mt-0.5" />
@@ -2429,7 +2514,7 @@ const ProgramSection = () => {
           </div>
 
           <div>
-            <h3 className={`font-bold ${colors.textBright} mb-4`}>FOLLOW US</h3>
+            <h3 className={`font-bold ${colors.textBright} mb-4`}>{t.footer.followUs}</h3>
             <div className="flex space-x-4">
               {[Twitter, Linkedin, Youtube].map((Icon, i) => (
                 <a
@@ -2447,7 +2532,7 @@ const ProgramSection = () => {
         <div
           className={`pt-8 border-t ${colors.divider} text-center text-sm ${colors.text}`}
         >
-          © 2025 Digital Nation 2030. All rights reserved.
+          {t.footer.copyright}
         </div>
       </div>
     </footer>
