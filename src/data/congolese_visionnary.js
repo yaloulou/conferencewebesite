@@ -3,7 +3,7 @@ const congoleseVisionnary = [
   {
   id: 108,
   name: "Freddy Bangelesa",
-  title: "Professor, School of Public Health, Kinshansa and Senior Researcher, German National Weather Service",
+  title: "Professor, School of Public Health, Kinshansa & Senior Researcher, German National Weather Service",
   topic: "AI and pandemic intelligence in DRC",
   bioKey: "freddy_bangelesa",
   detailedBio: "Freddy Bangelesa is  Professor at the School of Public Health, University of Kinshasa. He also works as a Senior Researcher at the German National Weather Service and as an affiliated researcher at the University of Würzburg (Germany). His research focuses on the impacts of climate change on health and food security, as well as disease modeling. Currently, he collaborates with the University of Washington’s Institute for Health Metrics and Evaluation (IHME), where is also partially affiliated, on spatio-temporal Bayesian modeling of immunization coverage in the DRC and is conducting an Ebola spillover modeling study using machine learning under KSPH and in collaboration with CDC Atlanta.",
