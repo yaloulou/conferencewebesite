@@ -6,13 +6,13 @@ const speakersExecutif = [
   title: "Governor, Central Bank of Congo",
   topic: "Monetary and financial stability in the digital age",
   bio: "An expert with over 25 years of experience in banking, finance, and institutional sectors, both in the DRC and internationally.",
-  detailedBio: "My career of over 25 years in the banking, financial, and institutional fields, both in the DRC and internationally, is defined by a constant pursuit of rigor, efficiency, and credibility. In my current role as Governor of the Central Bank of Congo, my primary objectives will be to ensure monetary and financial stability, improve banking regulation, strengthen confidence in the Congolese franc, and accelerate financial inclusion through digitalization and artificial intelligence. My commitment is to make the Central Bank of Congo a modern, efficient institution that is aligned with international standards.",
+  detailedBio: "André Wameso's career of over 25 years in the banking, financial, and institutional fields, both in the DRC and internationally, has been defined by a constant pursuit of rigor, efficiency, and credibility. In his current role as Governor of the Central Bank of Congo, his primary objectives are to ensure monetary and financial stability, improve banking regulation, strengthen confidence in the Congolese franc, and accelerate financial inclusion through digitalization and artificial intelligence. His commitment is to make the Central Bank of Congo a modern, efficient institution that is aligned with international standards.",
   avatar: "/intervenants/Wameso.png",
   social: {
     twitter: null,
     linkedin: null
   }
-}, 
+},
 
 {
   id: 101,

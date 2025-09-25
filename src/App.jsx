@@ -53,6 +53,10 @@ import congoleseVisionnary from "/src/data/congolese_visionnary";
 
 
 const DigitalNation2030 = () => {
+  // States for speaker modal
+  const [selectedSpeaker, setSelectedSpeaker] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Palette de couleurs
   const colors = {
     bg: "bg-[#1A1A1A]",
@@ -64,6 +68,107 @@ const DigitalNation2030 = () => {
     accentBorder: "border-[#00FFFF]",
     divider: "border-[#333333]",
     hoverGlow: "hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]",
+  };
+
+  // Speaker Modal Component
+  const SpeakerModal = ({ speaker, isOpen, onClose }) => {
+    if (!isOpen || !speaker) return null;
+
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        {/* Backdrop */}
+        <div 
+          className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+          onClick={onClose}
+        ></div>
+        
+        {/* Modal Content */}
+        <div className={`relative ${colors.card} rounded-2xl border ${colors.accentBorder} max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl ${colors.hoverGlow}`}>
+          {/* Close Button */}
+          <button
+            onClick={onClose}
+            className={`absolute top-4 right-4 p-2 rounded-full ${colors.text} hover:${colors.accent} transition-colors z-10`}
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          {/* Speaker Content */}
+          <div className="p-8">
+            <div className="flex flex-col md:flex-row gap-6">
+              {/* Speaker Avatar */}
+              <div className="flex-shrink-0">
+                <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white bg-white mx-auto md:mx-0">
+                  <img
+                    src={speaker.avatar}
+                    alt={speaker.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = "https://via.placeholder.com/128";
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Speaker Info */}
+              <div className="flex-1 text-center md:text-left">
+                <h2 className={`text-3xl font-bold ${colors.textBright} mb-2`}>
+                  {speaker.name}
+                </h2>
+                <p className={`text-xl ${colors.accent} mb-4 font-semibold`}>
+                  {speaker.title}
+                </p>
+                <div className={`${colors.card} p-4 rounded-lg border ${colors.divider} mb-6`}>
+                  <h3 className={`text-lg font-semibold ${colors.textBright} mb-2`}>
+                    Speaking Topic:
+                  </h3>
+                  <p className={`${colors.text} italic text-lg leading-relaxed`}>
+                    "{speaker.topic}"
+                  </p>
+                </div>
+
+                {/* Social Links */}
+                {(speaker.social?.twitter || speaker.social?.linkedin) && (
+                  <div className="flex justify-center md:justify-start gap-4 mb-6">
+                    {speaker.social?.twitter && (
+                      <a
+                        href={speaker.social.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`p-3 rounded-full border ${colors.divider} ${colors.text} hover:${colors.accent} hover:border-[#00FFFF] transition-all`}
+                      >
+                        <Twitter className="w-6 h-6" />
+                      </a>
+                    )}
+                    {speaker.social?.linkedin && (
+                      <a
+                        href={speaker.social.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`p-3 rounded-full border ${colors.divider} ${colors.text} hover:${colors.accent} hover:border-[#00FFFF] transition-all`}
+                      >
+                        <Linkedin className="w-6 h-6" />
+                      </a>
+                    )}
+                  </div>
+                )}
+
+                {/* Additional Info */}
+                {speaker.detailedBio && (
+                  <div className={`${colors.card} p-4 rounded-lg border ${colors.divider}`}>
+                    <h3 className={`text-lg font-semibold ${colors.textBright} mb-2`}>
+                      Biography:
+                    </h3>
+                    <div className={`${colors.text} leading-relaxed whitespace-pre-line`}>
+                      {speaker.detailedBio}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   const SpeakerGrid = ({ speakers, gridLabel, speakerType }) => {
@@ -164,8 +269,11 @@ const DigitalNation2030 = () => {
                 Coming Soon
               </div>
             ) : (
-              <a
-                href={`/speaker/${speaker.id}`}
+              <button
+                onClick={() => {
+                  setSelectedSpeaker(speaker);
+                  setIsModalOpen(true);
+                }}
                 className="
                   mt-auto mb-1 px-5 py-3 rounded-md text-base font-medium
                   bg-black text-[#00FFFF]
@@ -173,12 +281,13 @@ const DigitalNation2030 = () => {
                   transition-all duration-200
                   hover:scale-105
                   flex items-center justify-center
+                  cursor-pointer
                 "
                 style={{ backgroundColor: "#000", color: "#00FFFF" }}
               >
                 <span className="mr-1">→</span>
                 More details
-              </a>
+              </button>
             )}
           </div>
         ))}
@@ -594,7 +703,7 @@ const DigitalNation2030 = () => {
                 !bg-[#00FFFF] !text-white
                 hover:!bg-[#00FFFF] focus:!bg-[#00FFFF] active:!bg-[#00FFFF] disabled:!bg-[#00FFFF]
                 hover:!text-white focus:!text-white active:!text-white disabled:!text-white
-                px-8 py-4 rounded-lg font-bold text-lg ${colors.hoverGlow}
+                px-10 py-5 rounded-lg font-bold text-xl ${colors.hoverGlow}
                 transition-all hover:scale-105 shadow-2xl
               `}
                 style={{
@@ -610,7 +719,7 @@ const DigitalNation2030 = () => {
                 type="button"
                 className={`
                 appearance-none border-2 ${colors.accentBorder} ${colors.accent}
-                px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105
+                px-10 py-5 rounded-lg font-bold text-xl transition-all hover:scale-105
                 !bg-black hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
                 shadow-2xl
               `}
@@ -2326,6 +2435,16 @@ const ProgramSection = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/speaker/:id" element={<SpeakerDetailWrapper />} />
       </Routes>
+      
+      {/* Speaker Modal */}
+      <SpeakerModal 
+        speaker={selectedSpeaker} 
+        isOpen={isModalOpen} 
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedSpeaker(null);
+        }} 
+      />
     </Router>
   );
 
