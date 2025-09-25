@@ -75,7 +75,7 @@ const DigitalNation2030 = () => {
     if (!isOpen || !speaker) return null;
 
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4">
         {/* Backdrop */}
         <div 
           className="absolute inset-0 bg-black/80 backdrop-blur-sm"
@@ -83,21 +83,21 @@ const DigitalNation2030 = () => {
         ></div>
         
         {/* Modal Content */}
-        <div className={`relative ${colors.card} rounded-2xl border ${colors.accentBorder} max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl ${colors.hoverGlow}`}>
+        <div className={`relative ${colors.card} rounded-xl sm:rounded-2xl border ${colors.accentBorder} max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl ${colors.hoverGlow}`}>
           {/* Close Button */}
           <button
             onClick={onClose}
-            className={`absolute top-4 right-4 p-2 rounded-full ${colors.text} hover:${colors.accent} transition-colors z-10`}
+            className={`absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-full ${colors.text} hover:${colors.accent} transition-colors z-10 touch-manipulation`}
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
 
           {/* Speaker Content */}
-          <div className="p-8">
-            <div className="flex flex-col md:flex-row gap-6">
+          <div className="p-4 sm:p-6 md:p-8 pt-12 sm:pt-8">
+            <div className="flex flex-col gap-4 sm:gap-6">
               {/* Speaker Avatar */}
               <div className="flex-shrink-0">
-                <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white bg-white mx-auto md:mx-0">
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white bg-white mx-auto">
                   <img
                     src={speaker.avatar}
                     alt={speaker.name}
@@ -110,33 +110,33 @@ const DigitalNation2030 = () => {
               </div>
 
               {/* Speaker Info */}
-              <div className="flex-1 text-center md:text-left">
-                <h2 className={`text-3xl font-bold ${colors.textBright} mb-2`}>
+              <div className="flex-1 text-center">
+                <h2 className={`text-xl sm:text-2xl md:text-3xl font-bold ${colors.textBright} mb-2`}>
                   {speaker.name}
                 </h2>
-                <p className={`text-xl ${colors.accent} mb-4 font-semibold`}>
+                <p className={`text-lg sm:text-xl ${colors.accent} mb-3 sm:mb-4 font-semibold`}>
                   {speaker.title}
                 </p>
-                <div className={`${colors.card} p-4 rounded-lg border ${colors.divider} mb-6`}>
-                  <h3 className={`text-lg font-semibold ${colors.textBright} mb-2`}>
+                <div className={`${colors.card} p-3 sm:p-4 rounded-lg border ${colors.divider} mb-4 sm:mb-6`}>
+                  <h3 className={`text-base sm:text-lg font-semibold ${colors.textBright} mb-2`}>
                     Speaking Topic:
                   </h3>
-                  <p className={`${colors.text} italic text-lg leading-relaxed`}>
+                  <p className={`${colors.text} italic text-sm sm:text-base md:text-lg leading-relaxed`}>
                     "{speaker.topic}"
                   </p>
                 </div>
 
                 {/* Social Links */}
                 {(speaker.social?.twitter || speaker.social?.linkedin) && (
-                  <div className="flex justify-center md:justify-start gap-4 mb-6">
+                  <div className="flex justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                     {speaker.social?.twitter && (
                       <a
                         href={speaker.social.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`p-3 rounded-full border ${colors.divider} ${colors.text} hover:${colors.accent} hover:border-[#00FFFF] transition-all`}
+                        className={`p-2 sm:p-3 rounded-full border ${colors.divider} ${colors.text} hover:${colors.accent} hover:border-[#00FFFF] transition-all touch-manipulation`}
                       >
-                        <Twitter className="w-6 h-6" />
+                        <Twitter className="w-5 h-5 sm:w-6 sm:h-6" />
                       </a>
                     )}
                     {speaker.social?.linkedin && (
@@ -144,9 +144,9 @@ const DigitalNation2030 = () => {
                         href={speaker.social.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`p-3 rounded-full border ${colors.divider} ${colors.text} hover:${colors.accent} hover:border-[#00FFFF] transition-all`}
+                        className={`p-2 sm:p-3 rounded-full border ${colors.divider} ${colors.text} hover:${colors.accent} hover:border-[#00FFFF] transition-all touch-manipulation`}
                       >
-                        <Linkedin className="w-6 h-6" />
+                        <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
                       </a>
                     )}
                   </div>
@@ -154,11 +154,11 @@ const DigitalNation2030 = () => {
 
                 {/* Additional Info */}
                 {speaker.detailedBio && (
-                  <div className={`${colors.card} p-4 rounded-lg border ${colors.divider}`}>
-                    <h3 className={`text-lg font-semibold ${colors.textBright} mb-2`}>
+                  <div className={`${colors.card} p-3 sm:p-4 rounded-lg border ${colors.divider} text-left`}>
+                    <h3 className={`text-base sm:text-lg font-semibold ${colors.textBright} mb-2`}>
                       Biography:
                     </h3>
-                    <div className={`${colors.text} leading-relaxed whitespace-pre-line`}>
+                    <div className={`${colors.text} text-sm sm:text-base leading-relaxed whitespace-pre-line`}>
                       {speaker.detailedBio}
                     </div>
                   </div>
@@ -194,103 +194,129 @@ const DigitalNation2030 = () => {
     }
   };
 
+  // Logique spéciale pour Executive Panel
+  const isExecutivePanel = speakerType === 'executif';
+  const firstThree = isExecutivePanel ? speakers.slice(0, 3) : [];
+  const remaining = isExecutivePanel ? speakers.slice(3, visibleCount) : speakers.slice(0, visibleCount);
+
+  const renderSpeakerCard = (speaker, isKeynote = false) => (
+    <div
+      key={speaker.id}
+      className={`
+        ${speaker.isSuspense ? 
+          'bg-gradient-to-br from-[#1a1a2e] to-[#16213e] border-dashed border-2 border-[#00FFFF]' : 
+          'bg-[#252525] border border-[#333333]'
+        } flex flex-col items-center relative
+        transition-all duration-300 hover:border-[#00FFFF] hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]
+        rounded-xl
+        min-h-[340px] sm:min-h-[360px] h-[364px] sm:h-[384px] max-w-[280px] sm:max-w-[294px] w-full mx-auto
+        px-4 sm:px-5 py-5 sm:py-6
+      `}
+    >
+      {/* Code pays en haut à droite */}
+      <div className="absolute top-3 right-3 z-10">
+        {getFlag(speakerType, speaker.isSuspense)}
+      </div>
+
+      {/* Badge Keynote Speaker pour les 3 premiers de l'exec panel */}
+      {isKeynote && (
+        <div className="absolute top-3 left-3 z-10">
+          <span className="bg-[#00FFFF] text-black text-xs font-bold px-2 py-1 rounded">
+            KEYNOTE
+          </span>
+        </div>
+      )}
+      
+      <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-white bg-white">
+        <img
+          src={speaker.avatar}
+          alt={speaker.name}
+          className="w-full h-full object-cover hover:scale-105 transition-transform"
+          onError={(e) => {
+            e.currentTarget.src = "https://via.placeholder.com/120";
+          }}
+        />
+      </div>
+      <h4 className="text-lg font-bold text-[#FFFFFF] text-center">{speaker.name}</h4>
+      <p className="text-[#00FFFF] text-sm text-center mb-1">{speaker.title}</p>
+      <p className="text-[#E0E0E0] text-sm text-center italic mb-2">"{speaker.topic}"</p>
+      <div className="flex justify-center space-x-2 mb-2">
+        {speaker?.social?.twitter && (
+          <a
+            href={speaker.social.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E0E0E0] hover:text-[#00FFFF] transition-colors"
+          >
+            {/* Twitter SVG */}
+            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.56c-.89.39-1.84.65-2.84.77a4.93 4.93 0 0 0 2.16-2.72c-.95.56-2 .97-3.13 1.19A4.92 4.92 0 0 0 16.67 3c-2.72 0-4.93 2.2-4.93 4.93 0 .39.04.77.12 1.13C7.72 8.89 4.1 6.92 1.67 3.91c-.43.75-.68 1.62-.68 2.55 0 1.76.89 3.32 2.26 4.23-.82-.03-1.59-.25-2.26-.62v.06c0 2.47 1.76 4.53 4.09 5-.43.12-.89.18-1.36.18-.33 0-.65-.03-.96-.09.65 2.01 2.53 3.47 4.76 3.51A9.86 9.86 0 0 1 0 19.54a13.89 13.89 0 0 0 7.56 2.22c9.07 0 14.04-7.52 14.04-14.04 0-.22 0-.43-.02-.65A10.03 10.03 0 0 0 24 4.56z"/></svg>
+          </a>
+        )}
+        {speaker?.social?.linkedin && (
+          <a
+            href={speaker.social.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E0E0E0] hover:text-[#00FFFF] transition-colors"
+          >
+            {/* Linkedin SVG */}
+            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.3c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm14.5 11.3h-3v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97v5.69h-3v-10h2.87v1.36h.04c.4-.76 1.36-1.56 2.8-1.56 3 0 3.56 1.97 3.56 4.53v5.67z"/></svg>
+          </a>
+        )}
+      </div>
+      {/* Bouton More Details ou Coming Soon */}
+      {speaker.isSuspense ? (
+        <div className="
+          mt-auto mb-1 px-5 py-3 rounded-md text-base font-medium
+          bg-gray-600 text-gray-300
+          border-2 border-dashed border-gray-500
+          flex items-center justify-center
+          cursor-not-allowed
+        ">
+          <span className="mr-1">⏳</span>
+          Coming Soon
+        </div>
+      ) : (
+        <button
+          onClick={() => {
+            setSelectedSpeaker(speaker);
+            setIsModalOpen(true);
+          }}
+          className="
+            mt-auto mb-1 px-5 py-3 rounded-md text-base font-medium
+            bg-black text-[#00FFFF]
+            border-2 border-transparent hover:border-[#00FFFF]
+            transition-all duration-200
+            hover:scale-105
+            flex items-center justify-center
+            cursor-pointer
+          "
+          style={{ backgroundColor: "#000", color: "#00FFFF" }}
+        >
+          <span className="mr-1">→</span>
+          More details
+        </button>
+      )}
+    </div>
+  );
+
   return (
     <div className="mb-8">
       <h3 className="text-2xl font-bold mb-2 text-center text-[#FFFFFF]">{gridLabel}</h3>
       <div className="w-16 h-1 bg-[#00FFFF] mx-auto mb-4"></div>
-      {/* Grille compacte, gap identique vertical/horizontal, alignée à gauche */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-4">
-        {speakers.slice(0, visibleCount).map((speaker) => (
-          <div
-            key={speaker.id}
-            className={`
-              ${speaker.isSuspense ? 
-                'bg-gradient-to-br from-[#1a1a2e] to-[#16213e] border-dashed border-2 border-[#00FFFF]' : 
-                'bg-[#252525] border border-[#333333]'
-              } flex flex-col items-center relative
-              transition-all duration-300 hover:border-[#00FFFF] hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]
-              rounded-xl
-              min-h-[360px] h-[384px] max-w-[294px] w-full
-              px-5 py-6
-            `}
-          >
-            {/* Code pays en haut à droite */}
-            <div className="absolute top-3 right-3 z-10">
-              {getFlag(speakerType, speaker.isSuspense)}
-            </div>
-            
-            <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-white bg-white">
-              <img
-                src={speaker.avatar}
-                alt={speaker.name}
-                className="w-full h-full object-cover hover:scale-105 transition-transform"
-                onError={(e) => {
-                  e.currentTarget.src = "https://via.placeholder.com/120";
-                }}
-              />
-            </div>
-            <h4 className="text-lg font-bold text-[#FFFFFF] text-center">{speaker.name}</h4>
-            <p className="text-[#00FFFF] text-sm text-center mb-1">{speaker.title}</p>
-            <p className="text-[#E0E0E0] text-sm text-center italic mb-2">"{speaker.topic}"</p>
-            <div className="flex justify-center space-x-2 mb-2">
-              {speaker?.social?.twitter && (
-                <a
-                  href={speaker.social.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#E0E0E0] hover:text-[#00FFFF] transition-colors"
-                >
-                  {/* Twitter SVG */}
-                  <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.56c-.89.39-1.84.65-2.84.77a4.93 4.93 0 0 0 2.16-2.72c-.95.56-2 .97-3.13 1.19A4.92 4.92 0 0 0 16.67 3c-2.72 0-4.93 2.2-4.93 4.93 0 .39.04.77.12 1.13C7.72 8.89 4.1 6.92 1.67 3.91c-.43.75-.68 1.62-.68 2.55 0 1.76.89 3.32 2.26 4.23-.82-.03-1.59-.25-2.26-.62v.06c0 2.47 1.76 4.53 4.09 5-.43.12-.89.18-1.36.18-.33 0-.65-.03-.96-.09.65 2.01 2.53 3.47 4.76 3.51A9.86 9.86 0 0 1 0 19.54a13.89 13.89 0 0 0 7.56 2.22c9.07 0 14.04-7.52 14.04-14.04 0-.22 0-.43-.02-.65A10.03 10.03 0 0 0 24 4.56z"/></svg>
-                </a>
-              )}
-              {speaker?.social?.linkedin && (
-                <a
-                  href={speaker.social.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#E0E0E0] hover:text-[#00FFFF] transition-colors"
-                >
-                  {/* Linkedin SVG */}
-                  <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.3c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm14.5 11.3h-3v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97v5.69h-3v-10h2.87v1.36h.04c.4-.76 1.36-1.56 2.8-1.56 3 0 3.56 1.97 3.56 4.53v5.67z"/></svg>
-                </a>
-              )}
-            </div>
-            {/* Bouton More Details ou Coming Soon */}
-            {speaker.isSuspense ? (
-              <div className="
-                mt-auto mb-1 px-5 py-3 rounded-md text-base font-medium
-                bg-gray-600 text-gray-300
-                border-2 border-dashed border-gray-500
-                flex items-center justify-center
-                cursor-not-allowed
-              ">
-                <span className="mr-1">⏳</span>
-                Coming Soon
-              </div>
-            ) : (
-              <button
-                onClick={() => {
-                  setSelectedSpeaker(speaker);
-                  setIsModalOpen(true);
-                }}
-                className="
-                  mt-auto mb-1 px-5 py-3 rounded-md text-base font-medium
-                  bg-black text-[#00FFFF]
-                  border-2 border-transparent hover:border-[#00FFFF]
-                  transition-all duration-200
-                  hover:scale-105
-                  flex items-center justify-center
-                  cursor-pointer
-                "
-                style={{ backgroundColor: "#000", color: "#00FFFF" }}
-              >
-                <span className="mr-1">→</span>
-                More details
-              </button>
-            )}
-          </div>
-        ))}
+      
+      {/* Executive Panel : Première ligne avec 3 keynote speakers */}
+      {isExecutivePanel && firstThree.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-4 justify-items-center mb-8 px-2">
+          {firstThree.map(speaker => renderSpeakerCard(speaker, true))}
+        </div>
+      )}
+
+      {/* Grille normale : responsive pour mobile */}
+      <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${isExecutivePanel ? 'lg:grid-cols-4 xl:grid-cols-4' : 'lg:grid-cols-4 xl:grid-cols-4'} gap-x-3 gap-y-4 px-2`}>
+        {(isExecutivePanel ? remaining : speakers.slice(0, visibleCount)).map((speaker) => 
+          renderSpeakerCard(speaker, false)
+        )}
       </div>
       {canLoadMore && (
         <div className="text-center mt-4">
@@ -492,32 +518,23 @@ const DigitalNation2030 = () => {
     };
 
     return (
-      <nav className="fixed w-full z-50 bg-black">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-between items-center h-20">
+      <nav className="fixed w-full z-50 bg-black shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logo */}
-
-            <div className="flex items-center space-x-4">
-              {/* <img 
-                src="/logo-SS4D.png" 
-                alt="SS4D Logo" 
-                className="h-12 w-auto md:h-14 lg:h-16 filter brightness-110"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              /> */}
-              <span className="text-2xl font-bold text-white">
+            <div className="flex items-center">
+              <span className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                 digital nation 2030
               </span>
             </div>
 
             {/* Menu Desktop */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
               {navItems.map((item) => (
                 <div
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`font-bold text-white cursor-pointer transition-colors ${
+                  className={`font-bold text-sm lg:text-base text-white cursor-pointer transition-colors ${
                     activeSection === item.id
                       ? "text-cyan-400"
                       : "hover:text-cyan-300"
@@ -530,29 +547,33 @@ const DigitalNation2030 = () => {
 
             {/* Menu Mobile Toggle */}
             <button
-              className="md:hidden p-2 focus:outline-none"
+              className="md:hidden p-2 rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? (
-                <X className="h-8 w-8 text-white" />
+                <X className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
               ) : (
-                <Menu className="h-8 w-8 text-white" />
+                <Menu className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
               )}
             </button>
           </div>
 
           {/* Menu Mobile */}
           {mobileMenuOpen && (
-            <div className="md:hidden bg-black">
-              <div className="flex flex-col space-y-4 px-4 py-6">
+            <div className="md:hidden bg-black border-t border-gray-800">
+              <div className="flex flex-col px-4 py-4 space-y-1">
                 {navItems.map((item) => (
                   <div
                     key={`mobile-${item.id}`}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`font-bold text-white py-2 cursor-pointer ${
+                    onClick={() => {
+                      scrollToSection(item.id);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`font-bold text-white py-3 px-2 rounded-lg cursor-pointer transition-all duration-200 ${
                       activeSection === item.id
-                        ? "text-cyan-400"
-                        : "hover:text-cyan-300"
+                        ? "text-cyan-400 bg-cyan-900/20"
+                        : "hover:text-cyan-300 hover:bg-gray-800"
                     }`}
                   >
                     {capitalizeFirstLetter(item.label)}
@@ -637,28 +658,29 @@ const DigitalNation2030 = () => {
           <div className="flex flex-col items-center justify-center text-center">
             {/* Badge de date et lieu */}
             <div
-              className={`mb-8 ${colors.card} ${colors.text} px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider border ${colors.accentBorder} ${colors.hoverGlow} transform transition-all hover:scale-105`}
+              className={`mb-6 md:mb-8 ${colors.card} ${colors.text} px-4 md:px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider border ${colors.accentBorder} ${colors.hoverGlow} transform transition-all hover:scale-105`}
             >
-              November 11-13, 2025 • Kinshasa-DRC, Heart of Africa
+              <span className="hidden sm:inline">November 11-13, 2025 • Kinshasa-DRC, Heart of Africa</span>
+              <span className="sm:hidden">Nov 11-13, 2025 • Kinshasa, DRC</span>
             </div>
 
             {/* Hook accrocheur centré RDC */}
             <p
-              className={`text-lg md:text-xl ${colors.accent} font-semibold mb-4 uppercase tracking-wider`}
+              className={`text-base md:text-lg lg:text-xl ${colors.accent} font-semibold mb-3 md:mb-4 uppercase tracking-wider`}
             >
               DRC's Premier Digital Summit
             </p>
 
             {/* Sous-titre principal */}
             <p
-              className={`text-2xl md:text-3xl ${colors.text} max-w-4xl mb-6 font-medium`}
+              className={`text-xl md:text-2xl lg:text-3xl ${colors.text} max-w-4xl mb-4 md:mb-6 font-medium px-4`}
             >
               <span className={colors.accent}>DIGITAL</span> NATION 2030
             </p>
 
             {/* Titre principal */}
             <h1
-              className={`text-4xl md:text-6xl font-bold mb-6 ${colors.textBright} leading-tight max-w-5xl`}
+              className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6 ${colors.textBright} leading-tight max-w-5xl px-4 text-center`}
             >
               Digital Transformation for a Secure and Modern Future
             </h1>
@@ -671,25 +693,25 @@ const DigitalNation2030 = () => {
             </p> */}
 
             {/* Statistiques rapides */}
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-8 mb-10 text-sm">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 mb-6 md:mb-10 text-sm px-4">
               <div className="flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-[#00FFFF]" />
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#00FFFF]" />
                 <span className={colors.text}>3 Days</span>
               </div>
               <div className="hidden sm:block w-px h-4 bg-gray-600"></div>
               <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-[#00FFFF]" />
+                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#00FFFF]" />
                 <span className={colors.text}>50+ Speakers</span>
               </div>
               <div className="hidden sm:block w-px h-4 bg-gray-600"></div>
               <div className="flex items-center gap-2">
-                <Mic className="w-5 h-5 text-[#00FFFF]" />
+                <Mic className="w-4 h-4 sm:w-5 sm:h-5 text-[#00FFFF]" />
                 <span className={colors.text}>500+ Attendees</span>
               </div>
             </div>
 
             {/* Boutons CTA */}
-            <div className="flex flex-col sm:flex-row justify-center gap-6 mt-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-4 px-4">
               <button
                 type="button"
                 onClick={() => {
@@ -703,7 +725,7 @@ const DigitalNation2030 = () => {
                 !bg-[#00FFFF] !text-white
                 hover:!bg-[#00FFFF] focus:!bg-[#00FFFF] active:!bg-[#00FFFF] disabled:!bg-[#00FFFF]
                 hover:!text-white focus:!text-white active:!text-white disabled:!text-white
-                px-10 py-5 rounded-lg font-bold text-xl ${colors.hoverGlow}
+                px-6 py-3 rounded-lg font-bold text-lg ${colors.hoverGlow}
                 transition-all hover:scale-105 shadow-2xl
               `}
                 style={{
@@ -719,7 +741,7 @@ const DigitalNation2030 = () => {
                 type="button"
                 className={`
                 appearance-none border-2 ${colors.accentBorder} ${colors.accent}
-                px-10 py-5 rounded-lg font-bold text-xl transition-all hover:scale-105
+                px-6 py-3 rounded-lg font-bold text-lg transition-all hover:scale-105
                 !bg-black hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
                 shadow-2xl
               `}
@@ -1115,58 +1137,58 @@ const ProgramSection = () => {
     };
 
     return (
-      <section id="program" className={`py-20 ${colors.bg}`}>
+      <section id="program" className={`py-12 sm:py-16 md:py-20 ${colors.bg}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <h2
-              className={`text-4xl md:text-5xl font-bold mb-6 ${colors.textBright}`}
+              className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 ${colors.textBright}`}
             >
               CONFERENCE <span className={colors.accent}>PROGRAM</span>
             </h2>
-            <div className={`w-24 h-1 ${colors.accentBg} mx-auto mb-6`}></div>
+            <div className={`w-16 sm:w-20 md:w-24 h-1 ${colors.accentBg} mx-auto mb-4 sm:mb-6`}></div>
             <p
-              className={`text-xl ${colors.text} max-w-3xl mx-auto leading-relaxed`}
+              className={`text-base sm:text-lg md:text-xl ${colors.text} max-w-3xl mx-auto leading-relaxed px-4`}
             >
               Three immersive days of keynotes, panels, workshops, and networking opportunities
             </p>
           </div>
 
-          {/* Program Grid - 3 Columns */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          {/* Program Grid - Responsive */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 md:mb-16">
             {schedule.map((day, dayIndex) => (
               <div key={dayIndex} className="group">
                 {/* Day Card */}
                 <div
-                  className={`${colors.card} rounded-2xl border ${colors.divider} hover:border-[#00FFFF] transition-all duration-300 hover:shadow-xl overflow-hidden`}
+                  className={`${colors.card} rounded-xl sm:rounded-2xl border ${colors.divider} hover:border-[#00FFFF] transition-all duration-300 hover:shadow-xl overflow-hidden`}
                 >
                   {/* Day Header - Cliquable */}
                   <button
                     onClick={() => toggleDay(dayIndex)}
-                    className="w-full p-6 text-center hover:bg-black/20 transition-all duration-200 focus:outline-none"
+                    className="w-full p-4 sm:p-5 md:p-6 text-center hover:bg-black/20 transition-all duration-200 focus:outline-none touch-manipulation"
                   >
                     <div
-                      className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${colors.accentBg} text-black font-bold text-lg mb-3`}
+                      className={`inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full ${colors.accentBg} text-black font-bold text-base sm:text-lg mb-2 sm:mb-3`}
                     >
                       {dayIndex + 1}
                     </div>
                     <h3
-                      className={`text-xl font-bold ${colors.textBright} mb-2`}
+                      className={`text-lg sm:text-xl font-bold ${colors.textBright} mb-1 sm:mb-2`}
                     >
                       {day.day.split(":")[0]}
                     </h3>
-                    <p className={`text-sm ${colors.text} opacity-80 mb-3`}>
+                    <p className={`text-xs sm:text-sm ${colors.text} opacity-80 mb-2 sm:mb-3`}>
                       {day.date}
                     </p>
                     
                     {/* Chevron indicator */}
                     <div className="flex items-center justify-center">
                       <ChevronDown 
-                        className={`w-5 h-5 ${colors.accent} transition-transform duration-300 ${
+                        className={`w-4 h-4 sm:w-5 sm:h-5 ${colors.accent} transition-transform duration-300 ${
                           openDays[dayIndex] ? 'transform rotate-180' : ''
                         }`}
                       />
-                      <span className={`ml-2 text-sm ${colors.accent} font-medium`}>
+                      <span className={`ml-2 text-xs sm:text-sm ${colors.accent} font-medium`}>
                         {openDays[dayIndex] ? 'Hide Schedule' : 'View Schedule'}
                       </span>
                     </div>
@@ -1174,20 +1196,22 @@ const ProgramSection = () => {
 
                   {/* Timeline - Collapsible */}
                   {openDays[dayIndex] && (
-                    <div className="px-6 pb-6 space-y-3 animate-in slide-in-from-top-2 duration-300">
+                    <div className="px-3 sm:px-4 md:px-6 pb-4 sm:pb-5 md:pb-6 space-y-2 sm:space-y-3 animate-in slide-in-from-top-2 duration-300">
                     {day.events.map((event, eventIndex) => (
                       <div
                         key={eventIndex}
-                        className={`p-4 rounded-xl border ${colors.divider} hover:border-[#00FFFF] transition-all duration-200 backdrop-blur-sm bg-black/20`}
+                        className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border ${colors.divider} hover:border-[#00FFFF] transition-all duration-200 backdrop-blur-sm bg-black/20`}
                       >
-                        <div className="flex items-start space-x-3">
+                        <div className="flex items-start space-x-2 sm:space-x-3">
                           {/* Icon */}
                           <div
-                            className={`p-2 rounded-lg ${getEventColor(
+                            className={`p-1.5 sm:p-2 rounded-md sm:rounded-lg ${getEventColor(
                               event.type
                             )} text-white flex-shrink-0`}
                           >
-                            {getEventIcon(event.type)}
+                            <div className="w-3 h-3 sm:w-4 sm:h-4">
+                              {getEventIcon(event.type)}
+                            </div>
                           </div>
 
                           {/* Content */}
@@ -1198,7 +1222,7 @@ const ProgramSection = () => {
                               {event.time}
                             </p>
                             <h4
-                              className={`text-sm font-bold ${colors.textBright} mb-1 leading-tight`}
+                              className={`text-xs sm:text-sm font-bold ${colors.textBright} mb-1 leading-tight`}
                             >
                               {event.title}
                             </h4>
@@ -1210,7 +1234,7 @@ const ProgramSection = () => {
                               </p>
                             )}
                             {event.tracks && (
-                              <div className="mt-2">
+                              <div className="mt-1 sm:mt-2">
                                 {event.tracks.map((track, index) => (
                                   <p
                                     key={index}
@@ -1234,14 +1258,14 @@ const ProgramSection = () => {
 
           {/* Legend */}
           <div
-            className={`${colors.card} p-8 rounded-2xl border ${colors.divider}`}
+            className={`${colors.card} p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border ${colors.divider}`}
           >
             <h4
-              className={`text-xl font-bold ${colors.textBright} mb-6 text-center`}
+              className={`text-lg sm:text-xl font-bold ${colors.textBright} mb-4 sm:mb-6 text-center`}
             >
               Event Legend
             </h4>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
               {[
                 { type: "keynote", label: "Keynote", color: "bg-blue-500" },
                 { type: "panel", label: "Panel", color: "bg-purple-500" },
@@ -1257,21 +1281,21 @@ const ProgramSection = () => {
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-center md:justify-start"
+                  className="flex items-center justify-center sm:justify-start"
                 >
-                  <div className={`w-4 h-4 rounded ${item.color} mr-3`}></div>
-                  <span className={`text-sm ${colors.text}`}>{item.label}</span>
+                  <div className={`w-3 h-3 sm:w-4 sm:h-4 rounded ${item.color} mr-2 sm:mr-3 flex-shrink-0`}></div>
+                  <span className={`text-xs sm:text-sm ${colors.text}`}>{item.label}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* CTA Button */}
-          <div className="text-center mt-12">
+          <div className="text-center mt-8 sm:mt-10 md:mt-12 px-4">
             <a
               href="/conf_schedule.xlsx"
               download="Digital-Nation-2030-Conference-Schedule.xlsx"
-              className={`${colors.accentBg} text-black px-8 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform ${colors.hoverGlow}`}
+              className={`${colors.accentBg} text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:scale-105 transition-transform ${colors.hoverGlow} inline-block w-full sm:w-auto text-center touch-manipulation`}
             >
               DOWNLOAD FULL PROGRAM
             </a>

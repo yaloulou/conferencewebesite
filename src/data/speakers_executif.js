@@ -40,6 +40,23 @@ const speakersExecutif = [
     linkedin: null
   }
 },
+
+
+{
+  id: 105,
+  name: "Samuel Roger Kamba Mulamba",
+  title: "Minister of Public Health, Hygiene, and Prevention, DRC",
+  topic: "Health in the Digital Age and Pandemic Prevention",
+  bio: "A Congolese doctor and politician, he specializes in pediatrics and public health program management.",
+  detailedBio: "A doctor for over 30 years, including 22 years in pediatrics, Samuel Roger Kamba Mulamba has been the current Minister of Public Health, Hygiene, and Prevention of the Democratic Republic of Congo since March 2023. He is also an instructor in pediatric resuscitation and an expert in public health program management. Prior to his appointment, he served as the President's special advisor in charge of deploying universal health coverage and as the coordinator of the presidential task force for the response against Covid-19.",
+  avatar: "/intervenants/Roger Kamba.png",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
+
+
   {
   id: 105,
   name: "Julie Mbuyi Shiku",
