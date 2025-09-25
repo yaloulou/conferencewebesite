@@ -389,14 +389,14 @@ const DigitalNation2030 = () => {
             {/* Logo */}
 
             <div className="flex items-center space-x-4">
-              <img 
+              {/* <img 
                 src="/logo-SS4D.png" 
                 alt="SS4D Logo" 
                 className="h-12 w-auto md:h-14 lg:h-16 filter brightness-110"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                 }}
-              />
+              /> */}
               <span className="text-2xl font-bold text-white">
                 digital nation 2030
               </span>
@@ -503,157 +503,128 @@ const DigitalNation2030 = () => {
 
   // Composant Hero
   const HeroSection = () => {
-    const [currentMedia, setCurrentMedia] = useState(0);
-
-    const mediaItems = [
-      {
-        type: "video",
-        src: "landing_media.mp4",
-        alt: "Conference venue",
-        text: "Digital Transformation for a Secure and Modern Future",
-      },
-      {
-        type: "image",
-        src: "hero_leaders.jpeg",
-        alt: "Modern technology",
-        text: "In Kinshasa, the annual summit where global leaders meet to forge a secure and modern digital future.",
-      },
-      /* {
-      type: 'video', 
-      src: 'woman_tech.mov',
-      alt: 'Kinshasa skyline'
-    }, */
-    ];
-
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setCurrentMedia((prev) => (prev + 1) % mediaItems.length);
-      }, 6000);
-
-      return () => clearInterval(interval);
-    }, []);
 
     return (
       <section
         id="home"
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        {/* Media défilant */}
+        {/* Vidéo de fond unique */}
         <div className="absolute inset-0">
-          {mediaItems.map((item, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
-                index === currentMedia ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              {item.type === "image" ? (
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover"
-                >
-                  <source src={item.src} type="video/mp4" />
-                </video>
-              )}
-              <div className="absolute inset-0 bg-black/40"></div>
-            </div>
-          ))}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="landing_media.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
         {/* Contenu principal */}
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-          <div
-            className={`flex flex-col ${
-              currentMedia === 1 ? "items-start" : "items-center"
-            } justify-center text-${currentMedia === 1 ? "left" : "center"}`}
-          >
-            {/* Badge de date - caché pour le deuxième média */}
-            {currentMedia !== 1 && (
-              <div
-                className={`mb-8 ${colors.card} ${colors.text} px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider border ${colors.accentBorder} ${colors.hoverGlow} transform transition-all hover:scale-105 self-center`}
-              >
-                November 11-13, 2025 • Kinshasa, DRC
-              </div>
-            )}
+          <div className="flex flex-col items-center justify-center text-center">
+            {/* Badge de date et lieu */}
+            <div
+              className={`mb-8 ${colors.card} ${colors.text} px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider border ${colors.accentBorder} ${colors.hoverGlow} transform transition-all hover:scale-105`}
+            >
+              November 11-13, 2025 • Kinshasa-DRC, Heart of Africa
+            </div>
 
-            {/* Sous-titre dynamique */}
+            {/* Hook accrocheur centré RDC */}
             <p
-              className={`text-xl md:text-2xl ${
-                colors.text
-              } max-w-3xl mb-10 transition-opacity duration-500 ${
-                currentMedia === 1 ? "text-left" : "text-center mx-auto"
-              }`}
+              className={`text-lg md:text-xl ${colors.accent} font-semibold mb-4 uppercase tracking-wider`}
+            >
+              DRC's Premier Digital Summit
+            </p>
+
+            {/* Sous-titre principal */}
+            <p
+              className={`text-2xl md:text-3xl ${colors.text} max-w-4xl mb-6 font-medium`}
             >
               <span className={colors.accent}>DIGITAL</span> NATION 2030
             </p>
 
             {/* Titre principal */}
             <h1
-              className={`text-4xl md:text-6xl font-bold mb-6 ${
-                colors.textBright
-              } leading-tight ${
-                currentMedia === 1 ? "text-left max-w-2xl" : "text-center"
-              }`}
+              className={`text-4xl md:text-6xl font-bold mb-6 ${colors.textBright} leading-tight max-w-5xl`}
             >
-              {mediaItems[currentMedia].text}
+              Digital Transformation for a Secure and Modern Future
             </h1>
 
-            {/* Boutons CTA - cachés pour le deuxième média */}
-            {currentMedia !== 1 && (
-              <div className="flex flex-col sm:flex-row justify-center gap-6 mt-4">
-                <button
-                  type="button"
-                  onClick={() => {
-                    const registerSection = document.getElementById("register");
-                    if (registerSection) {
-                      registerSection.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                  className={`
-                  appearance-none
-                  !bg-[#00FFFF] !text-white
-                  hover:!bg-[#00FFFF] focus:!bg-[#00FFFF] active:!bg-[#00FFFF] disabled:!bg-[#00FFFF]
-                  hover:!text-white focus:!text-white active:!text-white disabled:!text-white
-                  px-8 py-4 rounded-lg font-bold text-lg ${colors.hoverGlow}
-                  transition-all hover:scale-105
-                `}
-                  style={{
-                    backgroundColor: "#00FFFF",
-                    background: "#00FFFF",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  REGISTER NOW
-                </button>
+            {/* Sous-texte descriptif */}
+            {/* <p
+              className={`text-xl md:text-2xl ${colors.text} max-w-4xl mb-10 leading-relaxed opacity-90`}
+            >
+              Where <span className={colors.accent}>Global Experts</span>, <span className={colors.accent}>Local Visionaries</span> & <span className={colors.accent}>Decision Makers</span> Unite to Transform Central Africa's <span className={colors.accent}>200M+ Market</span>
+            </p> */}
 
-                <button
-                  type="button"
-                  className={`
-                  appearance-none border-2 ${colors.accentBorder} ${colors.accent}
-                  px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105
-                  !bg-black hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
-                `}
-                  style={{ backgroundColor: "#000", background: "#000" }}
-                  onClick={() => {
-                    const programSection = document.getElementById("program");
-                    if (programSection) {
-                      programSection.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                >
-                  VIEW PROGRAM
-                </button>
+            {/* Statistiques rapides */}
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-8 mb-10 text-sm">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-[#00FFFF]" />
+                <span className={colors.text}>3 Days</span>
               </div>
-            )}
+              <div className="hidden sm:block w-px h-4 bg-gray-600"></div>
+              <div className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-[#00FFFF]" />
+                <span className={colors.text}>50+ Speakers</span>
+              </div>
+              <div className="hidden sm:block w-px h-4 bg-gray-600"></div>
+              <div className="flex items-center gap-2">
+                <Mic className="w-5 h-5 text-[#00FFFF]" />
+                <span className={colors.text}>500+ Attendees</span>
+              </div>
+            </div>
+
+            {/* Boutons CTA */}
+            <div className="flex flex-col sm:flex-row justify-center gap-6 mt-4">
+              <button
+                type="button"
+                onClick={() => {
+                  const registerSection = document.getElementById("register");
+                  if (registerSection) {
+                    registerSection.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+                className={`
+                appearance-none
+                !bg-[#00FFFF] !text-white
+                hover:!bg-[#00FFFF] focus:!bg-[#00FFFF] active:!bg-[#00FFFF] disabled:!bg-[#00FFFF]
+                hover:!text-white focus:!text-white active:!text-white disabled:!text-white
+                px-8 py-4 rounded-lg font-bold text-lg ${colors.hoverGlow}
+                transition-all hover:scale-105 shadow-2xl
+              `}
+                style={{
+                  backgroundColor: "#00FFFF",
+                  background: "#00FFFF",
+                  color: "#FFFFFF",
+                }}
+              >
+                REGISTER NOW
+              </button>
+
+              <button
+                type="button"
+                className={`
+                appearance-none border-2 ${colors.accentBorder} ${colors.accent}
+                px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105
+                !bg-black hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
+                shadow-2xl
+              `}
+                style={{ backgroundColor: "#000", background: "#000" }}
+                onClick={() => {
+                  const programSection = document.getElementById("program");
+                  if (programSection) {
+                    programSection.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+              >
+                VIEW PROGRAM
+              </button>
+            </div>
           </div>
         </div>
 
