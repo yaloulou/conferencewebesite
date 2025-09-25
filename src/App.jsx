@@ -245,10 +245,7 @@ const DigitalNation2030 = () => {
         } flex flex-col items-center relative
         transition-all duration-300 hover:border-[#00FFFF] hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]
         rounded-xl
-        ${isHost ? 
-          'min-h-[365px] sm:min-h-[385px] h-[389px] sm:h-[409px] max-w-[300px] sm:max-w-[315px]' : 
-          'min-h-[340px] sm:min-h-[360px] h-[364px] sm:h-[384px] max-w-[280px] sm:max-w-[294px]'
-        } w-full mx-auto
+        min-h-[340px] sm:min-h-[360px] h-[364px] sm:h-[384px] max-w-[280px] sm:max-w-[294px] w-full mx-auto
         px-4 sm:px-5 py-5 sm:py-6
       `}
     >
@@ -260,13 +257,13 @@ const DigitalNation2030 = () => {
       {/* Badge Keynote Speaker pour les 3 premiers de l'exec panel */}
       {isKeynote && (
         <div className="absolute top-3 left-3 z-10">
-          <span className="bg-[#00FFFF] text-black text-xs font-bold px-2 py-1 rounded">
+          <span className={`${isHost ? 'bg-yellow-500 text-black' : 'bg-[#00FFFF] text-black'} text-xs font-bold px-2 py-1 rounded`}>
             {t.speakers.executiveKeynote}
           </span>
         </div>
       )}
       
-      <div className={`relative ${isHost ? 'w-28 h-28' : 'w-24 h-24'} rounded-full overflow-hidden mb-4 border-4 border-white bg-white`}>
+      <div className={`relative ${isHost ? 'w-32 h-32' : 'w-24 h-24'} rounded-full overflow-hidden mb-4 border-4 border-white bg-white`}>
         <img
           src={speaker.avatar}
           alt={speaker.name}
@@ -276,9 +273,9 @@ const DigitalNation2030 = () => {
           }}
         />
       </div>
-      <h4 className={`${isHost ? 'text-xl' : 'text-lg'} font-bold text-[#FFFFFF] text-center`}>{speaker.name}</h4>
-      <p className={`text-[#00FFFF] ${isHost ? 'text-base' : 'text-sm'} text-center mb-1`}>{translateTitle(speaker.title)}</p>
-      <p className={`text-[#E0E0E0] ${isHost ? 'text-sm' : 'text-sm'} text-center italic mb-2`}>"{translateTopic(speaker.topic)}"</p>
+      <h4 className="text-lg font-bold text-[#FFFFFF] text-center">{speaker.name}</h4>
+      <p className="text-[#00FFFF] text-sm text-center mb-1">{translateTitle(speaker.title)}</p>
+      <p className="text-[#E0E0E0] text-sm text-center italic mb-2">"{translateTopic(speaker.topic)}"</p>
       <div className="flex justify-center space-x-2 mb-2">
         {speaker?.social?.twitter && (
           <a
@@ -346,12 +343,12 @@ const DigitalNation2030 = () => {
       
       {/* Executive Panel : Première ligne avec 3 keynote speakers */}
       {isExecutivePanel && firstThree.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4 justify-items-center mb-12 px-4 mt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-4 justify-items-center mb-3 px-4 mt-12">
           {firstThree.map((speaker, index) => {
-            // La deuxième carte (index 1) est l'hôte de l'événement - 25% plus grande et légèrement au-dessus
+            // La deuxième carte (index 1) est l'hôte de l'événement - photo plus grande seulement
             const isHost = index === 1;
             return (
-              <div key={speaker.id} className={`${isHost ? 'transform scale-110 lg:scale-110 z-10 relative mx-2 -mt-3 mb-3' : ''} ${isHost ? 'sm:col-span-1 lg:col-span-1' : ''}`}>
+              <div key={speaker.id}>
                 {renderSpeakerCard(speaker, true, isHost)}
               </div>
             );
