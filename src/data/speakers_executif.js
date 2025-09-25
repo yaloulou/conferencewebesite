@@ -14,19 +14,6 @@ const speakersExecutif = [
   }
 },
 
-{
-  id: 101,
-  name: "Jacquemain Shabani Lukoo Bihango",
-  title: "Deputy Prime Minister, Minister of the Interior, DRC",
-  topic: "Governance and security in the digital age",
-  bioKey: "jacquemain_shabani",
-  detailedBio: "Jacquemain Shabani Lukoo Bihango is a Congolese politician from Masisi. A law graduate from the University of Kinshasa, he has practiced as a lawyer, defending activists and contributing to the protection of human rights. He rose through the ranks of the UDPS, holding several strategic positions. In May 2024, he was elected Senator for North Kivu before being appointed Deputy Prime Minister and Minister of the Interior and Security in the Suminwa government. His appointment is widely seen as a sign of hope for resolving the country's security challenges. He was reappointed to this position in August 2025.",
-  avatar: "/intervenants/shabani.png",
-  social: {
-    twitter: null,
-    linkedin: null
-  }
-},
   {
   id: 102,
   name: "Désiré Cashmir Eberande Kolongele",
@@ -41,6 +28,19 @@ const speakersExecutif = [
   }
 },
 
+{
+  id: 101,
+  name: "Jacquemain Shabani Lukoo Bihango",
+  title: "Deputy Prime Minister, Minister of the Interior, DRC",
+  topic: "Governance and security in the digital age",
+  bioKey: "jacquemain_shabani",
+  detailedBio: "Jacquemain Shabani Lukoo Bihango is a Congolese politician from Masisi. A law graduate from the University of Kinshasa, he has practiced as a lawyer, defending activists and contributing to the protection of human rights. He rose through the ranks of the UDPS, holding several strategic positions. In May 2024, he was elected Senator for North Kivu before being appointed Deputy Prime Minister and Minister of the Interior and Security in the Suminwa government. His appointment is widely seen as a sign of hope for resolving the country's security challenges. He was reappointed to this position in August 2025.",
+  avatar: "/intervenants/shabani.png",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
 
 {
   id: 105,
