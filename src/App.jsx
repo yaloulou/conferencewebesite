@@ -7,7 +7,13 @@ import {
   Route,
   Link,
   useParams,
+  useLocation,
+  useNavigate,
 } from "react-router-dom";
+
+// Import des drapeaux SVG
+import rdcFlag from '/rdc_flag.svg';
+import usaFlag from '/usa_flag.svg';
 
 import {
   Menu,
@@ -42,6 +48,9 @@ import {
 } from "lucide-react";
 
 import speakers from "/src/data/speakers.js"; // PAS d’accolades ici
+import speakersExecutif from "/src/data/speakers_executif";
+import congoleseVisionnary from "/src/data/congolese_visionnary";
+
 
 const DigitalNation2030 = () => {
   // Palette de couleurs
@@ -57,6 +66,141 @@ const DigitalNation2030 = () => {
     hoverGlow: "hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]",
   };
 
+  const SpeakerGrid = ({ speakers, gridLabel, speakerType }) => {
+  const INITIAL_VISIBLE = 8;
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+
+  const canLoadMore = visibleCount < speakers.length;
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + 4, speakers.length));
+  };
+
+  // Fonction pour déterminer le code pays selon le type de speaker
+  const getFlag = (type, isSuspense = false) => {
+    if (isSuspense) return null; // Pas de code pays pour les cartes de suspens
+    switch(type) {
+      case 'executif':
+      case 'visionnaires':
+        return "CD"; // République Démocratique du Congo
+      case 'principaux':
+        return "US"; // États-Unis
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="mb-8">
+      <h3 className="text-2xl font-bold mb-2 text-center text-[#FFFFFF]">{gridLabel}</h3>
+      <div className="w-16 h-1 bg-[#00FFFF] mx-auto mb-4"></div>
+      {/* Grille compacte, gap identique vertical/horizontal, alignée à gauche */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-4">
+        {speakers.slice(0, visibleCount).map((speaker) => (
+          <div
+            key={speaker.id}
+            className={`
+              ${speaker.isSuspense ? 
+                'bg-gradient-to-br from-[#1a1a2e] to-[#16213e] border-dashed border-2 border-[#00FFFF]' : 
+                'bg-[#252525] border border-[#333333]'
+              } flex flex-col items-center relative
+              transition-all duration-300 hover:border-[#00FFFF] hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]
+              rounded-xl
+              min-h-[360px] h-[384px] max-w-[294px] w-full
+              px-5 py-6
+            `}
+          >
+            {/* Code pays en haut à droite */}
+            <div className="absolute top-3 right-3 z-10">
+              {getFlag(speakerType, speaker.isSuspense)}
+            </div>
+            
+            <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-white bg-white">
+              <img
+                src={speaker.avatar}
+                alt={speaker.name}
+                className="w-full h-full object-cover hover:scale-105 transition-transform"
+                onError={(e) => {
+                  e.currentTarget.src = "https://via.placeholder.com/120";
+                }}
+              />
+            </div>
+            <h4 className="text-lg font-bold text-[#FFFFFF] text-center">{speaker.name}</h4>
+            <p className="text-[#00FFFF] text-sm text-center mb-1">{speaker.title}</p>
+            <p className="text-[#E0E0E0] text-sm text-center italic mb-2">"{speaker.topic}"</p>
+            <div className="flex justify-center space-x-2 mb-2">
+              {speaker?.social?.twitter && (
+                <a
+                  href={speaker.social.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#E0E0E0] hover:text-[#00FFFF] transition-colors"
+                >
+                  {/* Twitter SVG */}
+                  <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.56c-.89.39-1.84.65-2.84.77a4.93 4.93 0 0 0 2.16-2.72c-.95.56-2 .97-3.13 1.19A4.92 4.92 0 0 0 16.67 3c-2.72 0-4.93 2.2-4.93 4.93 0 .39.04.77.12 1.13C7.72 8.89 4.1 6.92 1.67 3.91c-.43.75-.68 1.62-.68 2.55 0 1.76.89 3.32 2.26 4.23-.82-.03-1.59-.25-2.26-.62v.06c0 2.47 1.76 4.53 4.09 5-.43.12-.89.18-1.36.18-.33 0-.65-.03-.96-.09.65 2.01 2.53 3.47 4.76 3.51A9.86 9.86 0 0 1 0 19.54a13.89 13.89 0 0 0 7.56 2.22c9.07 0 14.04-7.52 14.04-14.04 0-.22 0-.43-.02-.65A10.03 10.03 0 0 0 24 4.56z"/></svg>
+                </a>
+              )}
+              {speaker?.social?.linkedin && (
+                <a
+                  href={speaker.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#E0E0E0] hover:text-[#00FFFF] transition-colors"
+                >
+                  {/* Linkedin SVG */}
+                  <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.3c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm14.5 11.3h-3v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97v5.69h-3v-10h2.87v1.36h.04c.4-.76 1.36-1.56 2.8-1.56 3 0 3.56 1.97 3.56 4.53v5.67z"/></svg>
+                </a>
+              )}
+            </div>
+            {/* Bouton More Details ou Coming Soon */}
+            {speaker.isSuspense ? (
+              <div className="
+                mt-auto mb-1 px-5 py-3 rounded-md text-base font-medium
+                bg-gray-600 text-gray-300
+                border-2 border-dashed border-gray-500
+                flex items-center justify-center
+                cursor-not-allowed
+              ">
+                <span className="mr-1">⏳</span>
+                Coming Soon
+              </div>
+            ) : (
+              <a
+                href={`/speaker/${speaker.id}`}
+                className="
+                  mt-auto mb-1 px-5 py-3 rounded-md text-base font-medium
+                  bg-black text-[#00FFFF]
+                  border-2 border-transparent hover:border-[#00FFFF]
+                  transition-all duration-200
+                  hover:scale-105
+                  flex items-center justify-center
+                "
+                style={{ backgroundColor: "#000", color: "#00FFFF" }}
+              >
+                <span className="mr-1">→</span>
+                More details
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+      {canLoadMore && (
+        <div className="text-center mt-4">
+          <button
+            onClick={handleLoadMore}
+            className={`
+              px-6 py-3 rounded-lg text-base font-medium bg-[#00FFFF] text-white
+              transition-all duration-200 hover:scale-105 shadow-lg
+              border-2 border-transparent hover:border-[#00FFFF]
+              outline-none
+            `}
+          >
+            More speakers ({speakers.length - visibleCount} available)
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
   /* const colors = {
     // Ancien: bg-[#1A1A1A]
     bg: 'bg-white', 
@@ -105,7 +249,7 @@ const DigitalNation2030 = () => {
     }
   ]; */
 
-  // Programme de la conférence
+  // Conference Program
   const schedule = [
     {
       day: "November 11, 2025",
@@ -179,6 +323,8 @@ const DigitalNation2030 = () => {
   const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("home");
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const navItems = [
       { id: "home", label: "home" },
@@ -190,11 +336,26 @@ const DigitalNation2030 = () => {
     ];
 
     const scrollToSection = (sectionId) => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-        setActiveSection(sectionId);
+      // Si nous sommes sur la page d'accueil, faire un scroll normal
+      if (location.pathname === '/') {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          setActiveSection(sectionId);
+          setMobileMenuOpen(false);
+        }
+      } else {
+        // Si nous sommes sur une autre page, naviguer vers la page d'accueil avec l'ancre
+        navigate(`/#${sectionId}`);
         setMobileMenuOpen(false);
+        // Attendre un peu puis faire le scroll
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+            setActiveSection(sectionId);
+          }
+        }, 100);
       }
     };
 
@@ -227,8 +388,15 @@ const DigitalNation2030 = () => {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
 
-            <div className="flex items-center space-x-3">
-              <Cpu className="h-6 w-6 text-white" />
+            <div className="flex items-center space-x-4">
+              <img 
+                src="/logo-SS4D.png" 
+                alt="SS4D Logo" 
+                className="h-12 w-auto md:h-14 lg:h-16 filter brightness-110"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
               <span className="text-2xl font-bold text-white">
                 digital nation 2030
               </span>
@@ -290,6 +458,8 @@ const DigitalNation2030 = () => {
   };
 
   const HomePage = () => {
+    const location = useLocation();
+    
     const colors = {
       bg: "bg-[#1A1A1A]",
       card: "bg-[#252525]",
@@ -301,6 +471,19 @@ const DigitalNation2030 = () => {
       divider: "border-[#333333]",
       hoverGlow: "hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]",
     };
+
+    // Gérer le scroll vers la section lors du chargement de la page avec une ancre
+    useEffect(() => {
+      if (location.hash) {
+        const sectionId = location.hash.replace('#', '');
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 500); // Délai pour laisser le temps à la page de se charger
+      }
+    }, [location.hash]);
 
     return (
       <div className={`${colors.bg} ${colors.text} min-h-screen`}>
@@ -429,6 +612,12 @@ const DigitalNation2030 = () => {
               <div className="flex flex-col sm:flex-row justify-center gap-6 mt-4">
                 <button
                   type="button"
+                  onClick={() => {
+                    const registerSection = document.getElementById("register");
+                    if (registerSection) {
+                      registerSection.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
                   className={`
                   appearance-none
                   !bg-[#00FFFF] !text-white
@@ -479,286 +668,153 @@ const DigitalNation2030 = () => {
   // En haut du fichier (hors composant) :
   // import { speakers } from "./data/speakers"; // ajuste le chemin
 
-  const SpeakersSection = () => {
-    // Couleurs
-    const colors = {
-      bg: "bg-[#1A1A1A]",
-      card: "bg-[#252525]",
-      text: "text-[#E0E0E0]",
-      textBright: "text-[#FFFFFF]",
-      accent: "text-[#00FFFF]",
-      accentBg: "bg-[#00FFFF]",
-      accentBorder: "border-[#00FFFF]",
-      divider: "border-[#333333]",
-      hoverGlow: "hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]",
-    };
-
-    // État
-    const [visibleCount, setVisibleCount] = useState(8);
-    const [isLoading, setIsLoading] = useState(false);
-
-    // Charger plus
-    const loadMoreSpeakers = () => {
-      setIsLoading(true);
-      setTimeout(() => {
-        setVisibleCount((prev) => Math.min(prev + 4, speakers.length));
-        setIsLoading(false);
-      }, 300);
-    };
-
-    // Garde-fou si l'import est vide
-    const hasSpeakers = Array.isArray(speakers) && speakers.length > 0;
-
-    return (
-      <section className={`py-20 ${colors.bg}`} id="speakers">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* En-tête */}
-          <div className="text-center mb-16">
-            <h2 className={`text-4xl font-bold mb-4 ${colors.textBright}`}>
-              FEATURED <span className={colors.accent}>SPEAKERS</span>
-            </h2>
-            <div className={`w-20 h-1 ${colors.accentBg} mx-auto mb-6`}></div>
-            <p className={`text-xl ${colors.text} max-w-3xl mx-auto`}>
-              World-class experts sharing insights on digital transformation
-            </p>
-          </div>
-
-          {!hasSpeakers ? (
-            <div className="text-center text-gray-400">
-              No speakers available.
-            </div>
-          ) : isLoading && visibleCount === 0 ? (
-            <div className="flex justify-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#00FFFF]"></div>
-            </div>
-          ) : (
-            <>
-              {/* Grille */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                {speakers.slice(0, visibleCount).map((speaker) => (
-                  <div
-                    key={speaker.id}
-                    className={`${colors.card} p-6 rounded-xl border ${colors.divider} transition-all duration-300 hover:${colors.accentBorder} ${colors.hoverGlow}`}
-                  >
-                    <div className="flex flex-col items-center">
-                      {/* Avatar */}
-                      <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-white bg-white">
-                        <img
-                          src={speaker.avatar}
-                          alt={speaker.name}
-                          className="w-full h-full object-cover hover:scale-110 transition-transform"
-                          onError={(e) => {
-                            e.currentTarget.src =
-                              "https://via.placeholder.com/150";
-                          }}
-                        />
-                      </div>
-
-                      {/* Nom & titre */}
-                      <h3
-                        className={`text-xl font-bold ${colors.textBright} text-center`}
-                      >
-                        {speaker.name}
-                      </h3>
-                      <p
-                        className={`${colors.accent} text-sm text-center mb-2`}
-                      >
-                        {speaker.title}
-                      </p>
-                      <p
-                        className={`${colors.text} text-sm text-center italic mb-3`}
-                      >
-                        "{speaker.topic}"
-                      </p>
-
-                      {/* Lien détail */}
-                      <Link
-                        to={`/speaker/${speaker.id}`}
-                        className={`
-                        flex items-center text-sm font-medium mb-3 appearance-none
-                        !bg-black !text-[#00FFFF]
-                        hover:!bg-black focus:!bg-black active:!bg-black disabled:!bg-black
-                        hover:!text-[#00FFFF] focus:!text-[#00FFFF] active:!text-[#00FFFF] disabled:!text-[#00FFFF]
-                        border-2 border-transparent hover:!border-[#00FFFF]
-                        px-4 py-2 rounded-md transition-all
-                      `}
-                      >
-                        <ArrowRight className="w-4 h-4 mr-1" />
-                        More details
-                      </Link>
-
-                      {/* Réseaux sociaux (avec fallback) */}
-                      <div className="flex justify-center space-x-4">
-                        {speaker?.social?.twitter && (
-                          <a
-                            href={speaker.social.twitter}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`${colors.text} hover:${colors.accent} transition-colors`}
-                          >
-                            <Twitter className="w-5 h-5" />
-                          </a>
-                        )}
-                        {speaker?.social?.linkedin && (
-                          <a
-                            href={speaker.social.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`${colors.text} hover:${colors.accent} transition-colors`}
-                          >
-                            <Linkedin className="w-5 h-5" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Bouton Load More */}
-              {visibleCount < speakers.length && (
-                <div className="text-center">
-                  <button
-                    onClick={loadMoreSpeakers}
-                    disabled={isLoading}
-                    className={`
-                    appearance-none
-                    px-6 py-2 rounded-lg font-medium
-                    !bg-[#00FFFF] !text-white
-                    transition-all duration-200 ease-out
-                    hover:scale-105 active:scale-100
-                    shadow-lg hover:shadow-[0_0_18px_#00FFFF]
-                    border-2 border-transparent hover:!border-transparent active:!border-transparent
-                    outline-none focus:outline-none focus-visible:outline-none
-                    ring-0 focus:ring-0 focus-visible:ring-0
-                    ${
-                      isLoading
-                        ? "opacity-60 cursor-not-allowed pointer-events-none"
-                        : ""
-                    }
-                  `}
-                    style={{ backgroundColor: "#00FFFF", color: "#FFFFFF" }}
-                  >
-                    {isLoading ? (
-                      <span className="flex items-center justify-center">
-                        <svg
-                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          ></circle>
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          ></path>
-                        </svg>
-                        Loading...
-                      </span>
-                    ) : (
-                      `Load More Speakers (${
-                        speakers.length - visibleCount
-                      } available)`
-                    )}
-                  </button>
-                </div>
-              )}
-            </>
-          )}
+const SpeakersSection = () => {
+  return (
+    <section className="py-12 bg-[#1A1A1A]" id="speakers">
+      <div className="max-w-6xl mx-auto px-6"> {/* plus de padding à gauche/droite */}
+        <div className="text-center mb-8">
+          <h2 className="text-4xl font-bold mb-3 text-[#FFFFFF]">
+            <span className="text-[#00FFFF]">SPEAKERS</span>
+          </h2>
+          <div className="w-20 h-1 bg-[#00FFFF] mx-auto mb-4"></div>
+          <p className="text-lg text-[#E0E0E0] max-w-3xl mx-auto">
+            Experts and visionaries sharing insights on digital transformation
+          </p>
         </div>
-      </section>
-    );
-  };
+        <SpeakerGrid speakers={speakersExecutif} gridLabel="Executive Leadership" speakerType="executif" />
+        <SpeakerGrid speakers={speakers} gridLabel="Global Expert Leaders" speakerType="principaux" />
+        <SpeakerGrid speakers={congoleseVisionnary} gridLabel="Congolese Transformation Leaders and Catalysts" speakerType="visionnaires" />
+      </div>
+    </section>
+  );
+};
 
-  const ProgramSection = () => {
+
+const ProgramSection = () => {
+    // State pour gérer les jours ouverts/fermés
+    const [openDays, setOpenDays] = useState({
+      0: false, // Day 1
+      1: false, // Day 2  
+      2: false  // Day 3
+    });
+
+    // Fonction pour basculer l'état d'un jour
+    const toggleDay = (dayIndex) => {
+      setOpenDays(prev => ({
+        ...prev,
+        [dayIndex]: !prev[dayIndex]
+      }));
+    };
+
     const schedule = [
       {
         day: "Day 1: Setting the Stage for Transformation",
         date: "",
         events: [
           {
-            time: "Morning",
+            time: "07:30 - 08:15",
             title: "Registration and Breakfast Networking",
             type: "break",
           },
           {
-            time: "Morning",
-            title: `Opening Keynote:
-"Digital Transformation for a Secure and Modern Future"`,
+            time: "08:30 - 09:00",
+            title: `Opening Keynote: Security and Digital Sovereignty: An Imperative for a Modern Nation`,
             type: "keynote",
-            speaker:
-              "Desire Cashmir Kologele Eberande | Moderator: Introduction by Wilmot Gibson",
+            speaker: "Desire Cashmir Kologele Eberande | Moderator: Introduction by Wilmot Gibson",
           },
           {
-            time: "Morning",
+            time: "09:00 - 09:30",
+            title: "American Ambassador Speech",
+            type: "keynote",
+          },
+          {
+            time: "09:30 - 10:15",
+            title: `The Strategic Role of Central Banking`,
+            type: "keynote",
+            speaker: "André Wameso | Moderator: Lucien B",
+          },
+          {
+            time: "10:15 - 10:30",
+            title: "British Ambassador Speech",
+            type: "keynote",
+          },
+          {
+            time: "10:30 - 11:15",
+            title: `Strategy for DRC Investment and Global Engagement`,
+            type: "keynote",
+            speaker: "JOE DUMBI KABANGU | Moderator: Antoine Kayisu",
+          },
+          {
+            time: "11:15 - 11:30",
             title: "Break",
             type: "break",
           },
           {
-            time: "Morning",
-            title: `Executive Panel:
-"Leading in the Digital Age"`,
+            time: "11:30 - 12:30",
+            title: `Executive Panel: "Leading in the Digital Age"`,
             type: "panel",
-            speaker: `Sabune Winkler -health Services; 
-Pankaj Chugh-disruptive technologies, 
-Mining (Min. Watum )and Energy, 
-Congolese Sperkers needed for Banking (Rawbank : Hugues Bosala),  and Fellly Samuna :Industries(Manufacturing, Engineering, etc)
-Min Intérieur ( | Moderator: Renowned industry analyst. – Find a Congolese
-
-Bijou Sumbu`,
+            speaker: `Sabune Winkler (Health Services); Pankaj Chugh (Disruptive Technologies); Min. Louis Watum Kabamba (Mining and Energy); Min. Intérieur Jacquemain Shabani; Hugues Bosala (Rawbank); Fellly Samuna (Industries) | Moderator: Bijou Nsumbu`,
           },
           {
-            time: "Afternoon",
+            time: "12:30 - 13:30",
             title: "Lunch & Expo Hall Tour",
             type: "networking",
           },
           {
-            time: "Late Morning",
+            time: "13:30 - 14:30",
             title: "Breakout Sessions (Choose from Tracks A, B, C or D)",
             type: "workshop",
-            speaker: "Elizabeth Stevens / Alberto",
+            tracks: [
+              "Track A: Cybersecurity Fundamentals Across Critical Industries - Elizabeth Stevens / Alberto",
+              "Track B: Modernizing Legacy Infrastructure: Cloud vs. Hybrid Models - Eragy Bashonga Alpha, Pankaj Chugh, Omar",
+              "Track C: Developing Future-Ready Talent in DRC - Shanam Kapoor (Video)",
+              "Track D: Digital Identity & E-Services - Eli NKumbi"
+            ]
           },
           {
-            time: "Afternoon",
+            time: "14:30 - 14:45",
             title: "Break",
             type: "break",
           },
           {
-            time: "Afternoon",
+            time: "14:45 - 15:30",
             title: "Breakout Sessions (Choose from Tracks A, B, C or D)",
             type: "workshop",
+            tracks: [
+              "Track A: Mobile Money",
+              "Track B: Development and Manufacture of Vaccine - Aaron Winkler",
+              "Track C: Securing the Digital Nation and Public",
+              "Track D: Future of Telecommunications - Barry"
+            ]
           },
           {
-            time: "Afternoon",
+            time: "15:30 - 15:45",
             title: "Break",
             type: "break",
           },
           {
-            time: "Afternoon",
+            time: "15:45 - 16:30",
             title: "Industry-Specific Sessions",
             type: "session",
-            speaker: "Malid (Africell)",
+            tracks: [
+              "Telecommunications: Modernization of the DRC - Malid (Africell)",
+              "Financial Services & Government: Balancing Innovation and Data Security - Alberto Urena, Ainsley Rattray, Desire Kazadi",
+              "Health Services: Satellite Observation of the DRC - FREDDY BANGELESA"
+            ]
           },
           {
-            time: "Afternoon",
-            title: "Networking and Exhibit hall",
+            time: "16:30 - 17:30",
+            title: "Networking and Exhibit Hall",
             type: "networking",
           },
           {
-            time: "Evening",
+            time: "18:00 - 18:15",
             title: "Keynote Speaker",
             type: "keynote",
+            speaker: "Inspirational leader or technology innovator",
           },
           {
-            time: "Evening",
+            time: "18:00 - 19:30",
             title: "Networking Reception & Welcome Dinner",
             type: "networking",
             speaker: "All attendees",
@@ -770,69 +826,97 @@ Bijou Sumbu`,
         date: "",
         events: [
           {
-            time: "Morning",
+            time: "07:30 - 08:15",
             title: "Networking Breakfast",
             type: "break",
           },
           {
-            time: "Morning",
-            title: `Keynote Session
-The Evolving Cyber Threat Landscape"`,
+            time: "08:30 - 09:15",
+            title: `Keynote Session: The Evolving Cyber Threat Landscape`,
             type: "keynote",
-            speaker: `Ainsley Rattray, 
-Renowned cybersecurity expert | Moderator: Grace Ngoya`,
+            speaker: `Ainsley Rattray | Moderator: Grace Ngoya`,
           },
           {
-            time: "Morning",
-            title: "Keynote mining",
+            time: "09:30 - 10:15",
+            title: "Keynote: Strategy for Modernizing Mining and Energy Industries for DRC",
             type: "keynote",
-            speaker:
-              "Jean-Marie Kande Tumba | Moderator: Moderator: Industry analyst or government representative. Norbert Wupona",
+            speaker: "Jean-Marie Kande Tumba | Moderator: Norbert Wupona",
           },
           {
-            time: "Morning",
+            time: "10:30 - 11:15",
+            title: "Keynote: Technology and Healthcare",
+            type: "keynote",
+            speaker: "Aaron Winkler | Moderator: Sabune W.",
+          },
+          {
+            time: "11:15 - 11:30",
             title: "Networking Break",
             type: "break",
           },
           {
-            time: "Late Morning",
-            title:
-              "Concurrent Workshops & Hands-On Labs (Advanced Track Focus)",
+            time: "11:30 - 12:15",
+            title: "Concurrent Workshops & Hands-On Labs (Advanced Track Focus)",
             type: "workshop",
-            speaker: "Alberto Urena (SecRails)",
+            tracks: [
+              "Track A: Building a Zero-Trust Network - Alberto Urena (SecRails)",
+              "Track B: Cloud Technology and Solutions - Omar Fahnbullah",
+              "Track C: Nyota Connect: Telemedicine in DRC - Dr. PATRICK NGOMA",
+              "Track D: E-Mining Cadastre & Traceability"
+            ]
           },
           {
-            time: "12:15:00 – 13:30:00",
-            title: "Lunch and Exhibit hall",
+            time: "12:15 - 13:30",
+            title: "Lunch and Exhibit Hall",
             type: "networking",
           },
           {
-            time: "Afternoon",
-            title: "Panel /Breakout Sessions",
+            time: "13:30 - 14:15",
+            title: "Panel / Breakout Sessions",
             type: "panel",
+            tracks: [
+              "Track A: FinTech Innovations",
+              "Track B: Microservices & Containerization - Pankaj Chugh (JazzX AI)",
+              "Track C: Certifications in Telecom & IT - Wilmot Gibson, Barry, Lucien, Johnnathan",
+              "Track D: Cybersecurity - Elizabeth Stephens, Ainsley, Omar, Alberto"
+            ]
           },
           {
-            time: "Afternoon",
+            time: "14:15 - 14:30",
             title: "Networking Break",
             type: "break",
           },
           {
-            time: "Evening",
+            time: "14:30 - 15:15",
             title: `Fireside Chat: "Securing the Future of Digital Health & Banking"`,
             type: "session",
-            speaker:
-              "Aaron Winkler, Ainsley | Moderator: Industry journalist or analyst. TBD",
+            speaker: "Aaron Winkler, Ainsley | Moderator: Industry journalist or analyst TBD",
           },
           {
-            time: "Evening",
-            title: `Fireside Chat: "Securing the Future of Telecommunications Network and Cyber resiliency`,
+            time: "14:30 - 15:15",
+            title: `Fireside Chat: "Securing the Future of Telecommunications Network and Data Centers"`,
             type: "session",
             speaker: "Congolese, Alberto",
           },
           {
-            time: "Evening",
-            title: "Exhibit hall tour",
-            type: "session",
+            time: "15:15 - 15:30",
+            title: "Break",
+            type: "break",
+          },
+          {
+            time: "15:30 - 16:15",
+            title: "Panel / Breakout Sessions",
+            type: "panel",
+            tracks: [
+              "Track A: Securing the Digital Nation - Jean Claude Bukasa",
+              "Track B: AgriTech: Remote Sensing & Digital Value Chains - Tisya Mukuna",
+              "Track C: Cybersecurity Panel - Ainsley, Elisabeth, Alberto, Jean Claude Bukasa",
+              "Track D: Large-Scale Training: Coding, Cybersecurity, Data & AI - Elisabeth, Lucien"
+            ]
+          },
+          {
+            time: "16:15 - 17:30",
+            title: "Exhibit Hall Tour",
+            type: "networking",
           },
         ],
       },
@@ -841,76 +925,84 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
         date: "",
         events: [
           {
-            time: "Morning",
-            title: `Keynote:
- "Innovation & Emerging Technologies: AI, Blockchain, and Beyond"`,
+            time: "08:00 - 09:30",
+            title: `Keynote: Innovation & Emerging Technologies: AI, Blockchain, and Beyond`,
             type: "keynote",
-            speaker: "Technology futurist or innovation leader. TBD",
+            speaker: "Benjamin Katabuka (KoBold)",
           },
           {
-            time: "Morning",
-            title: "Industry-Specific Technical Sessions",
+            time: "09:30 - 09:48",
+            title: "Mining: Real-Time Analytics with IoT and Predictive Maintenance",
             type: "session",
-            speaker: "TBD",
+            speaker: "Prof Nzuru (Ivanoe)",
           },
           {
-            time: "Morning",
+            time: "09:48 - 10:06",
+            title: "Health Services: Enhancing Patient Outcomes Through Telemedicine & AI",
+            type: "session",
+            speaker: "Sabune Turner",
+          },
+          {
+            time: "10:06 - 10:24",
+            title: "Banking: Digital-First Banking Models & Customer-Centric Platforms",
+            type: "session",
+            speaker: "Ainsley Rattray",
+          },
+          {
+            time: "10:24 - 10:42",
+            title: "Civil & Electrical Engineering: Smart Cities, Smart Grids",
+            type: "session",
+            speaker: "Wilmot Gibson",
+          },
+          {
+            time: "10:42 - 11:00",
+            title: "Telecommunications & IT: 5G & Edge Computing",
+            type: "session",
+            speaker: "Omar Fahnbullah",
+          },
+          {
+            time: "11:00 - 11:15",
             title: "Networking Break",
             type: "break",
           },
           {
-            time: "Late Morning",
+            time: "11:15 - 12:00",
             title: "Cross-Industry Collaboration Workshops",
+            type: "workshop",
+            speaker: "Eragy Bashonga Alpha",
+          },
+          {
+            time: "12:00 - 12:45",
+            title: "Policy Recommendations and Standardization Discussion",
             type: "workshop",
             speaker: "TBD",
           },
           {
-            time: "Afternoon",
+            time: "13:00 - 13:45",
             title: "Networking Lunch",
             type: "networking",
           },
           {
-            time: "Afternoon",
-            title: `Leadership Panel: "Sustaining Innovation & Talent in a Rapidly Changing World" TBD`,
+            time: "13:00 - 13:45",
+            title: `Leadership Panel: Sustaining Innovation & Talent in a Rapidly Changing World`,
             type: "panel",
-            speaker:
-              "Executives from diverse industries. Kevin? | Moderator: Barry Williams",
+            speaker: "Barry Williams, Pankaj Chugh",
           },
           {
-            time: "Afternoon",
-            title: `Panel Discussion " The Future of Mining and Energy tecnologies in the DRC"`,
+            time: "13:00 - 13:45",
+            title: `Panel Discussion: The Future of Mining and Energy Technologies in the DRC`,
             type: "panel",
-            speaker: "Conference chair or organizer. Wilmot Gibson",
+            speaker: "Prof Nzuru (Ivanoe) | Moderator: Wilmot Gibson",
           },
           {
-            time: "Evening",
-            title: `Cybersecurity resilency workshop Topic - TBD"`,
+            time: "13:00 - 13:45",
+            title: "Cybersecurity Resilience Workshop",
             type: "workshop",
           },
           {
-            time: "Evening",
-            title: "Additional Elements",
-            type: "session",
-          },
-          {
-            time: "Evening",
-            title: "1. Expo Hall",
+            time: "15:45 - 17:00",
+            title: "Expo Hall Open",
             type: "networking",
-          },
-          {
-            time: "Evening",
-            title: "2. Networking & Matchmaking Sessions",
-            type: "networking",
-          },
-          {
-            time: "Evening",
-            title: "3. Resource Library & On-Demand Access",
-            type: "session",
-          },
-          {
-            time: "Evening",
-            title: "4. CSR & Sustainability Commitment",
-            type: "session",
           },
         ],
       },
@@ -924,6 +1016,7 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
         networking: <Coffee className="w-4 h-4" />,
         break: <Coffee className="w-4 h-4" />,
         closing: <Award className="w-4 h-4" />,
+        session: <Cpu className="w-4 h-4" />,
       };
       return icons[type] || <Clock className="w-4 h-4" />;
     };
@@ -936,6 +1029,7 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
         networking: "bg-orange-500",
         break: "bg-gray-500",
         closing: "bg-yellow-500",
+        session: "bg-indigo-500",
       };
       return colors[type] || "bg-gray-500";
     };
@@ -954,8 +1048,7 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
             <p
               className={`text-xl ${colors.text} max-w-3xl mx-auto leading-relaxed`}
             >
-              Three immersive days of keynotes, panels, workshops, and
-              networking opportunities
+              Three immersive days of keynotes, panels, workshops, and networking opportunities
             </p>
           </div>
 
@@ -965,10 +1058,13 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
               <div key={dayIndex} className="group">
                 {/* Day Card */}
                 <div
-                  className={`${colors.card} p-6 rounded-2xl border ${colors.divider} hover:border-[#00FFFF] transition-all duration-300 hover:shadow-xl`}
+                  className={`${colors.card} rounded-2xl border ${colors.divider} hover:border-[#00FFFF] transition-all duration-300 hover:shadow-xl overflow-hidden`}
                 >
-                  {/* Day Header */}
-                  <div className="text-center mb-6">
+                  {/* Day Header - Cliquable */}
+                  <button
+                    onClick={() => toggleDay(dayIndex)}
+                    className="w-full p-6 text-center hover:bg-black/20 transition-all duration-200 focus:outline-none"
+                  >
                     <div
                       className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${colors.accentBg} text-black font-bold text-lg mb-3`}
                     >
@@ -977,15 +1073,28 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
                     <h3
                       className={`text-xl font-bold ${colors.textBright} mb-2`}
                     >
-                      {day.day.split(" – ")[0]}
+                      {day.day.split(":")[0]}
                     </h3>
-                    <p className={`text-sm ${colors.text} opacity-80`}>
+                    <p className={`text-sm ${colors.text} opacity-80 mb-3`}>
                       {day.date}
                     </p>
-                  </div>
+                    
+                    {/* Chevron indicator */}
+                    <div className="flex items-center justify-center">
+                      <ChevronDown 
+                        className={`w-5 h-5 ${colors.accent} transition-transform duration-300 ${
+                          openDays[dayIndex] ? 'transform rotate-180' : ''
+                        }`}
+                      />
+                      <span className={`ml-2 text-sm ${colors.accent} font-medium`}>
+                        {openDays[dayIndex] ? 'Hide Schedule' : 'View Schedule'}
+                      </span>
+                    </div>
+                  </button>
 
-                  {/* Timeline */}
-                  <div className="space-y-3">
+                  {/* Timeline - Collapsible */}
+                  {openDays[dayIndex] && (
+                    <div className="px-6 pb-6 space-y-3 animate-in slide-in-from-top-2 duration-300">
                     {day.events.map((event, eventIndex) => (
                       <div
                         key={eventIndex}
@@ -1020,11 +1129,24 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
                                 {event.speaker}
                               </p>
                             )}
+                            {event.tracks && (
+                              <div className="mt-2">
+                                {event.tracks.map((track, index) => (
+                                  <p
+                                    key={index}
+                                    className={`text-xs ${colors.text} opacity-70 leading-tight mt-1`}
+                                  >
+                                    • {track}
+                                  </p>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
                     ))}
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -1039,11 +1161,12 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
             >
               Event Legend
             </h4>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4">
               {[
                 { type: "keynote", label: "Keynote", color: "bg-blue-500" },
                 { type: "panel", label: "Panel", color: "bg-purple-500" },
                 { type: "workshop", label: "Workshop", color: "bg-green-500" },
+                { type: "session", label: "Session", color: "bg-indigo-500" },
                 {
                   type: "networking",
                   label: "Networking",
@@ -1066,8 +1189,8 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
           {/* CTA Button */}
           <div className="text-center mt-12">
             <a
-              href="/conf_schedule.xlsx" // Le chemin d'accès au fichier
-              download="Programme-Complet.xlsx" // L'attribut `download` force le téléchargement et permet de renommer le fichier
+              href="/conf_schedule.xlsx"
+              download="Digital-Nation-2030-Conference-Schedule.xlsx"
               className={`${colors.accentBg} text-black px-8 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform ${colors.hoverGlow}`}
             >
               DOWNLOAD FULL PROGRAM
@@ -1146,6 +1269,31 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
             <p className={`text-xl ${colors.text} max-w-3xl mx-auto`}>
               Leading organizations supporting digital transformation in Africa
             </p>
+          </div>
+
+          {/* Organisateur Principal */}
+          <div className="text-center mb-20">
+            <h3 className={`text-3xl font-bold mb-8 ${colors.textBright}`}>
+              ORGANIZED BY
+            </h3>
+            <div className="flex justify-center">
+              <div className={`${colors.card} p-8 rounded-2xl border-2 ${colors.accentBorder} bg-gradient-to-br from-[#1a1a2e] to-[#16213e] shadow-2xl max-w-md`}>
+                <img
+                  src="/logo-SS4D.png"
+                  alt="SS4D - Organisateur Principal"
+                  className="h-20 w-auto mx-auto mb-4 filter brightness-110"
+                  onError={(e) => {
+                    e.currentTarget.src = "https://via.placeholder.com/200x80?text=SS4D";
+                  }}
+                />
+                <h4 className={`text-xl font-bold ${colors.accent} mb-2`}>
+                  SS4D
+                </h4>
+                <p className={`text-sm ${colors.text} opacity-80`}>
+                  Digital Transformation Leader
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="space-y-16">
@@ -1999,6 +2147,7 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
   // tout en haut du fichier (hors composant) :
   const SpeakerDetail = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const colors = {
       bg: "bg-[#1A1A1A]",
@@ -2012,11 +2161,15 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
       hoverGlow: "hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]",
     };
 
-    // ✅ utilise la liste importée + évite un state/effet inutile
-    const speaker = React.useMemo(
-      () => speakers.find((s) => s.id === Number(id)) || null,
-      [id]
-    );
+    // ✅ Search through all speaker arrays
+    const speaker = React.useMemo(() => {
+      const allSpeakers = [
+        ...speakers,
+        ...speakersExecutif,
+        ...congoleseVisionnary
+      ];
+      return allSpeakers.find((s) => s.id === Number(id)) || null;
+    }, [id]);
 
     if (!speaker) {
       return (
@@ -2038,13 +2191,13 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
       <div className={`min-h-screen ${colors.bg} w-full overflow-x-clip`}>
         <div className="w-full py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <Link
-              to="/"
+            <button
+              onClick={() => navigate('/#speakers')}
               className="inline-flex items-center text-[#00FFFF] mb-8 hover:underline"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to speakers
-            </Link>
+            </button>
 
             <div
               className={`${colors.card} p-6 md:p-8 rounded-xl border ${colors.divider}`}
@@ -2214,7 +2367,7 @@ Renowned cybersecurity expert | Moderator: Grace Ngoya`,
         <ProgramSection />
         <SponsorsSection />
         <LocationSection />
-        <RegisterSection />
+        <RegisterSection />zz
       </main>
       <Footer />
     </div>

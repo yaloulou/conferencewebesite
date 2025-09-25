@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 16" width="24" height="16">
+  <!-- Fond bleu ciel -->
+  <rect width="24" height="16" fill="#007FFF"/>
+  
+  <!-- Bande diagonale jaune -->
+  <polygon points="0,0 24,12 24,16 0,4" fill="#FFCD00"/>
+  
+  <!-- Bande diagonale rouge -->
+  <polygon points="0,4 24,16 20,16 0,8" fill="#CE1126"/>
+  
+  <!-- Étoile jaune au centre -->
+  <g transform="translate(4, 2)">
+    <polygon points="8,2 9.5,6.5 14,6.5 10.5,9.5 12,14 8,11 4,14 5.5,9.5 2,6.5 6.5,6.5" fill="#FFCD00"/>
+  </g>
+</svg>

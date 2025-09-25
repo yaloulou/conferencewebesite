@@ -103,7 +103,7 @@ const speakers = [
         linkedin: ""
       }
     },
-    {
+    /* {
       id: 7,
       name: "Pankaj Chugh",
       title: "Partner, SAI Group (Bay Area) — Commercialization & Partnerships for AGI (JazzX AI)",
@@ -115,7 +115,7 @@ const speakers = [
         twitter: "",
         linkedin: ""
       }
-    },
+    }, */
     {
     id: 9,
     name: "Shanam Kapoor",
@@ -129,6 +129,20 @@ const speakers = [
       linkedin: ""
     }
   },
+  {
+    id: 999,
+    name: "And many more...",
+    title: "Global Expert Leaders",
+    topic: "World-class expertise awaits",
+    bio: "Additional world-renowned experts will soon join our Global Expert Leaders roster.",
+    detailedBio: "We continue to enrich our program with other international thought leaders and industry pioneers. Stay connected to discover the next announcements!",
+    avatar: "/nature.jpg",
+    social: {
+      twitter: null,
+      linkedin: null
+    },
+    isSuspense: true
+  }
   ];
 
   export default speakers;
