@@ -20,7 +20,7 @@ const speakersExecutif = [
   title: "Special Advisor to the Head of State on Security",
   topic: "Law and digital governance in the DRC",
   bioKey: "desire_kolongele",
-  detailedBio: "Born on November 22, 1972, in Bulungu, Désiré Cashmir Eberande Kolongele is a lawyer at the Kinshasa Bar and a renowned university professor. He holds a PhD in law from the University of Paris 1 Panthéon-Sorbonne. Following a prolific career as a business lawyer and consultant for several Congolese ministries and companies, he entered politics in 2020 as the interim chief of staff for President Félix Tshisekedi. He was then appointed Minister of Digital in 2021. He currently holds the position of Special Advisor to the Head of State on Security, bringing his legal expertise and vision for governance in the digital age.",
+  detailedBio: "Désiré Cashmir Eberande Kolongele is a lawyer at the Kinshasa Bar and a renowned university professor. He holds a PhD in law from the University of Paris 1 Panthéon-Sorbonne. Following a prolific career as a business lawyer and consultant for several Congolese ministries and companies, he entered politics in 2020 as the interim chief of staff for President Félix Tshisekedi. He was then appointed Minister of Digital in 2021. He currently holds the position of Special Advisor to the Head of State on Security, bringing his legal expertise and vision for governance in the digital age.",
   avatar: "/intervenants/Kolongele Eberande Desire-Casimir.png",
   social: {
     twitter: null,
