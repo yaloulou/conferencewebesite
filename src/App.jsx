@@ -701,23 +701,68 @@ const DigitalNation2030 = () => {
 
   // Composant Hero
   const HeroSection = () => {
+    const [currentVideo, setCurrentVideo] = useState(0);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const videoRef = useRef(null);
+    
+    const videos = [
+      "landing_media.mp4",
+      "landing_media2.mp4"
+    ];
+
+    useEffect(() => {
+      const video = videoRef.current;
+      if (!video) return;
+
+      const handleVideoEnd = () => {
+        // Commencer la transition rapide
+        setIsTransitioning(true);
+        
+        // Après 300ms de transition, changer la vidéo
+        setTimeout(() => {
+          setCurrentVideo(prev => (prev + 1) % videos.length);
+          setIsTransitioning(false);
+        }, 300);
+      };
+
+      // Écouter l'événement 'ended' pour chaque changement de vidéo
+      video.addEventListener('ended', handleVideoEnd);
+      
+      // Nettoyer l'événement
+      return () => {
+        video.removeEventListener('ended', handleVideoEnd);
+      };
+    }, [currentVideo, videos.length]);
+
+    useEffect(() => {
+      // Quand currentVideo change, charger et jouer la nouvelle vidéo
+      const video = videoRef.current;
+      if (video) {
+        video.load();
+        video.play().catch(console.error);
+      }
+    }, [currentVideo]);
 
     return (
       <section
         id="home"
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        {/* Vidéo de fond unique */}
+        {/* Vidéos de fond avec transition rapide */}
         <div className="absolute inset-0">
           <video
+            ref={videoRef}
             autoPlay
-            loop
             muted
             playsInline
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover transition-opacity duration-300 ease-out ${
+              isTransitioning ? 'opacity-0' : 'opacity-100'
+            }`}
+            key={currentVideo}
           >
-            <source src="landing_media.mp4" type="video/mp4" />
+            <source src={videos[currentVideo]} type="video/mp4" />
           </video>
+          
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
