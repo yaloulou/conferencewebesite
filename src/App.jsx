@@ -1458,9 +1458,9 @@ const ProgramSection = () => {
                     e.currentTarget.src = "https://via.placeholder.com/200x80?text=SS4D";
                   }}
                 />
-                <h4 className={`text-xl font-bold ${colors.accent} mb-2`}>
+                {/* <h4 className={`text-xl font-bold ${colors.accent} mb-2`}>
                   SS4D
-                </h4>
+                </h4> */}
                 <p className={`text-sm ${colors.text} opacity-80`}>
                   {t.sponsors.organizerDescription}
                 </p>
