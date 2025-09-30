@@ -56,6 +56,34 @@ const speakersExecutif = [
   }
 },
 
+{
+  id: 108,
+  name: "Louis Watum Kabamba",
+  title: "Minister of Industry and SME Development (DRC)",
+  topic: "Local transformation and SME development in the DRC",
+  bioKey: "louis_watum_kabamba",
+  detailedBio: "Louis Watum Kabamba, born on March 22, 1962, in Kinshasa, is a politician from the Democratic Republic of Congo. An Industrial Chemistry Engineer by training (University of Lubumbashi), he had a long and rich career in the mining sector, holding executive positions in major international companies such as AngloGold Ashanti (Mali), Moto Gold Mines, Randgold Resources (Kibali Gold Mine), and Ivanhoe Mining (in 2014, as Chief Operating Officer). He also served as President of the DRC Chamber of Mines. In 2024, he was appointed Minister of Industry and SME Development (Suminwa Government), with the mission of promoting the local processing of raw materials, developing SMEs, stimulating industrial innovation, and ensuring private sector regulation. He was subsequently appointed Minister of Mines in the Suminwa II government starting in August 2025.",
+  avatar: "/intervenants/Louis Watum Kabamba.png",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
+
+{
+  id: 109,
+  name: "Raïssa Malu Dinanga",
+  title: "Minister of State for National Education and New Citizenship (DRC)",
+  topic: "Promotion of Science, Technology, Engineering, and Mathematics (STEM) and education in the DRC",
+  bioKey: "raissa_malu_dinanga",
+  detailedBio: "Raïssa Malu Dinanga, born in Kinshasa, is a Congolese physicist, professor, and author. Daughter of the famous physicist Félix Malu wa Kalenga, she is a fervent promoter of scientific, technological, and mathematical education in the DRC. She founded the association 'Investing In People' in 2013 to offer scholarships to women in STEM. In 2014, she launched and has since ensured the annual promotion of the 'Science and Technology Week' (SST) in the DRC. From 2016 to 2021, she headed the PEQPESU project unit (Education Project for Quality and Relevance of Secondary and University Education) with the support of the World Bank. She was also a member of the presidential panel for the DRC's term as President of the African Union (2021-2022), where she supervised the development of a roadmap on space technologies. Since May 2024, she has served as the Minister of State for National Education and New Citizenship in the Suminwa Government.",
+  avatar: "/intervenants/Raïssa Malu.png",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
+
 
   {
   id: 105,
@@ -96,6 +124,7 @@ const speakersExecutif = [
     linkedin: null
   }
 },
+
 {
   id: 998,
   name: "Other leaders...",
