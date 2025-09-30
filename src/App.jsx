@@ -1997,8 +1997,7 @@ const ProgramSection = () => {
             "https://maxi-cash-proxy-sc2gs.ondigitalocean.app/pay/card";
           payload = {
             PayType: "MaxiCash",
-            //Amount: formData.amount,
-            Amount: "1",
+            Amount: formData.amount,
             Currency: "USD",
             Telephone: formData.telephone,
             Language: "en",

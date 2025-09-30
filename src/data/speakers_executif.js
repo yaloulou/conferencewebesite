@@ -70,6 +70,20 @@ const speakersExecutif = [
   }
 },
 
+ {
+  id: 106,
+  name: "Joe Dumbi Kabangu",
+  title: "Special Advisor to the Head of State",
+  topic: "Financing Infrastructure Projects and Strategic Partnerships for Development",
+  bioKey: "joe_dumbi",
+  detailedBio: "In his capacity as Special Advisor to the Head of State, Joe Dumbi Kabangu's mission is to mobilize external financial resources and oversee the implementation of strategic development projects for the DRC. His expertise is crucial for financing national infrastructure and attracting foreign investment. His role also extends to strengthening governance and transparency in the execution of these projects. With a strong background in international finance and project management, he is a key player in the country's economic diplomacy. His commitment is to ensure the effectiveness and positive impact of international partnerships on the Congolese economy.",
+  avatar: "/intervenants/Joe Dumbi.png",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
+
 {
   id: 109,
   name: "Raïssa Malu Dinanga",
@@ -98,19 +112,21 @@ const speakersExecutif = [
     linkedin: null
   }
 },
+
   {
-  id: 106,
-  name: "Joe Dumbi Kabangu",
-  title: "Special Advisor to the Head of State",
-  topic: "Financing Infrastructure Projects and Strategic Partnerships for Development",
-  bioKey: "joe_dumbi",
-  detailedBio: "In his capacity as Special Advisor to the Head of State, Joe Dumbi Kabangu's mission is to mobilize external financial resources and oversee the implementation of strategic development projects for the DRC. His expertise is crucial for financing national infrastructure and attracting foreign investment. His role also extends to strengthening governance and transparency in the execution of these projects. With a strong background in international finance and project management, he is a key player in the country's economic diplomacy. His commitment is to ensure the effectiveness and positive impact of international partnerships on the Congolese economy.",
-  avatar: "/intervenants/Joe Dumbi.png",
+  id: 111,
+  name: "O'Neige N'Sele Mimpa",
+  title: "Minister of Land Affairs (DRC)",
+  topic: "Financial Policy, Land Reform, and Women's Empowerment in the DRC",
+  bioKey: "oneige_nsele_mimpa",
+  detailedBio: "O'Neige N'Sele Mimpa$ is an eminent figure in Congolese politics. After serving as the **first woman** to hold the position of Vice-Minister of Finance, she was appointed **Minister of Land Affairs** in the Suminwa government (since May 2024). An IT graduate (ISIPA, Kinshasa), her professional career began in the banking sector, where she held management positions at prestigious institutions like **CITIGROUP CONGO** and **ECOBANK RDC**, managing financial flows for UN agencies and multinational corporations. O'Neige N'Sele Mimpa is strongly committed to women's empowerment, launching initiatives like the 'PUPILLES DES FINANCES' program to foster female talent in finance. She has represented the DRC at international conferences and plays a crucial role in implementing government policies aimed at stimulating development and prosperity in the DRC, notably through the management and reform of the land sector.",
+  avatar: "/intervenants/oneige.jpeg",
   social: {
     twitter: null,
     linkedin: null
   }
 },
+
   {
   id: 107,
   name: "Fely Samuna",
