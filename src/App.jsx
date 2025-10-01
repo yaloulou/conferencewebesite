@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import QRCode from "qrcode"; // Import de la bibliothèque QRCode
 import { translations } from "/src/translations.js";
+import PaymentStatus from "/src/components/PaymentStatus.jsx";
 
 import {
   BrowserRouter as Router,
@@ -2595,6 +2596,10 @@ const ProgramSection = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/speaker/:id" element={<SpeakerDetailWrapper />} />
+        <Route path="/success" element={<PaymentStatus type="success" />} />
+        <Route path="/failure" element={<PaymentStatus type="failure" />} />
+        <Route path="/cancel" element={<PaymentStatus type="cancel" />} />
+        <Route path="/notify" element={<PaymentStatus type="notify" />} />
       </Routes>
       
       {/* Speaker Modal */}
@@ -2618,7 +2623,7 @@ const ProgramSection = () => {
         <ProgramSection />
         <SponsorsSection />
         <LocationSection />
-        <RegisterSection />zz
+        <RegisterSection />
       </main>
       <Footer />
     </div>
