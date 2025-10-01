@@ -29,6 +29,20 @@ const congoleseVisionnary = [
 },
 
 {
+  id: 112,
+  name: "Elie Nkumbi",
+  title: "Chief of Staff to the Minister of Finance (DRC)",
+  topic: "Financial Expertise, Energy Sector Regulation, and Microfinance Consulting",
+  bioKey: "elie_nkumbi",
+  detailedBio: "Elie Nkumbi is a **Civil Electrical Engineer** and a senior expert with a diverse background in finance, energy, and microfinance. He currently serves as the **Chief of Staff to the Minister of Finance** in the Democratic Republic of Congo. His professional experience includes work as an expert within the Ministry of Finance, demonstrating in-depth knowledge of public financial management. He is also a **Microfinance Consultant** for the African Development Bank (AfDB) and a technical expert for the **ARE (Autorité de Régulation du secteur de l'Électricité)**, specializing in electrical energy. Known also as a communicator, his expertise bridges technical engineering, financial strategy, and regulatory affairs.",
+  avatar: "/intervenants/Elie Nkumbi.png",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
+
+{
     id: 997,
     name: "More leaders and catalysts...",
     title: "Congolese Transformation Leaders and Catalysts",
