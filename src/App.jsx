@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import QRCode from "qrcode"; // Import de la bibliothèque QRCode
+import { Analytics } from '@vercel/analytics/react';
 import { translations } from "/src/translations.js";
 import PaymentStatus from "/src/components/PaymentStatus.jsx";
+import AdminDashboard from "/src/components/AdminDashboard.jsx";
+import visitCounter from "/src/utils/visitCounter.js";
 
 import {
   BrowserRouter as Router,
@@ -2583,7 +2586,7 @@ const ProgramSection = () => {
         </div>
 
         <div
-          className={`pt-8 border-t ${colors.divider} text-center text-sm ${colors.text}`}
+          className={`pt-8 text-center text-sm ${colors.text}`}
         >
           {t.footer.copyright}
         </div>
@@ -2600,6 +2603,7 @@ const ProgramSection = () => {
         <Route path="/failure" element={<PaymentStatus type="failure" />} />
         <Route path="/cancel" element={<PaymentStatus type="cancel" />} />
         <Route path="/notify" element={<PaymentStatus type="notify" />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
       
       {/* Speaker Modal */}
@@ -2611,6 +2615,9 @@ const ProgramSection = () => {
           setSelectedSpeaker(null);
         }} 
       />
+      
+      {/* Vercel Analytics */}
+      <Analytics />
     </Router>
   );
 

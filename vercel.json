@@ -1,0 +1,10 @@
+{
+  "analytics": {
+    "enable": true
+  },
+  "functions": {
+    "app/**": {
+      "includeFiles": "**"
+    }
+  }
+}
