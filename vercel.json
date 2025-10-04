@@ -1,7 +1,8 @@
 {
-  "functions": {
-    "app/**": {
-      "includeFiles": "**"
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
-  }
+  ]
 }
