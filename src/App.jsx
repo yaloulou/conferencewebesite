@@ -571,9 +571,14 @@ const DigitalNation2030 = () => {
           <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logo */}
             <div className="flex items-center">
-              <span className="text-lg sm:text-xl md:text-2xl font-bold text-white">
-                digital nation 2030
-              </span>
+              <div className="flex flex-col">
+                <span className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                  DIGITAL HORIZON
+                </span>
+                <span className="text-xs sm:text-sm text-[#00FFFF] opacity-80 -mt-1">
+                  First Edition
+                </span>
+              </div>
             </div>
 
             {/* Menu Desktop */}
@@ -789,11 +794,14 @@ const DigitalNation2030 = () => {
             </p>
 
             {/* Sous-titre principal */}
-            <p
-              className={`text-xl md:text-2xl lg:text-3xl ${colors.text} max-w-4xl mb-4 md:mb-6 font-medium px-4`}
-            >
-              <span className={colors.accent}>DIGITAL</span> NATION 2030
-            </p>
+            <div className="text-center mb-4 md:mb-6 px-4">
+              <p className={`text-xl md:text-2xl lg:text-3xl ${colors.text} max-w-4xl font-medium`}>
+                <span className={colors.accent}>DIGITAL</span> HORIZON
+              </p>
+              <p className={`text-lg md:text-xl ${colors.accent} opacity-80 mt-1`}>
+                First Edition
+              </p>
+            </div>
 
             {/* Titre principal */}
             <h1
@@ -1765,7 +1773,7 @@ const ProgramSection = () => {
     async function downloadQRCodeWithLabel_viaCanvas(transactionID) {
       try {
         const qrSize = 300;
-        const labelText = "SS4D Conference";
+        const labelText = "Digital Horizon - First Edition";
         const fontSize = 20;
         const labelPadding = 12; // espace autour du texte
         const textHeight = fontSize + labelPadding;
@@ -1881,7 +1889,7 @@ const ProgramSection = () => {
           ctx.font = "20px Arial";
           ctx.fillStyle = "#000000";
           ctx.textAlign = "center";
-          ctx.fillText("SS4D Conference", qrSize / 2, qrSize + 25);
+          ctx.fillText("Digital Horizon - First Edition", qrSize / 2, qrSize + 25);
 
           // Convertir en image PNG finale
           const finalUrl = canvas.toDataURL("image/png");
@@ -2499,9 +2507,14 @@ const ProgramSection = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
-            <span className={`text-xl font-bold ${colors.textBright} mb-6 block`}>
-              {t.footer.title}
-            </span>
+            <div className="mb-6">
+              <span className={`text-xl font-bold ${colors.textBright} block`}>
+                {t.footer.title}
+              </span>
+              <span className={`text-sm ${colors.accent} opacity-80`}>
+                {t.footer.subtitle}
+              </span>
+            </div>
             <p className={`text-sm ${colors.text} mb-6`}>
               {t.footer.description}
             </p>

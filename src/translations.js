@@ -269,7 +269,8 @@ export const translations = {
       close: "Close"
     },
     footer: {
-      title: "DIGITAL NATION 2030",
+      title: "DIGITAL HORIZON",
+      subtitle: "First Edition",
       description: "The premier conference on digital transformation in Africa.",
       organizedBy: "Organized by",
       quickLinks: "QUICK LINKS",
@@ -281,7 +282,7 @@ export const translations = {
         program: "Program",
         venue: "Venue"
       },
-      copyright: "© 2025 Digital Nation 2030. All rights reserved."
+      copyright: "© 2025 Digital Horizon. All rights reserved."
     }
   },
   fr: {
@@ -590,7 +591,8 @@ export const translations = {
       close: "Fermer"
     },
     footer: {
-      title: "DIGITAL NATION 2030",
+      title: "DIGITAL HORIZON",
+      subtitle: "Première Édition",
       description: "La première conférence sur la transformation numérique en Afrique.",
       organizedBy: "Organisé par",
       quickLinks: "LIENS RAPIDES",
@@ -602,7 +604,7 @@ export const translations = {
         program: "Programme",
         venue: "Lieu"
       },
-      copyright: "© 2025 Digital Nation 2030. Tous droits réservés."
+      copyright: "© 2025 Digital Horizon. Tous droits réservés."
     }
   }
 };

@@ -44,7 +44,7 @@ const PaymentStatus = ({ type }) => {
   const downloadQRCodeWithLabel = async (transactionID) => {
     try {
       const qrSize = 300;
-      const labelText = "SS4D Digital Nation 2030";
+      const labelText = "SS4D Digital Horizon - First Edition";
       const fontSize = 20;
       const labelPadding = 12;
       const textHeight = fontSize + labelPadding;
@@ -109,7 +109,7 @@ const PaymentStatus = ({ type }) => {
         return {
           icon: <CheckCircle className="w-16 h-16 text-green-400" />,
           title: "Paiement Réussi !",
-          subtitle: "Votre inscription à Digital Nation 2030 a été confirmée",
+          subtitle: "Votre inscription à Digital Horizon First Edition a été confirmée",
           bgColor: "bg-green-500/20",
           borderColor: "border-green-500",
           textColor: "text-green-300"
@@ -198,7 +198,7 @@ const PaymentStatus = ({ type }) => {
               {/* Montant masqué selon la demande */}
               <div className="flex justify-between items-center">
                 <span className={colors.text}>Événement:</span>
-                <span className={colors.textBright}>Digital Nation 2030</span>
+                <span className={colors.textBright}>Digital Horizon - First Edition</span>
               </div>
             </div>
           </div>
