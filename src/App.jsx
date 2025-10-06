@@ -143,7 +143,7 @@ const DigitalNation2030 = () => {
                     alt={speaker.name}
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.currentTarget.src = "https://via.placeholder.com/128";
+                      e.currentTarget.src = "/default-avatar.png";
                     }}
                   />
                 </div>
@@ -273,7 +273,7 @@ const DigitalNation2030 = () => {
           alt={speaker.name}
           className="w-full h-full object-cover hover:scale-105 transition-transform"
           onError={(e) => {
-            e.currentTarget.src = "https://via.placeholder.com/120";
+            e.currentTarget.src = "/default-avatar.png";
           }}
         />
       </div>
@@ -1512,7 +1512,7 @@ const ProgramSection = () => {
                   alt="SS4D - Organisateur Principal"
                   className="h-20 w-auto mx-auto mb-4 filter brightness-110"
                   onError={(e) => {
-                    e.currentTarget.src = "https://via.placeholder.com/200x80?text=SS4D";
+                    e.currentTarget.style.display = 'none';
                   }}
                 />
                 {/* <h4 className={`text-xl font-bold ${colors.accent} mb-2`}>
@@ -1563,9 +1563,7 @@ const ProgramSection = () => {
                           transition-all duration-500
                         `}
                           onError={(e) => {
-                            e.target.src =
-                              "https://via.placeholder.com/200x80?text=" +
-                              sponsor.name;
+                            e.target.style.display = 'none';
                           }}
                         />
                         <p
@@ -2038,9 +2036,11 @@ const ProgramSection = () => {
         });
 
         const data = await response.json();
+        console.log("les données sont "+data);
 
         if (data.ResponseStatus === "Success") {
           if (paymentMethod === "card" && data.ResponseData) {
+
             // Pour carte: NE PAS remettre isProcessing à false, la redirection va avoir lieu
             window.location.href = data.ResponseData;
             // On quitte la fonction, inutile de continuer
@@ -2436,7 +2436,7 @@ const ProgramSection = () => {
                     alt={speaker.name}
                     className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-[#00FFFF] block"
                     onError={(e) => {
-                      e.currentTarget.src = "https://via.placeholder.com/150";
+                      e.currentTarget.src = "/default-avatar.png";
                     }}
                   />
 
