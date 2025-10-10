@@ -1494,7 +1494,14 @@ const ProgramSection = () => {
       {
         name: "CSSPEVK",
         tier: "Silver",
-        logo: "csspevk.png",
+        logo: "csspevk.jpg",
+        url: "#"
+      },
+
+      {
+        name: "DGRK",
+        tier: "Silver",
+        logo: "DGRK.png",
         url: "#"
       }
     ];
@@ -1565,7 +1572,15 @@ const ProgramSection = () => {
                           src={sponsor.logo}
                           alt={`${sponsor.name} logo`}
                           className={`
-                          h-40 
+                          ${
+                            tier === "Platinum"
+                              ? "h-40"
+                              : tier === "Gold"
+                              ? "h-32"
+                              : tier === "Silver"
+                              ? "h-28"
+                              : "h-24"
+                          } 
                           w-auto max-w-[200px] object-contain filter grayscale group-hover:grayscale-0
                           transition-all duration-500
                         `}

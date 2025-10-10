@@ -1,6 +1,34 @@
 const congoleseVisionnary = [
   // EXEMPLES : Ajoute ici les 10 visionnaires congolais
   {
+  id: 113,
+  name: "Gérard Kaja",
+  title: "Special Representative to the General Directorate of Kinshasa Revenue (DGRK)",
+  topic: "Economics, Public Finance, and Fiscal Reforms",
+  bioKey: "gérard_kaja",
+  detailedBio: "Gérard Kaja Kambowa is an **Economist** specializing in **public finance** and **administrative reforms**. He currently serves as the **Special Representative ('Chargé de Missions') to the General Directorate of Kinshasa Revenue (DGRK)**, where he is responsible for coordinating and leading the **structural reform** of this provincial tax administration. This reform aims at modernization and **maximizing urban revenue**. Prior to this appointment, he gained significant experience working notably at the **Presidency of the Republic**, providing him with an in-depth understanding of governance and economic strategy issues at the highest level of government. His mandate at the DGRK focuses on the fight against corruption (anti-values) and the necessity of prioritizing structural reforms to reduce dependency on external financial support.",
+  avatar: "/intervenants/Gerard Kaja.png",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
+
+{
+  id: 112,
+  name: "Elie Nkumbi",
+  title: "Deputy Chief of Staff to the Minister of Interior (DRC)",
+  topic: "Governance, Security, and Energy Sector Expertise",
+  bioKey: "elie_nkumbi",
+  detailedBio: "Elie Nkumbi is a **Civil Electrical Engineer** and a senior expert with a diverse background in governance, finance, and energy. He currently serves as the **Deputy Chief of Staff to the Minister of Interior, Security, Decentralization and Customary Affairs** in the Democratic Republic of Congo. His professional experience also includes work as an expert within the Ministry of Finance, demonstrating knowledge of public financial management. He is also a **Microfinance Consultant** for the African Development Bank (AfDB) and a technical expert for the **ARE (Autorité de Régulation du secteur de l'Électricité)**, specializing in electrical energy. His expertise spans technical engineering, financial strategy, and regulatory affairs.",
+  avatar: "/intervenants/Elie Nkumbi.png",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
+  
+  {
   id: 108,
   name: "Freddy Bangelesa",
   title: "Professor, School of Public Health, Kinshansa & Senior Researcher, German National Weather Service",
@@ -28,19 +56,7 @@ const congoleseVisionnary = [
   }
 },
 
-{
-  id: 112,
-  name: "Elie Nkumbi",
-  title: "Deputy Chief of Staff to the Minister of Interior (DRC)",
-  topic: "Governance, Security, and Energy Sector Expertise",
-  bioKey: "elie_nkumbi",
-  detailedBio: "Elie Nkumbi is a **Civil Electrical Engineer** and a senior expert with a diverse background in governance, finance, and energy. He currently serves as the **Deputy Chief of Staff to the Minister of Interior, Security, Decentralization and Customary Affairs** in the Democratic Republic of Congo. His professional experience also includes work as an expert within the Ministry of Finance, demonstrating knowledge of public financial management. He is also a **Microfinance Consultant** for the African Development Bank (AfDB) and a technical expert for the **ARE (Autorité de Régulation du secteur de l'Électricité)**, specializing in electrical energy. His expertise spans technical engineering, financial strategy, and regulatory affairs.",
-  avatar: "/intervenants/Elie Nkumbi.png",
-  social: {
-    twitter: null,
-    linkedin: null
-  }
-},
+
 
 {
     id: 997,
