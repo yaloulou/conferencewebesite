@@ -184,6 +184,7 @@ export const translations = {
       platinumSponsors: "Platinum Sponsors",
       goldSponsors: "Gold Sponsors",
       silverSponsors: "Silver Sponsors",
+      standardSponsors: "Standard Partners",
       becomePartner: "Want to become a sponsor?",
       partnershipText: "Join industry leaders in supporting Africa's premier digital transformation event.",
       contactTeam: "CONTACT OUR PARTNERSHIP TEAM"
@@ -506,6 +507,7 @@ export const translations = {
       platinumSponsors: "Partenaires Platine",
       goldSponsors: "Partenaires Or",
       silverSponsors: "Partenaires Argent",
+      standardSponsors: "Partenaires Standard",
       becomePartner: "Vous souhaitez devenir partenaire ?",
       partnershipText: "Rejoignez les leaders de l'industrie en soutenant l'événement phare de transformation numérique en Afrique.",
       contactTeam: "CONTACTER NOTRE ÉQUIPE PARTENARIATS"

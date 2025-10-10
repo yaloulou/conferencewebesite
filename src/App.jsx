@@ -1485,6 +1485,18 @@ const ProgramSection = () => {
       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ecobank_logo.svg/1280px-Ecobank_logo.svg.png",
       url: "https://www.ecobank.com"
     } */
+      {
+        name: "Weza",
+        tier: "Gold",
+        logo: "Weza.png",
+        url: "#"
+      },
+      {
+        name: "CSSPEVK",
+        tier: "Silver",
+        logo: "csspevk.png",
+        url: "#"
+      }
     ];
 
     return (
@@ -1526,7 +1538,7 @@ const ProgramSection = () => {
           </div>
 
           <div className="space-y-16">
-            {["Platinum", "Gold", "Silver"].map((tier) => {
+            {["Platinum", "Gold", "Silver", "Standard"].map((tier) => {
               const tierSponsors = sponsors.filter((s) => s.tier === tier);
               if (tierSponsors.length === 0) return null;
 
@@ -1537,7 +1549,8 @@ const ProgramSection = () => {
                   >
                     {tier === "Platinum" ? t.sponsors.platinumSponsors : 
                      tier === "Gold" ? t.sponsors.goldSponsors :
-                     t.sponsors.silverSponsors}
+                     tier === "Silver" ? t.sponsors.silverSponsors :
+                     t.sponsors.standardSponsors || "Partenaires Standard"}
                   </h3>
                   <div className="flex flex-wrap justify-center items-center gap-12">
                     {tierSponsors.map((sponsor, index) => (
@@ -1546,19 +1559,13 @@ const ProgramSection = () => {
                         href={sponsor.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`group p-4 transition-all duration-300 hover:scale-105 ${colors.hoverGlow}`}
+                        className={`group transition-all duration-300 hover:scale-105 ${colors.hoverGlow}`}
                       >
                         <img
                           src={sponsor.logo}
                           alt={`${sponsor.name} logo`}
                           className={`
-                          ${
-                            tier === "Platinum"
-                              ? "h-24"
-                              : tier === "Gold"
-                              ? "h-20"
-                              : "h-16"
-                          } 
+                          h-40 
                           w-auto max-w-[200px] object-contain filter grayscale group-hover:grayscale-0
                           transition-all duration-500
                         `}
