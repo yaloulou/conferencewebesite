@@ -4,7 +4,7 @@ const congoleseVisionnary = [
   {
   id: 111,
   name: "Thierry KATEMBWE MBALA",
-  title: "Principal Coordinator of the Strategic Supervision Committee for the Kinshasa City Expansion Project (CSPEVK)",
+  title: "Principal Coordinator of the CSPEVK (See in details)",
   topic: "Urban Expansion, International Investments, and Economic Development in the DRC",
   bioKey: "thierry_katembwe_mbala",
   detailedBio: "Thierry Katembwe Mbala is the Principal Coordinator of the **Strategic Supervision Committee for the Kinshasa City Expansion Project (CSPEVK)**. He has led this committee, which is attached to the Prime Minister's Office, since October 2023. His mission is to oversee the expansion work for the city of Kinshasa across 43,000 hectares in the Maluku commune.\n\nHolding a degree in Industrial Construction Engineering from the University of Lubumbashi, he also has two MBAs: one in Economic Intelligence and the other in African Development, obtained from SMART EXPERTS FOR DEVELOPMENT and IOM Research Global - Institute of Management London, respectively.\n\nHis notable achievements at CSPEVK include establishing a strategic committee composed of experts, technocrats, and technicians, as well as researching and securing over fifty foreign and national investor partners. These investors, with a presence across all continents (China, America, France, United Kingdom, Greece, United Arab Emirates, India, South Africa, Egypt), have signed technical and financial partnership agreements.",
