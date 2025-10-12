@@ -49,7 +49,7 @@ const congoleseVisionnary = [
   topic: "Digital Transformation, Smartification, and Institutional Hurdles in Africa",
   bioKey: "moussa_musavuli_mbutho",
   detailedBio: "Moussa Musavuli Mbutho is a senior executive specializing in **National Security and Digital Governance** in the Democratic Republic of Congo. He possesses proven experience in Security Sector Reform (SSR), governance of State information systems, digital identity, and cybersecurity, acquired through roles at the Presidency of the Republic, MONUSCO, the Independent National Electoral Commission (CENI), the Prime Minister's Office, and various strategic national and international projects. He is a Lifetime Ambassador for ID4Africa and has contributed to the implementation of the National Digital Strategy (PNN Horizon 2025), supporting reforms related to digital identity (SDG 16.9). He is also a researcher and author of the book 'Smartification: a response to digital inertia in the DRC and towards a better future' (2025), which analyzes institutional blockages to digital transformation in Sub-Sahran Africa and proposes a frugal and inclusive governance framework. His expertise includes inter-agency coordination, digital inclusion, cybersecurity, and leading national reforms.",
-  avatar: "/intervenants/moussa.jpg",
+  avatar: "/intervenants/Moussa Musavuli Mbutho.png",
   social: {
     twitter: null,
     linkedin: null
