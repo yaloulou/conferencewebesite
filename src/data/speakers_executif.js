@@ -59,10 +59,10 @@ const speakersExecutif = [
 {
   id: 108,
   name: "Louis Watum Kabamba",
-  title: "Minister of Industry and SME Development (DRC)",
-  topic: "Local transformation and SME development in the DRC",
+  title: "Minister of Mines (DRC)",
+  topic: "Mining strategy, local content, and digital transformation in the DRC mining sector",
   bioKey: "louis_watum_kabamba",
-  detailedBio: "Louis Watum Kabamba, born on March 22, 1962, in Kinshasa, is a politician from the Democratic Republic of Congo. An Industrial Chemistry Engineer by training (University of Lubumbashi), he had a long and rich career in the mining sector, holding executive positions in major international companies such as AngloGold Ashanti (Mali), Moto Gold Mines, Randgold Resources (Kibali Gold Mine), and Ivanhoe Mining (in 2014, as Chief Operating Officer). He also served as President of the DRC Chamber of Mines. In 2024, he was appointed Minister of Industry and SME Development (Suminwa Government), with the mission of promoting the local processing of raw materials, developing SMEs, stimulating industrial innovation, and ensuring private sector regulation. He was subsequently appointed Minister of Mines in the Suminwa II government starting in August 2025.",
+  detailedBio: "Louis Watum Kabamba is a politician from the Democratic Republic of Congo. An Industrial Chemistry Engineer by training (University of Lubumbashi), he had a long and rich career in the mining sector, holding executive positions in major international companies such as AngloGold Ashanti (Mali), Moto Gold Mines, Randgold Resources (Kibali Gold Mine), and Ivanhoe Mining (in 2014, as Chief Operating Officer). He also served as President of the DRC Chamber of Mines. In 2024, he was appointed Minister of Industry and SME Development (Suminwa Government). Subsequently, he was appointed Minister of Mines in the Suminwa II government starting in August 2025, with the mission of managing the country's strategic mineral resources, promoting local processing, and overseeing the digitalization of the mining sector.",
   avatar: "/intervenants/Louis Watum Kabamba.png",
   social: {
     twitter: null,

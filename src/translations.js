@@ -101,9 +101,9 @@ export const translations = {
         // Day 1 events
         "registration_breakfast": "Registration and Breakfast Networking",
         "opening_keynote": "Opening Keynote: Security and Digital Sovereignty: An Imperative for a Modern Nation",
-        "ambassador_speech_us": "American Ambassador Speech",
+
         "strategic_banking": "The Strategic Role of Central Banking",
-        "ambassador_speech_uk": "British Ambassador Speech",
+
         "drc_investment": "Strategy for DRC Investment and Global Engagement",
         "break_morning": "Break",
         "executive_panel": "Executive Panel: \"Leading in the Digital Age\"",
@@ -424,9 +424,9 @@ export const translations = {
         // Day 1 events
         "registration_breakfast": "Inscription et Petit-déjeuner Réseautage",
         "opening_keynote": "Conférence Inaugurale: Sécurité et Souveraineté Numérique: Un Impératif pour une Nation Moderne",
-        "ambassador_speech_us": "Discours de l'Ambassadeur Américain",
+
         "strategic_banking": "Le Rôle Stratégique de la Banque Centrale",
-        "ambassador_speech_uk": "Discours de l'Ambassadeur Britannique",
+
         "drc_investment": "Stratégie pour l'Investissement en RDC et l'Engagement Global",
         "break_morning": "Pause",
         "executive_panel": "Panel Exécutif: \"Diriger à l'Ère Numérique\"",

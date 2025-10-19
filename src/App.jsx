@@ -949,30 +949,21 @@ const ProgramSection = () => {
             type: "keynote",
             speaker: "Desire Cashmir Kologele Eberande | Moderator: Introduction by Wilmot Gibson",
           },
+
           {
-            time: "09:00 - 09:30",
-            title: "ambassador_speech_us",
-            type: "keynote",
-          },
-          {
-            time: "09:30 - 10:15",
+            time: "09:00 - 09:45",
             title: "strategic_banking",
             type: "keynote",
             speaker: "André Wameso | Moderator: Lucien B",
           },
           {
-            time: "10:15 - 10:30",
-            title: "ambassador_speech_uk",
-            type: "keynote",
-          },
-          {
-            time: "10:30 - 11:15",
+            time: "09:45 - 10:30",
             title: "drc_investment",
             type: "keynote",
             speaker: "JOE DUMBI KABANGU | Moderator: Antoine Kayisu",
           },
           {
-            time: "11:15 - 11:30",
+            time: "10:30 - 10:45",
             title: "break_morning",
             type: "break",
           },
