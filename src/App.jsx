@@ -1418,7 +1418,7 @@ const ProgramSection = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="text-center mt-8 sm:mt-10 md:mt-12 px-4">
+          {/* <div className="text-center mt-8 sm:mt-10 md:mt-12 px-4">
             <a
               href="/conf_schedule.xlsx"
               download="Digital-Nation-2030-Conference-Schedule.xlsx"
@@ -1426,7 +1426,7 @@ const ProgramSection = () => {
             >
               {t.program.downloadProgram}
             </a>
-          </div>
+          </div> */}
         </div>
       </section>
     );
