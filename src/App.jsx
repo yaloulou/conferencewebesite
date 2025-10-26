@@ -1805,7 +1805,7 @@ const ProgramSection = () => {
       {
         name: "student",
         price: "$50",
-        amount: "50",
+        amount: "1",
         features: t.register.tiers.student.features,
         displayName: t.register.tiers.student.name,
       },
