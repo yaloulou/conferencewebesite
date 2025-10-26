@@ -249,7 +249,7 @@ const DigitalNation2030 = () => {
         } flex flex-col items-center relative
         transition-all duration-300 hover:border-[#00FFFF] hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]
         rounded-xl
-        min-h-[340px] sm:min-h-[360px] h-[364px] sm:h-[384px] max-w-[280px] sm:max-w-[294px] w-full mx-auto
+        min-h-[380px] sm:min-h-[400px] h-auto max-w-[280px] sm:max-w-[300px] w-full mx-auto
         px-4 sm:px-5 py-5 sm:py-6
       `}
     >
@@ -267,76 +267,87 @@ const DigitalNation2030 = () => {
         </div>
       )}
       
-      <div className={`relative ${isHost ? 'w-32 h-32' : 'w-24 h-24'} rounded-full overflow-hidden mb-4 border-4 border-white bg-white`}>
-        <img
-          src={speaker.avatar}
-          alt={speaker.name}
-          className="w-full h-full object-cover hover:scale-105 transition-transform"
-          onError={(e) => {
-            e.currentTarget.src = "/default-avatar.png";
-          }}
-        />
-      </div>
-      <h4 className="text-lg font-bold text-[#FFFFFF] text-center">{speaker.name}</h4>
-      <p className="text-[#00FFFF] text-sm text-center mb-1">{translateTitle(speaker.title)}</p>
-      <p className="text-[#E0E0E0] text-sm text-center italic mb-2">"{translateTopic(speaker.topic)}"</p>
-      <div className="flex justify-center space-x-2 mb-2">
-        {speaker?.social?.twitter && (
-          <a
-            href={speaker.social.twitter}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#E0E0E0] hover:text-[#00FFFF] transition-colors"
-          >
-            {/* Twitter SVG */}
-            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.56c-.89.39-1.84.65-2.84.77a4.93 4.93 0 0 0 2.16-2.72c-.95.56-2 .97-3.13 1.19A4.92 4.92 0 0 0 16.67 3c-2.72 0-4.93 2.2-4.93 4.93 0 .39.04.77.12 1.13C7.72 8.89 4.1 6.92 1.67 3.91c-.43.75-.68 1.62-.68 2.55 0 1.76.89 3.32 2.26 4.23-.82-.03-1.59-.25-2.26-.62v.06c0 2.47 1.76 4.53 4.09 5-.43.12-.89.18-1.36.18-.33 0-.65-.03-.96-.09.65 2.01 2.53 3.47 4.76 3.51A9.86 9.86 0 0 1 0 19.54a13.89 13.89 0 0 0 7.56 2.22c9.07 0 14.04-7.52 14.04-14.04 0-.22 0-.43-.02-.65A10.03 10.03 0 0 0 24 4.56z"/></svg>
-          </a>
-        )}
-        {speaker?.social?.linkedin && (
-          <a
-            href={speaker.social.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#E0E0E0] hover:text-[#00FFFF] transition-colors"
-          >
-            {/* Linkedin SVG */}
-            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.3c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm14.5 11.3h-3v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97v5.69h-3v-10h2.87v1.36h.04c.4-.76 1.36-1.56 2.8-1.56 3 0 3.56 1.97 3.56 4.53v5.67z"/></svg>
-          </a>
-        )}
-      </div>
-      {/* Bouton More Details ou Coming Soon */}
-      {speaker.isSuspense ? (
-        <div className="
-          mt-auto mb-1 px-5 py-3 rounded-md text-base font-medium
-          bg-gray-600 text-gray-300
-          border-2 border-dashed border-gray-500
-          flex items-center justify-center
-          cursor-not-allowed
-        ">
-          <span className="mr-1">⏳</span>
-          {t.speakers.comingSoon}
+      {/* Avatar container avec taille fixe */}
+      <div className="flex-shrink-0 mb-4 pt-2">
+        <div className={`relative ${isHost ? 'w-32 h-32' : 'w-24 h-24'} rounded-full overflow-hidden border-4 border-white bg-white mx-auto`}>
+          <img
+            src={speaker.avatar}
+            alt={speaker.name}
+            className="w-full h-full object-cover hover:scale-105 transition-transform"
+            onError={(e) => {
+              e.currentTarget.src = "/default-avatar.png";
+            }}
+          />
         </div>
-      ) : (
-        <button
-          onClick={() => {
-            setSelectedSpeaker(speaker);
-            setIsModalOpen(true);
-          }}
-          className="
+      </div>
+
+      {/* Content container avec espacement contrôlé */}
+      <div className="flex-1 flex flex-col justify-between min-h-0">
+        <div className="text-center space-y-2">
+          <h4 className="text-lg font-bold text-[#FFFFFF] leading-tight px-2">{speaker.name}</h4>
+          <p className="text-[#00FFFF] text-sm leading-tight px-2">{translateTitle(speaker.title)}</p>
+          <p className="text-[#E0E0E0] text-xs italic leading-tight px-2">"{translateTopic(speaker.topic)}"</p>
+        </div>
+
+        <div className="flex justify-center space-x-2 mb-3">
+          {speaker?.social?.twitter && (
+            <a
+              href={speaker.social.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#E0E0E0] hover:text-[#00FFFF] transition-colors"
+            >
+              {/* Twitter SVG */}
+              <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.56c-.89.39-1.84.65-2.84.77a4.93 4.93 0 0 0 2.16-2.72c-.95.56-2 .97-3.13 1.19A4.92 4.92 0 0 0 16.67 3c-2.72 0-4.93 2.2-4.93 4.93 0 .39.04.77.12 1.13C7.72 8.89 4.1 6.92 1.67 3.91c-.43.75-.68 1.62-.68 2.55 0 1.76.89 3.32 2.26 4.23-.82-.03-1.59-.25-2.26-.62v.06c0 2.47 1.76 4.53 4.09 5-.43.12-.89.18-1.36.18-.33 0-.65-.03-.96-.09.65 2.01 2.53 3.47 4.76 3.51A9.86 9.86 0 0 1 0 19.54a13.89 13.89 0 0 0 7.56 2.22c9.07 0 14.04-7.52 14.04-14.04 0-.22 0-.43-.02-.65A10.03 10.03 0 0 0 24 4.56z"/></svg>
+            </a>
+          )}
+          {speaker?.social?.linkedin && (
+            <a
+              href={speaker.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#E0E0E0] hover:text-[#00FFFF] transition-colors"
+            >
+              {/* Linkedin SVG */}
+              <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.3c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm14.5 11.3h-3v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97v5.69h-3v-10h2.87v1.36h.04c.4-.76 1.36-1.56 2.8-1.56 3 0 3.56 1.97 3.56 4.53v5.67z"/></svg>
+            </a>
+          )}
+        </div>
+
+        {/* Bouton More Details ou Coming Soon */}
+        {speaker.isSuspense ? (
+          <div className="
             mt-auto mb-1 px-5 py-3 rounded-md text-base font-medium
-            bg-black text-[#00FFFF]
-            border-2 border-transparent hover:border-[#00FFFF]
-            transition-all duration-200
-            hover:scale-105
+            bg-gray-600 text-gray-300
+            border-2 border-dashed border-gray-500
             flex items-center justify-center
-            cursor-pointer
-          "
-          style={{ backgroundColor: "#000", color: "#00FFFF" }}
-        >
-          <span className="mr-1">→</span>
-          {t.speakers.viewDetails}
-        </button>
-      )}
+            cursor-not-allowed
+          ">
+            <span className="mr-1">⏳</span>
+            {t.speakers.comingSoon}
+          </div>
+        ) : (
+          <button
+            onClick={() => {
+              setSelectedSpeaker(speaker);
+              setIsModalOpen(true);
+            }}
+            className="
+              mt-auto mb-1 px-5 py-3 rounded-md text-base font-medium
+              bg-black text-[#00FFFF]
+              border-2 border-transparent hover:border-[#00FFFF]
+              transition-all duration-200
+              hover:scale-105
+              flex items-center justify-center
+              cursor-pointer
+            "
+            style={{ backgroundColor: "#000", color: "#00FFFF" }}
+          >
+            <span className="mr-1">→</span>
+            {t.speakers.viewDetails}
+          </button>
+        )}
+      </div>
     </div>
   );
 
@@ -1531,6 +1542,25 @@ const ProgramSection = () => {
                 <p className={`text-sm ${colors.text} opacity-80`}>
                   {t.sponsors.organizerDescription}
                 </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Partenaire Organisateur */}
+          <div className="text-center mb-20">
+            <h3 className={`text-2xl font-bold mb-6 ${colors.textBright}`}>
+              {t.sponsors.organizingPartner}
+            </h3>
+            <div className="flex justify-center">
+              <div className={`${colors.card} p-6 rounded-xl border ${colors.divider} bg-gradient-to-br from-[#1a1a2e] to-[#16213e] shadow-xl max-w-sm`}>
+                <img
+                  src="/LOGO-ME.png"
+                  alt="Partenaire Organisateur"
+                  className="h-14 w-auto mx-auto filter brightness-110"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
               </div>
             </div>
           </div>
