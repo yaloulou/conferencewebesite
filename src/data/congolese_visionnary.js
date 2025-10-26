@@ -30,6 +30,20 @@ const congoleseVisionnary = [
 },
 
 {
+  id: 111,
+  name: "Jean Pierre Nzuru",
+  title: "Professor and Technical Director, Ivanhoe Mines Energy DRC (See in details)",
+  topic: "Electroenergetics, Mining Project Development, and Engineering Science",
+  bioKey: "jean_pierre_nzuru",
+  detailedBio: "Jean Pierre Nzuru is the **Technical Director at Ivanhoe Mines Energy DRC**, a position he has held since 2013. In this executive role, he is responsible for leveraging his extensive skills in electroenergetics to manage and drive the development of major mining and energy infrastructure projects in the DRC.\n\nHe is also a **Professor at the Polytechnics Faculty of the University of Kinshasa (DRC)**, where he has taught since 2009. His strong academic foundation includes a **PhD in Engineering Science** (2009) and a **DEA (Advanced Studies Diploma) in Applied Science** (2005) from the University of Liège, Belgium. He earned his initial degree as a **Civil Electrical Engineer, specializing in Electroenergetics**, from the University of Kinshasa in 2000.\n\nHis career successfully combines high-level academic expertise with the technical leadership required for complex, large-scale industrial ventures.",
+  avatar: "/intervenants/Jean Pierre Nzuru.png",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
+
+{
   id: 112,
   name: "Elie Nkumbi",
   title: "Deputy Chief of Staff to the Minister of Interior (DRC)",
@@ -37,6 +51,20 @@ const congoleseVisionnary = [
   bioKey: "elie_nkumbi",
   detailedBio: "Elie Nkumbi is a **Civil Electrical Engineer** and a senior expert with a diverse background in governance, finance, and energy. He currently serves as the **Deputy Chief of Staff to the Minister of Interior, Security, Decentralization and Customary Affairs** in the Democratic Republic of Congo. His professional experience also includes work as an expert within the Ministry of Finance, demonstrating knowledge of public financial management. He is also a **Microfinance Consultant** for the African Development Bank (AfDB) and a technical expert for the **ARE (Autorité de Régulation du secteur de l'Électricité)**, specializing in electrical energy. His expertise spans technical engineering, financial strategy, and regulatory affairs.",
   avatar: "/intervenants/Elie Nkumbi.png",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
+
+{
+  id: 112,
+  name: "Kyandoghere Kyamakya",
+  title: "Full Professor & Deputy Director, Institute of Smart Systems Technologies, University of Klagenfurt (See in details)",
+  topic: "Transportation Informatics, Intelligent Transportation Systems (ITS), and Applied AI",
+  bioKey: "kyandoghere_kyamakya",
+  detailedBio: "Kyandoghere Kyamakya is a **Full Professor of Transportation Informatics** and the **Deputy Director of the Institute of Smart Systems Technologies** at the University of Klagenfurt, Austria. His current research is centered on modeling, simulation, and test-bed evaluations, with a major focus on Intelligent Transportation Systems (ITS).\n\nHis innovative work draws extensively from a combination of fundamental and theoretical tools spanning **applied mathematics, electronics, and computer science**. These tools include nonlinear dynamics, systems science, machine learning/deep learning, nonlinear image processing, and neuro-computing, which he applies to create novel solutions and concepts.\n\nHis significant academic contributions are evidenced by a prolific publication record, including **over 100 journal articles**, **over 100 conference papers**, and co-editing more than six books.",
+  avatar: "/intervenants/Kyandoghere Kyamakya.png",
   social: {
     twitter: null,
     linkedin: null
