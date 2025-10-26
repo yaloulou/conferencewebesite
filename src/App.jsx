@@ -75,7 +75,7 @@ const DigitalNation2030 = () => {
 
   // Function to translate speaker titles
   const translateTitle = (title) => {
-    if (currentLanguage === 'fr' && t.speakers.titleTranslations[title]) {
+    if (currentLanguage === 'fr' && t.speakers.titleTranslations && t.speakers.titleTranslations[title]) {
       return t.speakers.titleTranslations[title];
     }
     return title;
