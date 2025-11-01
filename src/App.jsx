@@ -298,7 +298,7 @@ const DigitalNation2030 = () => {
               className="text-[#E0E0E0] hover:text-[#00FFFF] transition-colors"
             >
               {/* Twitter SVG */}
-              <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.56c-.89.39-1.84.65-2.84.77a4.93 4.93 0 0 0 2.16-2.72c-.95.56-2 .97-3.13 1.19A4.92 4.92 0 0 0 16.67 3c-2.72 0-4.93 2.2-4.93 4.93 0 .39.04.77.12 1.13C7.72 8.89 4.1 6.92 1.67 3.91c-.43.75-.68 1.62-.68 2.55 0 1.76.89 3.32 2.26 4.23-.82-.03-1.59-.25-2.26-.62v.06c0 2.47 1.76 4.53 4.09 5-.43.12-.89.18-1.36.18-.33 0-.65-.03-.96-.09.65 2.01 2.53 3.47 4.76 3.51A9.86 9.86 0 0 1 0 19.54a13.89 13.89 0 0 0 7.56 2.22c9.07 0 14.04-7.52 14.04-14.04 0-.22 0-.43-.02-.65A10.03 10.03 0 0 0 24 4.56z"/></svg>
+              <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.56c-.89.39-1.84.65-2.84.77a4.93 4.93 0 0 0 2.16-2.72c-.95.56-2 .97-3.13 1.19A4.92 4.92 0 0 0 16.67 3c-2.72 0-4.93 2.2-4.93 4.93 0 .39.04.77.12 1.13C7.72 8.89 4.1 6.92 1.67 3.91c-.43.75-.68 1.62-.68 2.55 0 1.76.89 3.32 2.26 4.23-.82-.03-1.59-.25-2.26-.62v.06c0 2.47 1.76 4.53 4.09 5-.43.12-.89.18-1.36.18-.33 0-.65-.03-.96-.09.65 2.01 2.53 3.47 4.76 3.51A9.86 9.86 0 0 1 0 19.54a13.89 13.89 0 0 0 7.56 2.22c9.07 0 14.04-7.52 14.04-14.04 0-.22 0 .43-.02.65A10.03 10.03 0 0 0 24 4.56z"/></svg>
             </a>
           )}
           {speaker?.social?.linkedin && (
@@ -672,8 +672,8 @@ const DigitalNation2030 = () => {
           )}
         </div>
       </nav>
+    );
   };
-
   const HomePage = () => {
     const location = useLocation();
     
@@ -1499,6 +1499,12 @@ const ProgramSection = () => {
         url: "#"
       },
       {
+        name: "CUSO",
+        tier: "Silver",
+        logo: "CUSO.png",
+        website: "#" // Add the website URL if available
+      },
+      {
         name: "CSSPEVK",
         tier: "Silver",
         logo: "csspevk.jpg",
@@ -1511,11 +1517,7 @@ const ProgramSection = () => {
         logo: "DGRK.png",
         url: "#"
       },
-      {
-        name: "CUSO",
-        logo: "/CUSO.png",
-        website: "#", // Add the website URL if available
-      },
+      
     ];
 
     return (
