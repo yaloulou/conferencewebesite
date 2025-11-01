@@ -29,12 +29,12 @@ const speakers = [
   },
   {
     id: 2,
-    name: "Ainsley Rattray",
+    name: "A. Gary Rattray",
     title: "Cybersecurity Leader | Cloud Security Architect",
     topic: "Turning Security into a Business Enabler in the Cloud & AI Era",
     bioKey: "ainsley_rattray",
     detailedBio:
-      "Ainsley Rattray has designed and led large-scale cloud security programs for highly regulated enterprises across three continents. At JPMorganChase, HSBC, and Amazon Web Services, he architected enterprise-wide security patterns and automated guardrails that consistently reduced time-to-deploy from weeks to hours—without compromising auditability or compliance. He has built and mentored high-performing global security teams, translating complex risk and compliance needs into actionable engineering solutions, and enabling the secure migration of thousands of applications to the cloud. Known for making security a catalyst for innovation, Ainsley bridges engineering, business, and regulatory priorities to deliver results at scale. He now focuses on helping organizations of all sizes harness Security and AI technologies to innovate faster while enhancing their defenses.",
+      "A. Gary Rattray has designed and led large-scale cloud security programs for highly regulated enterprises across three continents. At JPMorganChase, HSBC, and Amazon Web Services, he architected enterprise-wide security patterns and automated guardrails that consistently reduced time-to-deploy from weeks to hours—without compromising auditability or compliance. He has built and mentored high-performing global security teams, translating complex risk and compliance needs into actionable engineering solutions, and enabling the secure migration of thousands of applications to the cloud. Known for making security a catalyst for innovation, A. Gary bridges engineering, business, and regulatory priorities to deliver results at scale. He now focuses on helping organizations of all sizes harness Security and AI technologies to innovate faster while enhancing their defenses.",
     avatar: "/intervenants/Ainsley Rattray.png",
     social: {
       twitter: "",

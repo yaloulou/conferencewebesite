@@ -70,34 +70,6 @@ const speakersExecutif = [
   }
 },
 
- {
-  id: 106,
-  name: "Joe Dumbi Kabangu",
-  title: "Special Advisor to the Head of State",
-  topic: "Financing Infrastructure Projects and Strategic Partnerships for Development",
-  bioKey: "joe_dumbi",
-  detailedBio: "In his capacity as Special Advisor to the Head of State, Joe Dumbi Kabangu's mission is to mobilize external financial resources and oversee the implementation of strategic development projects for the DRC. His expertise is crucial for financing national infrastructure and attracting foreign investment. His role also extends to strengthening governance and transparency in the execution of these projects. With a strong background in international finance and project management, he is a key player in the country's economic diplomacy. His commitment is to ensure the effectiveness and positive impact of international partnerships on the Congolese economy.",
-  avatar: "/intervenants/Joe Dumbi.png",
-  social: {
-    twitter: null,
-    linkedin: null
-  }
-},
-
-{
-  id: 109,
-  name: "Raïssa Malu Dinanga",
-  title: "Minister of State for National Education and New Citizenship (DRC)",
-  topic: "Promotion of Science, Technology, Engineering, and Mathematics (STEM) and education in the DRC",
-  bioKey: "raissa_malu_dinanga",
-  detailedBio: "Raïssa Malu Dinanga, born in Kinshasa, is a Congolese physicist, professor, and author. Daughter of the famous physicist Félix Malu wa Kalenga, she is a fervent promoter of scientific, technological, and mathematical education in the DRC. She founded the association 'Investing In People' in 2013 to offer scholarships to women in STEM. In 2014, she launched and has since ensured the annual promotion of the 'Science and Technology Week' (SST) in the DRC. From 2016 to 2021, she headed the PEQPESU project unit (Education Project for Quality and Relevance of Secondary and University Education) with the support of the World Bank. She was also a member of the presidential panel for the DRC's term as President of the African Union (2021-2022), where she supervised the development of a roadmap on space technologies. Since May 2024, she has served as the Minister of State for National Education and New Citizenship in the Suminwa Government.",
-  avatar: "/intervenants/Raïssa Malu.png",
-  social: {
-    twitter: null,
-    linkedin: null
-  }
-},
-
 
   {
   id: 105,
@@ -113,6 +85,21 @@ const speakersExecutif = [
   }
 },
 
+ {
+  id: 106,
+  name: "Joe Dumbi Kabangu",
+  title: "Special Advisor to the Head of State",
+  topic: "Financing Infrastructure Projects and Strategic Partnerships for Development",
+  bioKey: "joe_dumbi",
+  detailedBio: "In his capacity as Special Advisor to the Head of State, Joe Dumbi Kabangu's mission is to mobilize external financial resources and oversee the implementation of strategic development projects for the DRC. His expertise is crucial for financing national infrastructure and attracting foreign investment. His role also extends to strengthening governance and transparency in the execution of these projects. With a strong background in international finance and project management, he is a key player in the country's economic diplomacy. His commitment is to ensure the effectiveness and positive impact of international partnerships on the Congolese economy.",
+  avatar: "/intervenants/Joe Dumbi.png",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
+
+
   {
   id: 111,
   name: "O'Neige N'Sele Mimpa",
@@ -121,6 +108,20 @@ const speakersExecutif = [
   bioKey: "oneige_nsele_mimpa",
   detailedBio: "O'Neige N'Sele Mimpa$ is an eminent figure in Congolese politics. After serving as the **first woman** to hold the position of Vice-Minister of Finance, she was appointed **Minister of Land Affairs** in the Suminwa government (since May 2024). An IT graduate (ISIPA, Kinshasa), her professional career began in the banking sector, where she held management positions at prestigious institutions like **CITIGROUP CONGO** and **ECOBANK RDC**, managing financial flows for UN agencies and multinational corporations. O'Neige N'Sele Mimpa is strongly committed to women's empowerment, launching initiatives like the 'PUPILLES DES FINANCES' program to foster female talent in finance. She has represented the DRC at international conferences and plays a crucial role in implementing government policies aimed at stimulating development and prosperity in the DRC, notably through the management and reform of the land sector.",
   avatar: "/intervenants/oneige.jpeg",
+  social: {
+    twitter: null,
+    linkedin: null
+  }
+},
+
+{
+  id: 109,
+  name: "Raïssa Malu Dinanga",
+  title: "Minister of State for National Education and New Citizenship (DRC)",
+  topic: "Promotion of Science, Technology, Engineering, and Mathematics (STEM) and education in the DRC",
+  bioKey: "raissa_malu_dinanga",
+  detailedBio: "Raïssa Malu Dinanga, born in Kinshasa, is a Congolese physicist, professor, and author. Daughter of the famous physicist Félix Malu wa Kalenga, she is a fervent promoter of scientific, technological, and mathematical education in the DRC. She founded the association 'Investing In People' in 2013 to offer scholarships to women in STEM. In 2014, she launched and has since ensured the annual promotion of the 'Science and Technology Week' (SST) in the DRC. From 2016 to 2021, she headed the PEQPESU project unit (Education Project for Quality and Relevance of Secondary and University Education) with the support of the World Bank. She was also a member of the presidential panel for the DRC's term as President of the African Union (2021-2022), where she supervised the development of a roadmap on space technologies. Since May 2024, she has served as the Minister of State for National Education and New Citizenship in the Suminwa Government.",
+  avatar: "/intervenants/Raïssa Malu.png",
   social: {
     twitter: null,
     linkedin: null

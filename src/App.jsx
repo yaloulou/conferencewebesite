@@ -672,7 +672,6 @@ const DigitalNation2030 = () => {
           )}
         </div>
       </nav>
-    );
   };
 
   const HomePage = () => {
@@ -1494,6 +1493,12 @@ const ProgramSection = () => {
         url: "#"
       },
       {
+        name: "Musau Enterprises",
+        tier: "Gold",
+        logo: "LOGO-ME.png",
+        url: "#"
+      },
+      {
         name: "CSSPEVK",
         tier: "Silver",
         logo: "csspevk.jpg",
@@ -1505,7 +1510,12 @@ const ProgramSection = () => {
         tier: "Silver",
         logo: "DGRK.png",
         url: "#"
-      }
+      },
+      {
+        name: "CUSO",
+        logo: "/CUSO.png",
+        website: "#", // Add the website URL if available
+      },
     ];
 
     return (
@@ -1546,24 +1556,7 @@ const ProgramSection = () => {
             </div>
           </div>
 
-          {/* Partenaire Organisateur */}
-          <div className="text-center mb-20">
-            <h3 className={`text-2xl font-bold mb-6 ${colors.textBright}`}>
-              {t.sponsors.organizingPartner}
-            </h3>
-            <div className="flex justify-center">
-              <div className={`${colors.card} p-6 rounded-xl border ${colors.divider} bg-gradient-to-br from-[#1a1a2e] to-[#16213e] shadow-xl max-w-sm`}>
-                <img
-                  src="/LOGO-ME.png"
-                  alt="Partenaire Organisateur"
-                  className="h-14 w-auto mx-auto filter brightness-110"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+
 
           <div className="space-y-16">
             {["Platinum", "Gold", "Silver", "Standard"].map((tier) => {
@@ -2573,7 +2566,7 @@ const ProgramSection = () => {
                   alt="SS4D Logo" 
                   className="h-12 w-auto"
                   onError={(e) => {
-                    e.target.style.display = 'none';
+                    e.currentTarget.style.display = 'none';
                     // Fallback to CPU icon if image fails to load
                     const fallback = document.createElement('div');
                     fallback.className = `h-12 w-12 ${colors.accent} flex items-center justify-center border border-current rounded`;
