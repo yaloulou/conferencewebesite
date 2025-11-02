@@ -672,7 +672,8 @@ const DigitalNation2030 = () => {
           )}
         </div>
       </nav>
-  );
+    );
+  };
   const HomePage = () => {
     const location = useLocation();
     
@@ -1501,7 +1502,7 @@ const ProgramSection = () => {
         name: "CUSO",
         tier: "Silver",
         logo: "CUSO.png",
-        website: "https://cusotalentspluriels.org/" // Updated hyperlink
+        url: "https://cusotalentspluriels.org/" // Add the website URL if available
       },
       {
         name: "CSSPEVK",
