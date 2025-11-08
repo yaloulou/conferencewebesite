@@ -1776,10 +1776,16 @@ const ProgramSection = () => {
       cardNumber: "",
       expiryDate: "",
       cvv: "",
+      promoCode: "", // ✅ Nouveau champ
     });
     const [isProcessing, setIsProcessing] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState(null);
     const [transactionData, setTransactionData] = useState(null);
+
+    // ✅ Nouveaux états pour les codes promo
+    const [isPromoMode, setIsPromoMode] = useState(false);
+    const [promoData, setPromoData] = useState(null);
+    const [isProcessingPromo, setIsProcessingPromo] = useState(false);
 
     const tiers = [
       {
@@ -1805,6 +1811,185 @@ const ProgramSection = () => {
         displayName: t.register.tiers.student.name,
       },
     ];
+
+    async function downloadQRCodeWithLabel_viaCanvas(transactionID) {
+      try {
+        const qrSize = 300;
+        const labelText = "Digital Horizon - First Edition";
+        const fontSize = 20;
+        const labelPadding = 12; // espace autour du texte
+        const textHeight = fontSize + labelPadding;
+
+        // 1) créer un canvas temporaire et y dessiner le QR (QRCode.toCanvas écrit directement)
+        const tmp = document.createElement("canvas");
+        tmp.width = qrSize;
+        tmp.height = qrSize;
+        await new Promise((resolve, reject) => {
+          QRCode.toCanvas(
+            tmp,
+            transactionID,
+            {
+              width: qrSize,
+              margin: 2,
+              color: { dark: "#000000", light: "#FFFFFF" },
+            },
+            (err) => (err ? reject(err) : resolve())
+          );
+        });
+
+        // 2) créer canvas final en support HiDPI
+        const scale = window.devicePixelRatio || 1;
+        const finalCanvas = document.createElement("canvas");
+        finalCanvas.width = qrSize * scale;
+        finalCanvas.height = (qrSize + textHeight) * scale;
+        finalCanvas.style.width = `${qrSize}px`;
+        finalCanvas.style.height = `${qrSize + textHeight}px`;
+
+        const ctx = finalCanvas.getContext("2d");
+        ctx.scale(scale, scale);
+
+        // fond blanc (important si fond transparent)
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, qrSize, qrSize + textHeight);
+
+        // dessiner le QR du canvas temporaire
+        ctx.drawImage(tmp, 0, 0, qrSize, qrSize);
+
+        // dessiner le texte centré en dessous
+        ctx.fillStyle = "#000";
+        ctx.font = `${fontSize}px Arial, sans-serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(labelText, qrSize / 2, qrSize + textHeight / 2);
+
+        // exporter en blob et forcer téléchargement
+        const blob = await new Promise((res) =>
+          finalCanvas.toBlob(res, "image/png")
+        );
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `SS4D_QR_${transactionID}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        console.error("Erreur génération QR (canvas):", err);
+      }
+    }
+
+    // ✅ Fonction pour générer le QR code promo
+    const generatePromoQRCode = async (promoCode, userData) => {
+      try {
+        const qrData = JSON.stringify({
+          type: "PROMO_CODE",
+          code: promoCode,
+          user: userData.name,
+          email: userData.email,
+          phone: userData.telephone,
+          registeredAt: userData.registeredAt,
+          event: "Digital Horizon - First Edition"
+        });
+
+        const qrSize = 300;
+        const textHeight = 60;
+        const labelText = `Code Promo: ${promoCode}`;
+        const eventText = "Digital Horizon - First Edition";
+
+        // Générer le QR code sous forme DataURL
+        const qrUrl = await QRCode.toDataURL(qrData, {
+          width: qrSize,
+          margin: 2,
+          color: {
+            dark: "#000000",
+            light: "#FFFFFF",
+          },
+        });
+
+        const qrImage = new Image();
+        qrImage.src = qrUrl;
+
+        qrImage.onload = () => {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          canvas.width = qrSize;
+          canvas.height = qrSize + textHeight;
+
+          // Fond blanc
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(0, 0, qrSize, qrSize + textHeight);
+
+          // Dessiner le QR code
+          ctx.drawImage(qrImage, 0, 0, qrSize, qrSize);
+
+          // Ajouter le texte du code promo
+          ctx.fillStyle = "#000000";
+          ctx.font = "bold 18px Arial";
+          ctx.textAlign = "center";
+          ctx.fillText(labelText, qrSize / 2, qrSize + 20);
+
+          // Ajouter le nom de l'événement
+          ctx.font = "14px Arial";
+          ctx.fillText(eventText, qrSize / 2, qrSize + 40);
+
+          // Convertir en image PNG et télécharger
+          const finalUrl = canvas.toDataURL("image/png");
+          const link = document.createElement("a");
+          link.download = `Promo_${promoCode}_${userData.name.replace(/\s+/g, '_')}.png`;
+          link.href = finalUrl;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        };
+      } catch (err) {
+        console.error("Erreur lors de la génération du QR code promo:", err);
+      }
+    };
+
+    // ✅ Fonction pour traiter l'inscription promo
+    const handlePromoRegistration = async (e) => {
+      e.preventDefault();
+      setIsProcessingPromo(true);
+
+      try {
+        const payload = {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          telephone: formData.telephone,
+          promoCode: formData.promoCode
+        };
+
+        const response = await fetch("https://maxi-cash-proxy-sc2gs.ondigitalocean.app/promo/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+
+        if (data.Status === "Success") {
+          setPromoData(data);
+          setPaymentStatus("promo_success");
+          
+          // Générer automatiquement le QR code
+          setTimeout(() => {
+            generatePromoQRCode(data.PromoDetails.code, data.UserData);
+          }, 1000);
+          
+        } else {
+          setPaymentStatus("promo_error");
+        }
+      } catch (error) {
+        setPaymentStatus("promo_error");
+        console.error("Erreur lors de l'inscription promo:", error);
+      } finally {
+        setIsProcessingPromo(false);
+      }
+    };
 
     async function downloadQRCodeWithLabel_viaCanvas(transactionID) {
       try {
@@ -2112,86 +2297,58 @@ const ProgramSection = () => {
     return (
       <section id="register" className={`py-20 ${colors.bg}`}>
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2
-              className={`text-3xl md:text-4xl font-bold mb-6 ${colors.textBright}`}
-            >
-              {t.register.detailsTitle}
-            </h2>
-            <p className={`${colors.text} max-w-2xl mx-auto`}>
-              Choose your registration tier and secure your spot
-            </p>
-          </div>
-
-          {/* Sélection du forfait */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {tiers.map((tier, index) => (
-              <div
-                key={index}
-                className={`${colors.card} p-6 rounded-xl border ${
-                  selectedTier === tier.name
-                    ? colors.accentBorder
-                    : colors.divider
-                } ${
-                  tier.popular ? "transform md:scale-105" : ""
-                } cursor-pointer transition-all`}
-                onClick={() => handleTierSelect(tier.name, tier.amount)}
-              >
-                {tier.popular && (
-                  <div
-                    className={`${colors.accentBg} text-black text-xs font-bold px-3 py-1 rounded-full inline-block mb-4`}
-                  >
-                    {t.register.badges.mostPopular}
-                  </div>
-                )}
-
-                <h3 className={`text-xl font-bold mb-2 ${colors.textBright}`}>
-                  {tier.displayName}
-                </h3>
-                <p className={`text-3xl font-bold mb-6 ${colors.accent}`}>
-                  {tier.price}
-                </p>
-
-                <ul className="space-y-3 mb-6">
-                  {tier.features.map((feature, i) => (
-                    <li key={i} className={`flex items-center ${colors.text}`}>
-                      <Check className={`w-4 h-4 mr-2 ${colors.accent}`} />{" "}
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <div
-                  className={`w-6 h-6 rounded-full border-2 ${
-                    selectedTier === tier.name
-                      ? colors.accentBg + " border-transparent"
-                      : colors.divider
-                  } flex items-center justify-center mx-auto`}
-                >
-                  {selectedTier === tier.name && (
-                    <Check className="w-4 h-4 text-black" />
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Formulaire de paiement */}
-          <div
-            className={`${colors.card} p-8 rounded-xl border ${colors.divider}`}
+        <div className="text-center mb-12">
+          <h2
+            className={`text-3xl md:text-4xl font-bold mb-6 ${colors.textBright}`}
           >
+            {t.register.detailsTitle}
+          </h2>
+          <p className={`${colors.text} max-w-2xl mx-auto`}>
+            Choose your registration tier and secure your spot
+          </p>
+        </div>
+
+        {/* ✅ Toggle entre Registration normale et Code Promo */}
+        <div className="flex justify-center mb-8">
+          <div className="flex bg-gray-800 rounded-lg p-1">
+            <button
+              type="button"
+              onClick={() => setIsPromoMode(false)}
+              className={`px-6 py-2 rounded-md font-medium transition-all ${
+                !isPromoMode
+                  ? `${colors.accentBg} text-black`
+                  : `text-gray-400 hover:text-white`
+              }`}
+            >
+              Registration Standard
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsPromoMode(true)}
+              className={`px-6 py-2 rounded-md font-medium transition-all ${
+                isPromoMode
+                  ? `${colors.accentBg} text-black`
+                  : `text-gray-400 hover:text-white`
+              }`}
+            >
+              Code Promo
+            </button>
+          </div>
+        </div>
+
+        {/* ✅ Formulaire Code Promo */}
+        {isPromoMode ? (
+          <div className={`${colors.card} p-8 rounded-xl border ${colors.divider}`}>
             <h3 className={`text-2xl font-bold mb-6 ${colors.textBright}`}>
-              Registration Details
+              Inscription avec Code Promo
             </h3>
 
-            <form onSubmit={handlePayment}>
+            <form onSubmit={handlePromoRegistration}>
               {/* Informations personnelles */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <label
-                    className={`block text-sm font-medium mb-2 ${colors.text}`}
-                  >
-                    {t.register.form.firstName}
+                  <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                    Prénom
                   </label>
                   <input
                     type="text"
@@ -2203,10 +2360,8 @@ const ProgramSection = () => {
                   />
                 </div>
                 <div>
-                  <label
-                    className={`block text-sm font-medium mb-2 ${colors.text}`}
-                  >
-                    {t.register.form.lastName}
+                  <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                    Nom de famille
                   </label>
                   <input
                     type="text"
@@ -2220,10 +2375,8 @@ const ProgramSection = () => {
               </div>
 
               <div className="mb-6">
-                <label
-                  className={`block text-sm font-medium mb-2 ${colors.text}`}
-                >
-                  {t.register.form.email}
+                <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                  Email
                 </label>
                 <input
                   type="email"
@@ -2236,10 +2389,8 @@ const ProgramSection = () => {
               </div>
 
               <div className="mb-6">
-                <label
-                  className={`block text-sm font-medium mb-2 ${colors.text}`}
-                >
-                  {t.register.form.phone}
+                <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                  Téléphone
                 </label>
                 <input
                   type="tel"
@@ -2252,147 +2403,346 @@ const ProgramSection = () => {
                 />
               </div>
 
-              {/* Méthode de paiement */}
               <div className="mb-6">
-                <label
-                  className={`block text-sm font-medium mb-4 ${colors.text}`}
-                >
-                  {t.register.form.paymentMethod}
+                <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                  Code Promo
                 </label>
-                <div className="flex space-x-4">
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("mobile")}
-                    className={`px-4 py-2 rounded-lg font-medium ${
-                      paymentMethod === "mobile"
-                        ? `${colors.accentBg} text-black`
-                        : `border ${colors.divider} ${colors.text}`
-                    }`}
-                  >
-                    {t.register.form.mobileMoney}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("card")}
-                    className={`px-4 py-2 rounded-lg font-medium ${
-                      paymentMethod === "card"
-                        ? `${colors.accentBg} text-black`
-                        : `border ${colors.divider} ${colors.text}`
-                    }`}
-                  >
-                    {t.register.form.creditCard}
-                  </button>
-                </div>
+                <input
+                  type="text"
+                  name="promoCode"
+                  value={formData.promoCode}
+                  onChange={handleInputChange}
+                  required
+                  className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                />
               </div>
 
-              {/* Détails de la carte (affichés seulement si carte sélectionnée) */}
-              {paymentMethod === "card" && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6"></div>
-              )}
-
-              {/* Montant et référence */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label
-                    className={`block text-sm font-medium mb-2 ${colors.text}`}
-                  >
-                    {t.register.form.amount}
-                  </label>
-                  <input
-                    type="text"
-                    value={`$${formData.amount}`}
-                    readOnly
-                    className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} opacity-70`}
-                  />
-                </div>
-                <div>
-                  <label
-                    className={`block text-sm font-medium mb-2 ${colors.text}`}
-                  >
-                    {t.register.form.reference}
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.reference}
-                    readOnly
-                    className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} opacity-70`}
-                  />
-                </div>
-              </div>
-
-              {/* Bouton de soumission */}
+              {/* Bouton de soumission promo */}
               <button
                 type="submit"
-                disabled={isProcessing}
+                disabled={isProcessingPromo}
                 className={`w-full py-4 rounded-lg font-bold text-lg ${
-                  isProcessing
+                  isProcessingPromo
                     ? "bg-gray-500 cursor-not-allowed"
                     : `${colors.accentBg} text-black hover:bg-opacity-90 ${colors.hoverGlow}`
                 } transition-all flex items-center justify-center`}
               >
-                {isProcessing ? (
+                {isProcessingPromo ? (
                   <>
-                    <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    {t.register.buttons.processing}
+                    Traitement en cours...
                   </>
                 ) : (
-                  `${t.register.buttons.payNow} - $${formData.amount}`
+                  "S'inscrire avec le Code Promo"
                 )}
               </button>
 
-              {/* Message de statut */}
-              {paymentStatus === "success" && (
+              {/* Messages de statut promo */}
+              {paymentStatus === "promo_success" && promoData && (
                 <div className="mt-4">
-                  <div
-                    className={`p-4 rounded-lg bg-green-500/20 border border-green-500 text-green-300 mb-4`}
-                  >
-                    {t.register.messages.success}
+                  <div className={`p-4 rounded-lg bg-green-500/20 border border-green-500 text-green-300 mb-4`}>
+                    <h4 className="font-bold mb-2">Inscription réussie ! 🎉</h4>
+                    <p>Code promo: <strong>{promoData.PromoDetails.code}</strong></p>
+                    <p>Réduction: <strong>{promoData.PromoDetails.discount}%</strong></p>
+                    <p>{promoData.PromoDetails.description}</p>
+                    <p className="text-sm mt-2">Votre QR code promo a été téléchargé automatiquement.</p>
                   </div>
-                  {transactionData && transactionData.TransactionID && (
-                    <div className="text-center" ref={downloadButtonRef}>
-                      <p className={`${colors.text} mb-2`}>
-                        {t.register.messages.accessId} {transactionData.TransactionID}
-                      </p>
-                      <button
-                        type="button" // Important: type="button" pour éviter de soumettre le formulaire
-                        onClick={handleDownloadQRCode}
-                        className={`px-4 py-2 rounded-lg ${colors.accentBg} text-black font-medium`}
-                      >
-                        {t.register.buttons.downloadQR}
-                      </button>
-                    </div>
-                  )}
+                  <div className="text-center">
+                    <button
+                      type="button"
+                      onClick={() => generatePromoQRCode(promoData.PromoDetails.code, promoData.UserData)}
+                      className={`px-4 py-2 rounded-lg ${colors.accentBg} text-black font-medium`}
+                    >
+                      Télécharger le QR Code à nouveau
+                    </button>
+                  </div>
                 </div>
               )}
 
-              {paymentStatus === "error" && (
-                <div
-                  className={`mt-4 p-4 rounded-lg bg-red-500/20 border border-red-500 text-red-300`}
-                >
-                  {t.register.messages.error}
+              {paymentStatus === "promo_error" && (
+                <div className={`mt-4 p-4 rounded-lg bg-red-500/20 border border-red-500 text-red-300`}>
+                  Erreur lors de l'inscription avec le code promo. Vérifiez vos informations.
                 </div>
               )}
             </form>
           </div>
+        ) : (
+          <div>
+            {/* Sélection du forfait */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              {tiers.map((tier, index) => (
+                <div
+                  key={index}
+                  className={`${colors.card} p-6 rounded-xl border ${
+                    selectedTier === tier.name
+                      ? colors.accentBorder
+                      : colors.divider
+                  } ${
+                    tier.popular ? "transform md:scale-105" : ""
+                  } cursor-pointer transition-all`}
+                  onClick={() => handleTierSelect(tier.name, tier.amount)}
+                >
+                  {tier.popular && (
+                    <div
+                      className={`${colors.accentBg} text-black text-xs font-bold px-3 py-1 rounded-full inline-block mb-4`}
+                    >
+                      {t.register.badges.mostPopular}
+                    </div>
+                  )}
+
+                  <h3 className={`text-xl font-bold mb-2 ${colors.textBright}`}>
+                    {tier.displayName}
+                  </h3>
+                  <p className={`text-3xl font-bold mb-6 ${colors.accent}`}>
+                    {tier.price}
+                  </p>
+
+                  <ul className="space-y-3 mb-6">
+                    {tier.features.map((feature, i) => (
+                      <li key={i} className={`flex items-center ${colors.text}`}>
+                        <Check className={`w-4 h-4 mr-2 ${colors.accent}`} />{" "}
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div
+                    className={`w-6 h-6 rounded-full border-2 ${
+                      selectedTier === tier.name
+                        ? colors.accentBg + " border-transparent"
+                        : colors.divider
+                    } flex items-center justify-center mx-auto`}
+                  >
+                    {selectedTier === tier.name && (
+                      <Check className="w-4 h-4 text-black" />
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Formulaire de paiement existant */}
+            <div
+              className={`${colors.card} p-8 rounded-xl border ${colors.divider}`}
+            >
+              <h3 className={`text-2xl font-bold mb-6 ${colors.textBright}`}>
+                Registration Details
+              </h3>
+
+              <form onSubmit={handlePayment}>
+                {/* Informations personnelles */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label
+                      className={`block text-sm font-medium mb-2 ${colors.text}`}
+                    >
+                      {t.register.form.firstName}
+                    </label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      required
+                      className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className={`block text-sm font-medium mb-2 ${colors.text}`}
+                    >
+                      {t.register.form.lastName}
+                    </label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      required
+                      className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <label
+                    className={`block text-sm font-medium mb-2 ${colors.text}`}
+                  >
+                    {t.register.form.email}
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                  />
+                </div>
+
+                <div className="mb-6">
+                  <label
+                    className={`block text-sm font-medium mb-2 ${colors.text}`}
+                  >
+                    {t.register.form.phone}
+                  </label>
+                  <input
+                    type="tel"
+                    name="telephone"
+                    value={formData.telephone}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="243850292020"
+                    className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                  />
+                </div>
+
+                {/* Méthode de paiement */}
+                <div className="mb-6">
+                  <label
+                    className={`block text-sm font-medium mb-4 ${colors.text}`}
+                  >
+                    {t.register.form.paymentMethod}
+                  </label>
+                  <div className="flex space-x-4">
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod("mobile")}
+                      className={`px-4 py-2 rounded-lg font-medium ${
+                        paymentMethod === "mobile"
+                          ? `${colors.accentBg} text-black`
+                          : `border ${colors.divider} ${colors.text}`
+                      }`}
+                    >
+                      {t.register.form.mobileMoney}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod("card")}
+                      className={`px-4 py-2 rounded-lg font-medium ${
+                        paymentMethod === "card"
+                          ? `${colors.accentBg} text-black`
+                          : `border ${colors.divider} ${colors.text}`
+                      }`}
+                    >
+                      {t.register.form.creditCard}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Détails de la carte (affichés seulement si carte sélectionnée) */}
+                {paymentMethod === "card" && (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6"></div>
+                )}
+
+                {/* Montant et référence */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label
+                      className={`block text-sm font-medium mb-2 ${colors.text}`}
+                    >
+                      {t.register.form.amount}
+                    </label>
+                    <input
+                      type="text"
+                      value={`$${formData.amount}`}
+                      readOnly
+                      className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} opacity-70`}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className={`block text-sm font-medium mb-2 ${colors.text}`}
+                    >
+                      {t.register.form.reference}
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.reference}
+                      readOnly
+                      className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} opacity-70`}
+                    />
+                  </div>
+                </div>
+
+                {/* Bouton de soumission */}
+                <button
+                  type="submit"
+                  disabled={isProcessing}
+                  className={`w-full py-4 rounded-lg font-bold text-lg ${
+                    isProcessing
+                      ? "bg-gray-500 cursor-not-allowed"
+                      : `${colors.accentBg} text-black hover:bg-opacity-90 ${colors.hoverGlow}`
+                  } transition-all flex items-center justify-center`}
+                >
+                  {isProcessing ? (
+                    <>
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      {t.register.buttons.processing}
+                    </>
+                  ) : (
+                    `${t.register.buttons.payNow} - $${formData.amount}`
+                  )}
+                </button>
+
+                {/* Message de statut */}
+                {paymentStatus === "success" && (
+                  <div className="mt-4">
+                    <div
+                      className={`p-4 rounded-lg bg-green-500/20 border border-green-500 text-green-300 mb-4`}
+                    >
+                      {t.register.messages.success}
+                    </div>
+                    {transactionData && transactionData.TransactionID && (
+                      <div className="text-center" ref={downloadButtonRef}>
+                        <p className={`${colors.text} mb-2`}>
+                          {t.register.messages.accessId} {transactionData.TransactionID}
+                        </p>
+                        <button
+                          type="button" // Important: type="button" pour éviter de soumettre le formulaire
+                          onClick={handleDownloadQRCode}
+                          className={`px-4 py-2 rounded-lg ${colors.accentBg} text-black font-medium`}
+                        >
+                          {t.register.buttons.downloadQR}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {paymentStatus === "error" && (
+                  <div
+                    className={`mt-4 p-4 rounded-lg bg-red-500/20 border border-red-500 text-red-300`}
+                  >
+                    {t.register.messages.error}
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
+        )}
         </div>
       </section>
     );
