@@ -1783,7 +1783,7 @@ const ProgramSection = () => {
     const [transactionData, setTransactionData] = useState(null);
 
     // ✅ Nouveaux états pour les codes promo
-    const [isPromoMode, setIsPromoMode] = useState(false);
+    const [isPromoMode, setIsPromoMode] = useState(true);
     const [promoData, setPromoData] = useState(null);
     const [isProcessingPromo, setIsProcessingPromo] = useState(false);
 
