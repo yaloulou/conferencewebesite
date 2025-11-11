@@ -2748,6 +2748,415 @@ const ProgramSection = () => {
     );
   };
 
+  // Composant de recherche des participants
+  const ParticipantSearch = () => {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [participants, setParticipants] = useState([]);
+    const [searchInfo, setSearchInfo] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [advancedMode, setAdvancedMode] = useState(false);
+    const [advancedFilters, setAdvancedFilters] = useState({
+      nom: "",
+      categorie: "",
+      promoCode: "",
+      personneDeContact: ""
+    });
+
+    const colors = {
+      bg: "bg-[#1A1A1A]",
+      card: "bg-[#252525]",
+      text: "text-[#E0E0E0]",
+      textBright: "text-[#FFFFFF]",
+      accent: "text-[#00FFFF]",
+      accentBg: "bg-[#00FFFF]",
+      accentBorder: "border-[#00FFFF]",
+      divider: "border-[#333333]",
+      hoverGlow: "hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]",
+    };
+
+    const searchParticipants = async (page = 1, term = searchTerm) => {
+      if (!term.trim() && !advancedMode) {
+        setError("Veuillez saisir un terme de recherche");
+        return;
+      }
+
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        let url;
+        let params = new URLSearchParams({
+          limit: "20",
+          page: page.toString()
+        });
+
+        if (advancedMode) {
+          // Recherche avancée
+          url = "https://maxi-cash-proxy-sc2gs.ondigitalocean.app/csv/search/advanced";
+          Object.entries(advancedFilters).forEach(([key, value]) => {
+            if (value.trim()) {
+              params.append(key, value.trim());
+            }
+          });
+        } else {
+          // Recherche simple
+          url = "https://maxi-cash-proxy-sc2gs.ondigitalocean.app/csv/search";
+          params.append("nom", term.trim());
+        }
+
+        const response = await fetch(`${url}?${params}`);
+        const data = await response.json();
+
+        if (data.Status === "Success") {
+          setParticipants(data.Participants || []);
+          setSearchInfo(data.SearchInfo);
+          setCurrentPage(page);
+        } else {
+          setError(data.ResponseError || "Erreur lors de la recherche");
+          setParticipants([]);
+          setSearchInfo(null);
+        }
+      } catch (err) {
+        setError("Erreur de connexion. Veuillez réessayer.");
+        console.error("Search error:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const handleSearch = (e) => {
+      e.preventDefault();
+      setCurrentPage(1);
+      searchParticipants(1);
+    };
+
+    const handleAdvancedSearch = (e) => {
+      e.preventDefault();
+      setCurrentPage(1);
+      searchParticipants(1);
+    };
+
+    const handlePageChange = (newPage) => {
+      searchParticipants(newPage);
+    };
+
+    const handleAdvancedFilterChange = (field, value) => {
+      setAdvancedFilters(prev => ({
+        ...prev,
+        [field]: value
+      }));
+    };
+
+    return (
+      <div className={`min-h-screen ${colors.bg} py-20`}>
+        <div className="max-w-6xl mx-auto px-6">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h1 className={`text-4xl font-bold mb-6 ${colors.textBright}`}>
+              🔍 Recherche de <span className={colors.accent}>Participants</span>
+            </h1>
+            <p className={`text-lg ${colors.text} max-w-2xl mx-auto`}>
+              Recherchez les participants inscrits à Digital Horizon par nom, initiales ou filtres avancés
+            </p>
+          </div>
+
+          {/* Toggle Mode */}
+          <div className="flex justify-center mb-8">
+            <div className="flex bg-gray-800 rounded-lg p-1">
+              <button
+                type="button"
+                onClick={() => setAdvancedMode(false)}
+                className={`px-6 py-2 rounded-md font-medium transition-all ${
+                  !advancedMode
+                    ? `${colors.accentBg} text-black`
+                    : `text-gray-400 hover:text-white`
+                }`}
+              >
+                Recherche Simple
+              </button>
+              <button
+                type="button"
+                onClick={() => setAdvancedMode(true)}
+                className={`px-6 py-2 rounded-md font-medium transition-all ${
+                  advancedMode
+                    ? `${colors.accentBg} text-black`
+                    : `text-gray-400 hover:text-white`
+                }`}
+              >
+                Recherche Avancée
+              </button>
+            </div>
+          </div>
+
+          {/* Formulaire de recherche */}
+          <div className={`${colors.card} p-8 rounded-xl border ${colors.divider} mb-8`}>
+            {!advancedMode ? (
+              // Recherche simple
+              <form onSubmit={handleSearch}>
+                <div className="flex gap-4">
+                  <div className="flex-1">
+                    <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                      Nom ou Initiales
+                    </label>
+                    <input
+                      type="text"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      placeholder="Ex: Jean Dupont, JD, Lu..."
+                      className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                    />
+                  </div>
+                  <div className="flex items-end">
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className={`px-6 py-3 rounded-lg font-bold ${
+                        isLoading
+                          ? "bg-gray-500 cursor-not-allowed"
+                          : `${colors.accentBg} text-black hover:bg-opacity-90 ${colors.hoverGlow}`
+                      } transition-all flex items-center`}
+                    >
+                      {isLoading ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Recherche...
+                        </>
+                      ) : (
+                        "🔍 Rechercher"
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            ) : (
+              // Recherche avancée
+              <form onSubmit={handleAdvancedSearch}>
+                <h3 className={`text-xl font-bold mb-6 ${colors.textBright}`}>
+                  Recherche Avancée
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                      Nom ou Initiales
+                    </label>
+                    <input
+                      type="text"
+                      value={advancedFilters.nom}
+                      onChange={(e) => handleAdvancedFilterChange("nom", e.target.value)}
+                      placeholder="Ex: Jean, JD, Lu..."
+                      className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                      Catégorie
+                    </label>
+                    <input
+                      type="text"
+                      value={advancedFilters.categorie}
+                      onChange={(e) => handleAdvancedFilterChange("categorie", e.target.value)}
+                      placeholder="Ex: Standard, Premium..."
+                      className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                      Code Promo
+                    </label>
+                    <input
+                      type="text"
+                      value={advancedFilters.promoCode}
+                      onChange={(e) => handleAdvancedFilterChange("promoCode", e.target.value)}
+                      placeholder="Ex: DRC2025, PKAFUND30..."
+                      className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${colors.text}`}>
+                      Personne de Contact
+                    </label>
+                    <input
+                      type="text"
+                      value={advancedFilters.personneDeContact}
+                      onChange={(e) => handleAdvancedFilterChange("personneDeContact", e.target.value)}
+                      placeholder="Nom du contact..."
+                      className={`w-full px-4 py-3 rounded-lg border ${colors.divider} ${colors.bg} ${colors.text} focus:${colors.accentBorder} focus:outline-none`}
+                    />
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className={`w-full py-3 rounded-lg font-bold ${
+                    isLoading
+                      ? "bg-gray-500 cursor-not-allowed"
+                      : `${colors.accentBg} text-black hover:bg-opacity-90 ${colors.hoverGlow}`
+                  } transition-all flex items-center justify-center`}
+                >
+                  {isLoading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Recherche...
+                    </>
+                  ) : (
+                    "🔍 Rechercher"
+                  )}
+                </button>
+              </form>
+            )}
+          </div>
+
+          {/* Message d'erreur */}
+          {error && (
+            <div className="mb-6 p-4 rounded-lg bg-red-500/20 border border-red-500 text-red-300">
+              ❌ {error}
+            </div>
+          )}
+
+          {/* Informations de recherche */}
+          {searchInfo && (
+            <div className={`${colors.card} p-6 rounded-xl border ${colors.divider} mb-6`}>
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <h3 className={`text-lg font-bold ${colors.textBright} mb-2`}>
+                    📊 Résultats de recherche
+                  </h3>
+                  <p className={colors.text}>
+                    {searchInfo.totalResults} participant(s) trouvé(s)
+                    {searchInfo.searchTerm && ` pour "${searchInfo.searchTerm}"`}
+                  </p>
+                  <p className={`text-sm ${colors.text} opacity-80`}>
+                    Page {searchInfo.currentPage} sur {searchInfo.totalPages}
+                  </p>
+                </div>
+                
+                {/* Pagination */}
+                {searchInfo.totalPages > 1 && (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={!searchInfo.hasPrevPage}
+                      className={`px-4 py-2 rounded font-medium ${
+                        searchInfo.hasPrevPage
+                          ? `${colors.accentBg} text-black hover:bg-opacity-90`
+                          : "bg-gray-600 text-gray-400 cursor-not-allowed"
+                      }`}
+                    >
+                      ← Précédent
+                    </button>
+                    <span className={`px-4 py-2 ${colors.text}`}>
+                      {currentPage} / {searchInfo.totalPages}
+                    </span>
+                    <button
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={!searchInfo.hasNextPage}
+                      className={`px-4 py-2 rounded font-medium ${
+                        searchInfo.hasNextPage
+                          ? `${colors.accentBg} text-black hover:bg-opacity-90`
+                          : "bg-gray-600 text-gray-400 cursor-not-allowed"
+                      }`}
+                    >
+                      Suivant →
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Résultats */}
+          {participants.length > 0 && (
+            <div className={`${colors.card} rounded-xl border ${colors.divider} overflow-hidden`}>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-black/40">
+                    <tr>
+                      <th className={`px-6 py-4 text-left font-bold ${colors.textBright}`}>
+                        👤 Nom
+                      </th>
+                      <th className={`px-6 py-4 text-left font-bold ${colors.textBright}`}>
+                        🏢 Fonction/Structure
+                      </th>
+                      <th className={`px-6 py-4 text-left font-bold ${colors.textBright}`}>
+                        📋 Catégorie
+                      </th>
+                      <th className={`px-6 py-4 text-left font-bold ${colors.textBright}`}>
+                        📞 Contact
+                      </th>
+                      <th className={`px-6 py-4 text-left font-bold ${colors.textBright}`}>
+                        🎫 Promo
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {participants.map((participant, index) => (
+                      <tr
+                        key={index}
+                        className={`border-t ${colors.divider} hover:bg-black/20 transition-colors`}
+                      >
+                        <td className={`px-6 py-4 font-medium ${colors.textBright}`}>
+                          {participant.noms}
+                        </td>
+                        <td className={`px-6 py-4 ${colors.text}`}>
+                          {participant.fonctionStructure || "-"}
+                        </td>
+                        <td className={`px-6 py-4 ${colors.text}`}>
+                          <span className={`px-2 py-1 rounded text-xs font-bold ${colors.accentBg} text-black`}>
+                            {participant.categorie || "-"}
+                          </span>
+                        </td>
+                        <td className={`px-6 py-4 ${colors.text} text-sm`}>
+                          <div>
+                            {participant.telephone && (
+                              <div>📞 {participant.telephone}</div>
+                            )}
+                            {participant.mail && (
+                              <div>✉️ {participant.mail}</div>
+                            )}
+                          </div>
+                        </td>
+                        <td className={`px-6 py-4 ${colors.text}`}>
+                          {participant.promoCode ? (
+                            <span className={`px-2 py-1 rounded text-xs font-bold bg-green-500/20 text-green-300 border border-green-500`}>
+                              {participant.promoCode}
+                            </span>
+                          ) : (
+                            <span className="text-gray-500">-</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* Message si aucun résultat */}
+          {participants.length === 0 && searchInfo && (
+            <div className={`${colors.card} p-12 rounded-xl border ${colors.divider} text-center`}>
+              <div className="text-6xl mb-4">🔍</div>
+              <h3 className={`text-xl font-bold ${colors.textBright} mb-2`}>
+                Aucun participant trouvé
+              </h3>
+              <p className={colors.text}>
+                Essayez avec d'autres termes de recherche ou utilisez la recherche avancée.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   const SpeakerDetailWrapper = () => {
     return (
       <div className="min-h-screen bg-[#1A1A1A] w-full overflow-x-hidden">
@@ -2999,6 +3408,7 @@ const ProgramSection = () => {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/search" element={<ParticipantSearch />} />
         <Route path="/speaker/:id" element={<SpeakerDetailWrapper />} />
         <Route path="/success" element={<PaymentStatus type="success" />} />
         <Route path="/failure" element={<PaymentStatus type="failure" />} />
