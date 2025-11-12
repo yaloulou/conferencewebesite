@@ -446,58 +446,320 @@ const DigitalNation2030 = () => {
   // Conference Program
   const schedule = [
     {
-      day: "November 11, 2025",
-      events: [
-        {
-          time: "08:00 - 09:00",
-          title: "Registration & Breakfast",
-          icon: <Users className="w-5 h-5" />,
-        },
-        {
-          time: "09:00 - 10:30",
-          title: "Opening Ceremony",
-          icon: <Award className="w-5 h-5" />,
-        },
-        {
-          time: "10:30 - 12:00",
-          title: "Keynote: Africa's Digital Future",
-          icon: <Star className="w-5 h-5" />,
-        },
-      ],
-    },
-    {
-      day: "November 12, 2025",
+      day: "Mardi 11 Novembre 2025",
       events: [
         {
           time: "08:30 - 10:00",
-          title: "Panel: Cybersecurity in Africa",
+          title: "Accueil et Café de Bienvenue",
+          speaker: "Sandra Nyangi (Maîtresse de cérémonie)",
+          icon: <Users className="w-5 h-5" />,
+          type: "Accueil"
+        },
+        {
+          time: "10:00 - 10:30",
+          title: "Conférence Inaugurale : Sécurité et Souveraineté Numérique, un Impératif National",
+          speaker: "S.E. M. Désiré Cashmir Kolongele Eberande",
+          role: "Conseiller Spécial du Chef de l'État en Matière de Sécurité",
           icon: <Shield className="w-5 h-5" />,
+          type: "Keynote"
         },
         {
-          time: "10:30 - 12:00",
-          title: "Technical Workshops",
-          icon: <Cpu className="w-5 h-5" />,
-        },
-        {
-          time: "14:00 - 15:30",
-          title: "Roundtable: E-Government",
+          time: "10:30 - 11:00",
+          title: "Gouvernance et Cybersécurité à l'Ère du Numérique : Défis et Opportunités pour la RDC",
+          speaker: "S.E. M. Jacquemain Shabani",
+          role: "Vice-Premier Ministre, Ministre de l'Intérieur",
           icon: <Server className="w-5 h-5" />,
+          type: "Keynote"
         },
+        {
+          time: "11:00 - 11:30",
+          title: "Le Rôle Stratégique de la Banque Centrale : Bâtir une Économie Numérique Sûre et Moderne",
+          speaker: "S.E. M. André Wameso",
+          role: "Gouverneur, Banque Centrale du Congo",
+          icon: <Award className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "11:30 - 12:00",
+          title: "Keynote Invitée Spéciale : La transformation numérique au service de la transparence et de la bonne gouvernance des ressources",
+          speaker: "S.E. M. Joe Dumbi",
+          role: "Conseiller spécial du Président de la RDC pour les ressources extérieures et le suivi des projets",
+          icon: <Star className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "12:00 - 12:30",
+          title: "'Digital Horizon' : La Transformation Numérique, Condition d'un Avenir Sûr",
+          speaker: "Wilmot Gibson",
+          role: "Dirigeant Global en Transformation d'Entreprise & Volontaire International en TI – SS4D",
+          icon: <Cpu className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "12:30 - 13:00",
+          title: "Session Inaugurale : La sécurité au service des entreprises",
+          speaker: "A. Gary Rattray",
+          role: "Leader en Cybersécurité | Architecte en Sécurité Cloud",
+          icon: <Shield className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "13:00 - 13:15",
+          title: "Pause Café et Réseautage",
+          icon: <Users className="w-5 h-5" />,
+          type: "Pause"
+        },
+        {
+          time: "13:15 - 14:15",
+          title: "Panel Exécutif : Leadership à l'Ère Numérique : Gouvernance, Innovation et Vision Nationale",
+          speaker: "Modérateur : M. Bijou Nsumbu",
+          description: "Panélistes : Sabune Joane Winkler, Fely Samuna, Moussa Musavuli Mbutho, Jean Thierry Kalombo, Barry Williams, Gerard Kaja",
+          icon: <Users className="w-5 h-5" />,
+          type: "Panel"
+        },
+        {
+          time: "14:15 - 15:15",
+          title: "Déjeuner et Exposition",
+          icon: <Users className="w-5 h-5" />,
+          type: "Déjeuner"
+        },
+        {
+          time: "15:15 - 16:00",
+          title: "Sessions Pistes Thématiques (4 Pistes parallèles)",
+          description: "Piste A: Cybersécurité Fondamentale | Piste B: Cloud Hybride | Piste C: Services Financiers | Piste D: Identité Numérique",
+          icon: <Wifi className="w-5 h-5" />,
+          type: "Sessions"
+        },
+        {
+          time: "16:00 - 16:15",
+          title: "Pause",
+          icon: <Users className="w-5 h-5" />,
+          type: "Pause"
+        },
+        {
+          time: "16:15 - 17:00",
+          title: "Deuxième Session de Pistes Thématiques",
+          description: "Panels et sessions techniques spécialisées",
+          icon: <Cpu className="w-5 h-5" />,
+          type: "Sessions"
+        },
+        {
+          time: "17:00 - 18:00",
+          title: "Réseautage et Visite de l'Espace d'Exposition",
+          icon: <Users className="w-5 h-5" />,
+          type: "Réseautage"
+        },
+        {
+          time: "18:00 - 18:15",
+          title: "Allocution de Bienvenue au Dîner",
+          speaker: "Lucien Bangelesa",
+          role: "Leader inspirant et innovateur technologique",
+          icon: <Award className="w-5 h-5" />,
+          type: "Allocution"
+        },
+        {
+          time: "18:15 - 19:45",
+          title: "Dîner de Bienvenue et Réception",
+          description: "Tous les Invités VIP et Premium",
+          icon: <Users className="w-5 h-5" />,
+          type: "Dîner"
+        }
       ],
     },
     {
-      day: "November 13, 2025",
+      day: "Mercredi 12 Novembre 2025",
       events: [
         {
-          time: "09:00 - 10:30",
-          title: "Startup Presentations",
-          icon: <Wifi className="w-5 h-5" />,
+          time: "08:30 - 10:00",
+          title: "Accueil Matinal",
+          speaker: "Sandra Nyangi (Maîtresse de cérémonie)",
+          description: "Enregistrement et Café Matinal",
+          icon: <Users className="w-5 h-5" />,
+          type: "Accueil"
         },
         {
-          time: "11:00 - 12:30",
-          title: "Closing Ceremony",
-          icon: <Award className="w-5 h-5" />,
+          time: "10:00 - 10:30",
+          title: "Keynote : Exécution, Inclusion et Confiance dans la Transformation Numérique de la RDC",
+          speaker: "S.E. M. Samuel Roger Kamba Mulanda",
+          role: "Ministre de la Santé",
+          icon: <Shield className="w-5 h-5" />,
+          type: "Keynote"
         },
+        {
+          time: "10:30 - 11:00",
+          title: "Keynote : Réformer le financement : la transformation numérique orientée vers les résultats dans les entreprises du portefeuille de l'Etat",
+          speaker: "S.E. Mme. Julie Mbuyi Shiku",
+          role: "Ministre du Portefeuille",
+          icon: <Award className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "11:00 - 11:30",
+          title: "Keynote : La vaccination dans le cadre de la construction d'un système de santé résilient et efficace en RDC",
+          speaker: "Dr. Aaron Winkler",
+          role: "Directeur Scientifique Principal chez Pfizer et Leader Biopharmaceutique Mondial",
+          icon: <Star className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "11:30 - 12:00",
+          title: "Keynote : L'avenir du numérique dans le secteur minier et énergétique en RDC",
+          speaker: "Jean Marie Kanda",
+          role: "Conseiller Principal du Chef de l'Etat au Collège des Mines, de l'énergie et du gaz et du pétrole",
+          icon: <Cpu className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "12:00 - 12:30",
+          title: "Keynote : Modernisation de l'Industrie des Télécommunications en RDC : Défis, Tendances et Avenir",
+          speaker: "Christian Katende",
+          role: "Président de l'ARPTC, RDC",
+          icon: <Wifi className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "12:30 - 13:00",
+          title: "Keynote : L'avenir des Smart Cities et Smart Grids en RDC : Intégrer les solutions Durables",
+          speaker: "Thierry Katembwe, Tony MUNONGO",
+          role: "Coordonnateur Principal du CSSPEVK, Conseiller Principal de la Première Ministre en charge du PTNTIC",
+          icon: <Server className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "13:00 - 14:00",
+          title: "Panel : IA, Télémédecine et Santé axée sur les Données : Bâtir un Système de Santé Inclusif",
+          speaker: "Modérateur : Dr. Lambert Mukendi",
+          description: "Panélistes : Dr. Aaron Winkler, Dr. Mwamba Kazadi Dieudonné, Dr. Patrick Ngoma, Sabune Turner Winkler, Dr. Olivier Kana, Mr. Trad Hatton",
+          icon: <Users className="w-5 h-5" />,
+          type: "Panel"
+        },
+        {
+          time: "14:00 - 15:00",
+          title: "Déjeuner et Temps d'Exposition",
+          description: "Vidéo sur la préparation des leaders par Shanam",
+          icon: <Users className="w-5 h-5" />,
+          type: "Déjeuner"
+        },
+        {
+          time: "15:00 - 15:45",
+          title: "Première Session de Pistes Thématiques",
+          description: "4 Pistes : Certifications TIC, Smart Grids, Télécoms Africell, IA Minière",
+          icon: <Cpu className="w-5 h-5" />,
+          type: "Sessions"
+        },
+        {
+          time: "15:45 - 16:00",
+          title: "Pause",
+          icon: <Users className="w-5 h-5" />,
+          type: "Pause"
+        },
+        {
+          time: "16:00 - 16:45",
+          title: "Deuxième Session de Pistes Thématiques",
+          description: "Nyota Connect, Cadastre Minier, Sécurité Télécoms, Microservices",
+          icon: <Shield className="w-5 h-5" />,
+          type: "Sessions"
+        }
+      ],
+    },
+    {
+      day: "Jeudi 13 Novembre 2025",
+      events: [
+        {
+          time: "08:30 - 10:00",
+          title: "Accueil Matinal",
+          speaker: "Sandra Nyangi (Maîtresse de cérémonie)",
+          description: "Enregistrement et Accueil des Participants",
+          icon: <Users className="w-5 h-5" />,
+          type: "Accueil"
+        },
+        {
+          time: "10:00 - 10:30",
+          title: "KEYNOTE : Les infrastructures de Télécommunications en République Démocratique du Congo",
+          speaker: "Freddy Lukasu",
+          role: "Conseiller Principal Poste Télécommunication et NTIC",
+          icon: <Wifi className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "10:30 - 11:00",
+          title: "KEYNOTE : De la Réglementation à l'Innovation : Le Rôle du Secteur Privé dans l'Édification du Numérique en RDC",
+          speaker: "Fely Samuna",
+          role: "Président du Conseil d'Administration (PCA) de l'Autorité de Régulation de la Sous-Traitance (ARSP)",
+          icon: <Award className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "11:00 - 11:30",
+          title: "KEYNOTE : Meilleures Pratiques : Gérer la Transformation, Favoriser l'Innovation et Préparer l'Investissement Étranger",
+          speaker: "Barry Williams",
+          role: "Ancien Directeur Exécutif, Comcast Business (USA)",
+          icon: <Star className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "11:30 - 12:00",
+          title: "KEYNOTE : Modernisation des infrastructures publiques : Identité Numérique, Echange de Données et Transformation de la Gouvernance",
+          speaker: "Elie Nkumbi",
+          role: "Directeur de Cabinet Adjoint du Ministre de l'Intérieur (RDC)",
+          icon: <Server className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "12:00 - 13:00",
+          title: "Panel Exécutif : L'Éducation Numérique pour un Avenir Connecté en RDC",
+          speaker: "Modérateur : Onesime Mukandila",
+          description: "Panélistes : Prof. Dr. Ir. Kyandoghere Kyamakya, Prof. Freddy Bangelesa, Christelle Nkento, Barry Williams, Sabune Winkler, Prof. Jean Marie Beya",
+          icon: <Users className="w-5 h-5" />,
+          type: "Panel"
+        },
+        {
+          time: "13:00 - 13:15",
+          title: "Pause",
+          icon: <Users className="w-5 h-5" />,
+          type: "Pause"
+        },
+        {
+          time: "13:15 - 14:00",
+          title: "Première Session de Pistes Thématiques",
+          description: "4 Pistes : Machine Learning, Smart Grids, 5G & Edge Computing, Cyber-Résilience",
+          icon: <Cpu className="w-5 h-5" />,
+          type: "Sessions"
+        },
+        {
+          time: "14:00 - 14:15",
+          title: "Break",
+          icon: <Users className="w-5 h-5" />,
+          type: "Pause"
+        },
+        {
+          time: "14:15 - 15:00",
+          title: "Deuxième Session de Pistes Thématiques",
+          description: "Ministère du portefeuille, DevSecOps Lab Sprint",
+          icon: <Shield className="w-5 h-5" />,
+          type: "Sessions"
+        },
+        {
+          time: "15:00 - 16:00",
+          title: "Déjeuner de Réseautage",
+          icon: <Users className="w-5 h-5" />,
+          type: "Déjeuner"
+        },
+        {
+          time: "16:00 - 16:45",
+          title: "Keynote : Restitution",
+          speaker: "Antoine Kayisu",
+          description: "Modérateur : Bijou Nsumbu - Synthèse des orientations majeures de la conférence",
+          icon: <Award className="w-5 h-5" />,
+          type: "Keynote"
+        },
+        {
+          time: "16:45 - 19:00",
+          title: "Clôture de la Conférence et Cocktail",
+          description: "Cocktail de clôture et activités finales de la conférence",
+          icon: <Award className="w-5 h-5" />,
+          type: "Clôture"
+        }
       ],
     },
   ];
@@ -946,294 +1208,263 @@ const ProgramSection = () => {
     const schedule = [
       {
         day: "day1",
-        date: "",
+        date: "Tuesday November 11, 2025",
         events: [
           {
-            time: "07:30 - 08:15",
-            title: "registration_breakfast",
+            time: "08:30 - 10:00",
+            title: "welcome_registration",
             type: "break",
+            speaker: "Sandra Nyangi (Master of Ceremonies)"
           },
           {
-            time: "08:30 - 09:00",
-            title: "opening_keynote",
+            time: "10:00 - 10:30",
+            title: "opening_security_keynote",
             type: "keynote",
-            speaker: "Desire Cashmir Kologele Eberande | Moderator: Introduction by Wilmot Gibson",
+            speaker: "H.E. Mr. Désiré Cashmir Kolongele Eberande - Special Advisor to the Head of State on Security Matters"
           },
-
           {
-            time: "09:00 - 09:45",
-            title: "strategic_banking",
+            time: "10:30 - 11:00",
+            title: "governance_cybersecurity_keynote",
             type: "keynote",
-            speaker: "André Wameso | Moderator: Lucien B",
+            speaker: "H.E. Mr. Jacquemain Shabani - Deputy Prime Minister, Minister of Interior"
           },
           {
-            time: "09:45 - 10:30",
-            title: "drc_investment",
+            time: "11:00 - 11:30",
+            title: "central_bank_role_keynote",
             type: "keynote",
-            speaker: "JOE DUMBI KABANGU | Moderator: Antoine Kayisu",
+            speaker: "H.E. Mr. André Wameso - Governor, Central Bank of Congo"
           },
           {
-            time: "10:30 - 10:45",
-            title: "break_morning",
-            type: "break",
+            time: "11:30 - 12:00",
+            title: "digital_transformation_governance_keynote",
+            type: "keynote",
+            speaker: "H.E. Mr. Joe Dumbi - Special Advisor to the President of DRC for External Resources"
           },
           {
-            time: "11:30 - 12:30",
-            title: "executive_panel",
+            time: "12:00 - 12:30",
+            title: "digital_horizon_keynote",
+            type: "keynote",
+            speaker: "Wilmot Gibson - Global Leader in Business Transformation & International IT Volunteer – SS4D"
+          },
+          {
+            time: "12:30 - 13:00",
+            title: "enterprise_security_keynote",
+            type: "keynote",
+            speaker: "A. Gary Rattray - Leader in Cybersecurity | Cloud Security Architect"
+          },
+          {
+            time: "13:00 - 13:15",
+            title: "coffee_networking_break",
+            type: "break"
+          },
+          {
+            time: "13:15 - 14:15",
+            title: "executive_panel_leadership",
             type: "panel",
-            speaker: `Sabune Winkler (Health Services); Pankaj Chugh (Disruptive Technologies); Min. Louis Watum Kabamba (Mining and Energy); Min. Intérieur Jacquemain Shabani; Hugues Bosala (Rawbank); Fellly Samuna (Industries) | Moderator: Bijou Nsumbu`,
+            speaker: "Moderator: Mr. Bijou Nsumbu",
+            description: "Panelists: Sabune Joane Winkler, Fely Samuna, Moussa Musavuli Mbutho, Jean Thierry Kalombo, Barry Williams, Gerard Kaja"
           },
           {
-            time: "12:30 - 13:30",
-            title: "lunch_expo",
-            type: "networking",
+            time: "14:15 - 15:15",
+            title: "lunch_exhibition",
+            type: "networking"
           },
           {
-            time: "13:30 - 14:30",
-            title: "breakout_morning",
+            time: "15:15 - 16:00",
+            title: "first_track_sessions",
             type: "workshop",
-            tracks: [
-              "cybersecurity_fundamentals",
-              "legacy_infrastructure", 
-              "future_talent",
-              "digital_identity"
-            ]
+            tracks: ["cybersecurity_critical_sectors", "hybrid_cloud_resilience", "financial_services_security", "digital_identity_pki"]
           },
           {
-            time: "14:30 - 14:45",
-            title: "break_afternoon",
-            type: "break",
+            time: "16:00 - 16:15",
+            title: "afternoon_break",
+            type: "break"
           },
           {
-            time: "14:45 - 15:30",
-            title: "breakout_afternoon",
+            time: "16:15 - 17:00",
+            title: "second_track_sessions",
             type: "workshop",
-            tracks: [
-              "mobile_money",
-              "vaccine_development",
-              "digital_security",
-              "telecom_future"
-            ]
+            tracks: ["cybersecurity_trust_panel", "next_gen_telecom", "ai_pandemic_prediction", "blockchain_mobile_money"]
           },
           {
-            time: "15:30 - 15:45",
-            title: "break_afternoon",
-            type: "break",
-          },
-          {
-            time: "15:45 - 16:30",
-            title: "industry_sessions",
-            type: "session",
-            tracks: [
-              "telecom_modernization",
-              "financial_security",
-              "satellite_observation"
-            ]
-          },
-          {
-            time: "16:30 - 17:30",
-            title: "networking_exhibits",
-            type: "networking",
+            time: "17:00 - 18:00",
+            title: "networking_exhibition_visit",
+            type: "networking"
           },
           {
             time: "18:00 - 18:15",
-            title: "evening_keynote",
+            title: "dinner_welcome_speech",
             type: "keynote",
-            speaker: "Inspirational leader or technology innovator",
+            speaker: "Lucien Bangelesa - Inspiring Leader and Technology Innovator"
           },
           {
-            time: "18:00 - 19:30",
-            title: "welcome_dinner",
-            type: "networking",
-            speaker: "All attendees",
-          },
-        ],
+            time: "18:15 - 19:45",
+            title: "welcome_dinner_reception",
+            type: "networking"
+          }
+        ]
       },
       {
         day: "day2",
-        date: "",
+        date: "Wednesday November 12, 2025",
         events: [
           {
-            time: "07:30 - 08:15",
-            title: "breakfast_networking",
+            time: "08:30 - 10:00",
+            title: "morning_welcome",
             type: "break",
+            speaker: "Sandra Nyangi (Master of Ceremonies)"
           },
           {
-            time: "08:30 - 09:15",
-            title: "cyber_threats",
+            time: "10:00 - 10:30",
+            title: "health_digital_transformation_keynote",
             type: "keynote",
-            speaker: `Ainsley Rattray | Moderator: Grace Ngoya`,
+            speaker: "H.E. Mr. Samuel Roger Kamba Mulanda - Minister of Health"
           },
           {
-            time: "09:30 - 10:15",
-            title: "mining_energy",
+            time: "10:30 - 11:00",
+            title: "portfolio_financing_reform_keynote",
             type: "keynote",
-            speaker: "Jean-Marie Kande Tumba | Moderator: Norbert Wupona",
+            speaker: "H.E. Mrs. Julie Mbuyi Shiku - Minister of Portfolio"
           },
           {
-            time: "10:30 - 11:15",
-            title: "tech_healthcare",
+            time: "11:00 - 11:30",
+            title: "vaccination_health_system_keynote",
             type: "keynote",
-            speaker: "Aaron Winkler | Moderator: Sabune W.",
+            speaker: "Dr. Aaron Winkler - Principal Scientific Director at Pfizer and Global Biopharmaceutical Leader"
           },
           {
-            time: "11:15 - 11:30",
-            title: "networking_break",
-            type: "break",
+            time: "11:30 - 12:00",
+            title: "mining_energy_digital_future_keynote",
+            type: "keynote",
+            speaker: "Jean Marie Kanda - Principal Advisor to the Head of State for Mining, Energy, Gas and Oil College"
           },
           {
-            time: "11:30 - 12:15",
-            title: "advanced_workshops",
+            time: "12:00 - 12:30",
+            title: "telecom_industry_modernization_keynote",
+            type: "keynote",
+            speaker: "Christian Katende - President of ARPTC, DRC"
+          },
+          {
+            time: "12:30 - 13:00",
+            title: "smart_cities_grids_keynote",
+            type: "keynote",
+            speaker: "Thierry Katembwe, Tony MUNONGO - Principal Coordinator of CSSPEVK, Principal Advisor to the Prime Minister for ICT"
+          },
+          {
+            time: "13:00 - 14:00",
+            title: "ai_telemedicine_health_panel",
+            type: "panel",
+            speaker: "Moderator: Dr. Lambert Mukendi",
+            description: "Panelists: Dr. Aaron Winkler, Dr. Mwamba Kazadi Dieudonné, Dr. Patrick Ngoma, Sabune Turner Winkler, Dr. Olivier Kana, Mr. Trad Hatton"
+          },
+          {
+            time: "14:00 - 15:00",
+            title: "lunch_exhibition_time",
+            type: "networking",
+            description: "Video on leadership preparation by Shanam"
+          },
+          {
+            time: "15:00 - 15:45",
+            title: "first_thematic_tracks_day2",
             type: "workshop",
-            tracks: [
-              "zero_trust",
-              "cloud_solutions",
-              "telemedicine",
-              "mining_cadastre"
-            ]
+            tracks: ["ict_certifications_panel", "smart_energy_grids", "africell_telecom_strategy", "ai_mining_automation"]
           },
           {
-            time: "12:15 - 13:30",
-            title: "lunch_exhibits",
-            type: "networking",
-          },
-          {
-            time: "13:30 - 14:15",
-            title: "panel_breakout",
-            type: "panel",
-            tracks: [
-              "fintech_innovations",
-              "microservices",
-              "it_certifications",
-              "cybersecurity_panel"
-            ]
-          },
-          {
-            time: "14:15 - 14:30",
+            time: "15:45 - 16:00",
             title: "networking_break",
-            type: "break",
+            type: "break"
           },
           {
-            time: "14:30 - 15:15",
-            title: "fireside_health",
+            time: "16:00 - 16:45",
+            title: "second_thematic_tracks_day2",
             type: "session",
-            speaker: "Aaron Winkler, Ainsley | Moderator: Industry journalist or analyst TBD",
-          },
-          {
-            time: "14:30 - 15:15",
-            title: "fireside_telecom",
-            type: "session",
-            speaker: "Congolese, Alberto",
-          },
-          {
-            time: "15:15 - 15:30",
-            title: "break_afternoon",
-            type: "break",
-          },
-          {
-            time: "15:30 - 16:15",
-            title: "panel_sessions",
-            type: "panel",
-            tracks: [
-              "digital_nation_security",
-              "agritech",
-              "cyber_panel",
-              "large_scale_training"
-            ]
-          },
-          {
-            time: "16:15 - 17:30",
-            title: "exhibit_tour",
-            type: "networking",
-          },
-        ],
+            tracks: ["nyota_connect_telemedicine", "electronic_mining_cadastre", "telecom_datacenter_security", "microservices_architecture"]
+          }
+        ]
       },
       {
         day: "day3",
-        date: "",
+        date: "Thursday November 13, 2025",
         events: [
           {
-            time: "08:00 - 09:30",
-            title: "innovation_keynote",
-            type: "keynote",
-            speaker: "Benjamin Katabuka (KoBold)",
-          },
-          {
-            time: "09:30 - 09:48",
-            title: "mining_analytics",
-            type: "session",
-            speaker: "Prof Nzuru (Ivanoe)",
-          },
-          {
-            time: "09:48 - 10:06",
-            title: "health_telemedicine",
-            type: "session",
-            speaker: "Sabune Turner",
-          },
-          {
-            time: "10:06 - 10:24",
-            title: "banking_digital",
-            type: "session",
-            speaker: "Ainsley Rattray",
-          },
-          {
-            time: "10:24 - 10:42",
-            title: "smart_cities",
-            type: "session",
-            speaker: "Wilmot Gibson",
-          },
-          {
-            time: "10:42 - 11:00",
-            title: "telecom_5g",
-            type: "session",
-            speaker: "Omar Fahnbullah",
-          },
-          {
-            time: "11:00 - 11:15",
-            title: "networking_break",
+            time: "08:30 - 10:00",
+            title: "final_day_welcome",
             type: "break",
+            speaker: "Sandra Nyangi (Master of Ceremonies)"
           },
           {
-            time: "11:15 - 12:00",
-            title: "collaboration_workshop",
-            type: "workshop",
-            speaker: "Eragy Bashonga Alpha",
+            time: "10:00 - 10:30",
+            title: "telecom_infrastructure_keynote",
+            type: "keynote",
+            speaker: "Freddy Lukasu - Principal Advisor for Post Telecommunications and ICT"
           },
           {
-            time: "12:00 - 12:45",
-            title: "policy_discussion",
-            type: "workshop",
-            speaker: "TBD",
+            time: "10:30 - 11:00",
+            title: "regulation_innovation_keynote",
+            type: "keynote",
+            speaker: "Fely Samuna - Chairman of the Board of Directors of ARSP"
           },
           {
-            time: "13:00 - 13:45",
-            title: "networking_lunch",
-            type: "networking",
+            time: "11:00 - 11:30",
+            title: "best_practices_transformation_keynote",
+            type: "keynote",
+            speaker: "Barry Williams - Former Executive Director, Comcast Business (USA)"
           },
           {
-            time: "13:00 - 13:45",
-            title: "leadership_panel",
+            time: "11:30 - 12:00",
+            title: "public_infrastructure_modernization_keynote",
+            type: "keynote",
+            speaker: "Elie Nkumbi - Deputy Chief of Staff to the Minister of Interior (DRC)"
+          },
+          {
+            time: "12:00 - 13:00",
+            title: "digital_education_panel",
             type: "panel",
-            speaker: "Barry Williams, Pankaj Chugh",
+            speaker: "Moderator: Onesime Mukandila",
+            description: "Panelists: Prof. Dr. Ir. Kyandoghere Kyamakya, Prof. Freddy Bangelesa, Christelle Nkento, Barry Williams, Sabune Winkler, Prof. Jean Marie Beya"
           },
           {
-            time: "13:00 - 13:45",
-            title: "mining_panel",
-            type: "panel",
-            speaker: "Prof Nzuru (Ivanoe) | Moderator: Wilmot Gibson",
+            time: "13:00 - 13:15",
+            title: "short_break",
+            type: "break"
           },
           {
-            time: "13:00 - 13:45",
-            title: "cybersecurity_workshop",
+            time: "13:15 - 14:00",
+            title: "first_final_tracks",
             type: "workshop",
+            tracks: ["machine_learning_systems", "energy_smart_grids", "5g_edge_computing", "cyber_resilience_norms"]
           },
           {
-            time: "15:45 - 17:00",
-            title: "expo_open",
-            type: "networking",
+            time: "14:00 - 14:15",
+            title: "mini_break",
+            type: "break"
           },
-        ],
-      },
+          {
+            time: "14:15 - 15:00",
+            title: "second_final_tracks",
+            type: "session",
+            tracks: ["portfolio_ministry_session", "devsecops_lab_sprint"]
+          },
+          {
+            time: "15:00 - 16:00",
+            title: "networking_lunch_final",
+            type: "networking"
+          },
+          {
+            time: "16:00 - 16:45",
+            title: "conference_restitution_keynote",
+            type: "keynote",
+            speaker: "Antoine Kayisu - Moderator: Bijou Nsumbu",
+            description: "Synthesis of major conference and workshop orientations"
+          },
+          {
+            time: "16:45 - 19:00",
+            title: "conference_closing_cocktail",
+            type: "closing",
+            description: "Closing cocktail and final conference activities"
+          }
+        ]
+      }
     ];
 
     const getEventIcon = (type) => {
@@ -1417,15 +1648,15 @@ const ProgramSection = () => {
           </div>
 
           {/* CTA Button */}
-          {/* <div className="text-center mt-8 sm:mt-10 md:mt-12 px-4">
+          <div className="text-center mt-8 sm:mt-10 md:mt-12 px-4">
             <a
-              href="/conf_schedule.xlsx"
-              download="Digital-Nation-2030-Conference-Schedule.xlsx"
+              href="/conf_schedule.pdf"
+              download="Digital-Horizon-Conference-Program.pdf"
               className={`${colors.accentBg} text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:scale-105 transition-transform ${colors.hoverGlow} inline-block w-full sm:w-auto text-center touch-manipulation`}
             >
               {t.program.downloadProgram}
             </a>
-          </div> */}
+          </div>
         </div>
       </section>
     );

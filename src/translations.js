@@ -97,11 +97,56 @@ export const translations = {
       // Event titles
       events: {
         // Day 1 events
+        "welcome_registration": "Welcome & Registration Coffee",
+        "opening_security_keynote": "Opening Keynote: Security and Digital Sovereignty, a National Imperative",
+        "governance_cybersecurity_keynote": "Governance and Cybersecurity in the Digital Age: Challenges and Opportunities for DRC",
+        "central_bank_role_keynote": "The Strategic Role of the Central Bank: Building a Safe and Modern Digital Economy",
+        "digital_transformation_governance_keynote": "Special Keynote: Digital transformation serving transparency and good governance of resources",
+        "digital_horizon_keynote": "'Digital Horizon': Digital Transformation, Condition for a Secure Future",
+        "enterprise_security_keynote": "Inaugural Session: Security serving enterprises",
+        "coffee_networking_break": "Coffee Break and Networking",
+        "executive_panel_leadership": "Executive Panel: Leadership in the Digital Age: Governance, Innovation and National Vision",
+        "lunch_exhibition": "Lunch and Exhibition",
+        "first_track_sessions": "First Thematic Track Sessions",
+        "afternoon_break": "Afternoon Break",
+        "second_track_sessions": "Second Thematic Track Sessions",
+        "networking_exhibition_visit": "Networking and Exhibition Space Visit",
+        "dinner_welcome_speech": "Dinner Welcome Address",
+        "welcome_dinner_reception": "Welcome Dinner and Reception",
+        
+        // Day 2 events
+        "morning_welcome": "Morning Welcome",
+        "health_digital_transformation_keynote": "Keynote: Execution, Inclusion and Trust in DRC's Digital Transformation",
+        "portfolio_financing_reform_keynote": "Keynote: Reforming financing: results-oriented digital transformation in state portfolio enterprises",
+        "vaccination_health_system_keynote": "Keynote: Vaccination in building a resilient and efficient health system in DRC",
+        "mining_energy_digital_future_keynote": "Keynote: The future of digital in the mining and energy sector in DRC",
+        "telecom_industry_modernization_keynote": "Keynote: Modernization of the Telecommunications Industry in DRC: Challenges, Trends and Future",
+        "smart_cities_grids_keynote": "Keynote: The future of Smart Cities and Smart Grids in DRC: Integrating Sustainable solutions",
+        "ai_telemedicine_health_panel": "Panel: AI, Telemedicine and Data-driven Health: Building an Inclusive Health System",
+        "lunch_exhibition_time": "Lunch and Exhibition Time",
+        "first_thematic_tracks_day2": "First Thematic Track Sessions",
+        "networking_break": "Networking Break",
+        "second_thematic_tracks_day2": "Second Thematic Track Sessions",
+        
+        // Day 3 events
+        "final_day_welcome": "Final Day Welcome",
+        "telecom_infrastructure_keynote": "KEYNOTE: Telecommunications Infrastructure in the Democratic Republic of Congo",
+        "regulation_innovation_keynote": "KEYNOTE: From Regulation to Innovation: The Role of the Private Sector in Building Digital in DRC",
+        "best_practices_transformation_keynote": "KEYNOTE: Best Practices: Managing Transformation, Fostering Innovation and Preparing Foreign Investment",
+        "public_infrastructure_modernization_keynote": "KEYNOTE: Modernization of public infrastructure: Digital Identity, Data Exchange and Governance Transformation",
+        "digital_education_panel": "Executive Panel: Digital Education for a Connected Future in DRC",
+        "short_break": "Break",
+        "first_final_tracks": "First Final Track Sessions",
+        "mini_break": "Mini Break",
+        "second_final_tracks": "Second Final Track Sessions",
+        "networking_lunch_final": "Networking Lunch",
+        "conference_restitution_keynote": "Keynote: Conference Restitution",
+        "conference_closing_cocktail": "Conference Closing and Cocktail",
+
+        // Legacy events (keeping for compatibility)
         "registration_breakfast": "Registration and Breakfast Networking",
         "opening_keynote": "Opening Keynote: Security and Digital Sovereignty: An Imperative for a Modern Nation",
-
         "strategic_banking": "The Strategic Role of Central Banking",
-
         "drc_investment": "Strategy for DRC Investment and Global Engagement",
         "break_morning": "Break",
         "executive_panel": "Executive Panel: \"Leading in the Digital Age\"",
@@ -113,13 +158,10 @@ export const translations = {
         "networking_exhibits": "Networking and Exhibit Hall",
         "evening_keynote": "Keynote Speaker",
         "welcome_dinner": "Networking Reception & Welcome Dinner",
-        
-        // Day 2 events
         "breakfast_networking": "Networking Breakfast",
         "cyber_threats": "Keynote Session: The Evolving Cyber Threat Landscape",
         "mining_energy": "Keynote: Strategy for Modernizing Mining and Energy Industries for DRC",
         "tech_healthcare": "Keynote: Technology and Healthcare",
-        "networking_break": "Networking Break",
         "advanced_workshops": "Concurrent Workshops & Hands-On Labs (Advanced Track Focus)",
         "lunch_exhibits": "Lunch and Exhibit Hall",
         "panel_breakout": "Panel / Breakout Sessions",
@@ -127,8 +169,6 @@ export const translations = {
         "fireside_telecom": "Fireside Chat: \"Securing the Future of Telecommunications Network and Data Centers\"",
         "panel_sessions": "Panel / Breakout Sessions",
         "exhibit_tour": "Exhibit Hall Tour",
-        
-        // Day 3 events
         "innovation_keynote": "Keynote: Innovation & Emerging Technologies: AI, Blockchain, and Beyond",
         "mining_analytics": "Mining: Real-Time Analytics with IoT and Predictive Maintenance",
         "health_telemedicine": "Health Services: Enhancing Patient Outcomes Through Telemedicine & AI",
@@ -146,7 +186,35 @@ export const translations = {
       
       // Track descriptions
       tracks: {
-        // Day 1 tracks
+        // Day 1 tracks - New detailed tracks
+        "cybersecurity_critical_sectors": "Track A: Fundamental Cybersecurity for Critical Sectors",
+        "hybrid_cloud_resilience": "Track B: Hybrid Cloud and Resilience: Modernizing Infrastructure in DRC",
+        "financial_services_security": "Track C: Financial Services and Public Enterprises: Balancing Innovation and Data Security",
+        "digital_identity_pki": "Track D: Digital Identity, PKI and E-Governance: Building Modern Public Services",
+        "cybersecurity_trust_panel": "Track A (Panel): Cybersecurity, Trust and Resilience: The Foundations of the Digital Economy",
+        "next_gen_telecom": "Track B: Next-generation Telecommunications: Connecting DRC for inclusive growth",
+        "ai_pandemic_prediction": "Track C: Artificial intelligence and pandemic prediction",
+        "blockchain_mobile_money": "Track D (Panel): Mobile Money, Blockchain and Digital Financial Inclusion",
+
+        // Day 2 tracks - New detailed tracks
+        "ict_certifications_panel": "Track A (Panel): Key Certifications to Accelerate Career Evolution in ICT and Telecoms",
+        "smart_energy_grids": "Track B: Energy Systems and Smart Grids",
+        "africell_telecom_strategy": "Track C: The future of telecommunications in DRC: network modernization, inclusive access and how digital transformation accelerates Africell's growth strategy",
+        "ai_mining_automation": "Track D (Panel): AI, Automation and Digital Infrastructure for Mining and Energy Modernization",
+        "nyota_connect_telemedicine": "Track A: Nyota Connect: Telemedicine, Patient Records and Continuity of Care in DRC",
+        "electronic_mining_cadastre": "Track B: Electronic Mining Cadastre (E-Mining) and Traceability: Transparency and Drones",
+        "telecom_datacenter_security": "Track C: Fireside Chat: Securing Telecommunications Networks and Data Centers",
+        "microservices_architecture": "Track D: From Monolith to Microservices: Architecting agility in the digital age",
+
+        // Day 3 tracks - New detailed tracks
+        "machine_learning_systems": "Track A: The Contribution of Machine Learning Methods in Reliability of Decision Systems in Business and Education",
+        "energy_smart_grids": "Track B: Energy: Smart Grids and Energy Transition for DRC",
+        "5g_edge_computing": "Track C: 5G and Edge Computing – Catalyzing the Era of Hyperconnectivity",
+        "cyber_resilience_norms": "Track D: Cyber-Resilience Standards",
+        "portfolio_ministry_session": "Track A: Ministry of Portfolio Session",
+        "devsecops_lab_sprint": "Track B: Skills Sprint Lab: Legacy Modernization to Cloud (DevSecOps & SRE)",
+
+        // Legacy tracks (keeping for compatibility)
         "cybersecurity_fundamentals": "Track A: Cybersecurity Fundamentals Across Critical Industries",
         "legacy_infrastructure": "Track B: Modernizing Legacy Infrastructure: Cloud vs. Hybrid Models", 
         "future_talent": "Track C: Developing Future-Ready Talent in DRC",
@@ -158,8 +226,6 @@ export const translations = {
         "telecom_modernization": "Telecommunications: Modernization of the DRC",
         "financial_security": "Financial Services & Government: Balancing Innovation and Data Security",
         "satellite_observation": "Health Services: Satellite Observation of the DRC",
-        
-        // Day 2 tracks  
         "zero_trust": "Track A: Building a Zero-Trust Network",
         "cloud_solutions": "Track B: Cloud Technology and Solutions",
         "telemedicine": "Track C: Nyota Connect: Telemedicine in DRC",
@@ -442,12 +508,57 @@ export const translations = {
       
       // Event titles
       events: {
-        // Day 1 events
+        // Day 1 events - Nouvelles traductions détaillées
+        "welcome_registration": "Accueil et Café de Bienvenue",
+        "opening_security_keynote": "Conférence Inaugurale : Sécurité et Souveraineté Numérique, un Impératif National",
+        "governance_cybersecurity_keynote": "Gouvernance et Cybersécurité à l'Ère du Numérique : Défis et Opportunités pour la RDC",
+        "central_bank_role_keynote": "Le Rôle Stratégique de la Banque Centrale : Bâtir une Économie Numérique Sûre et Moderne",
+        "digital_transformation_governance_keynote": "Keynote Invitée Spéciale : La transformation numérique au service de la transparence et de la bonne gouvernance des ressources",
+        "digital_horizon_keynote": "'Digital Horizon' : La Transformation Numérique, Condition d'un Avenir Sûr",
+        "enterprise_security_keynote": "Session Inaugurale : La sécurité au service des entreprises",
+        "coffee_networking_break": "Pause Café et Réseautage",
+        "executive_panel_leadership": "Panel Exécutif : Leadership à l'Ère Numérique : Gouvernance, Innovation et Vision Nationale",
+        "lunch_exhibition": "Déjeuner et Exposition",
+        "first_track_sessions": "Première Session de Pistes Thématiques",
+        "afternoon_break": "Pause de l'Après-midi",
+        "second_track_sessions": "Deuxième Session de Pistes Thématiques",
+        "networking_exhibition_visit": "Réseautage et Visite de l'Espace d'Exposition",
+        "dinner_welcome_speech": "Allocution de Bienvenue au Dîner",
+        "welcome_dinner_reception": "Dîner de Bienvenue et Réception",
+        
+        // Day 2 events - Nouvelles traductions détaillées
+        "morning_welcome": "Accueil Matinal",
+        "health_digital_transformation_keynote": "Keynote : Exécution, Inclusion et Confiance dans la Transformation Numérique de la RDC",
+        "portfolio_financing_reform_keynote": "Keynote : Réformer le financement : la transformation numérique orientée vers les résultats dans les entreprises du portefeuille de l'État",
+        "vaccination_health_system_keynote": "Keynote : La vaccination dans le cadre de la construction d'un système de santé résilient et efficace en RDC",
+        "mining_energy_digital_future_keynote": "Keynote : L'avenir du numérique dans le secteur minier et énergétique en RDC",
+        "telecom_industry_modernization_keynote": "Keynote : Modernisation de l'Industrie des Télécommunications en RDC : Défis, Tendances et Avenir",
+        "smart_cities_grids_keynote": "Keynote : L'avenir des Smart Cities et Smart Grids en RDC : Intégrer les solutions Durables",
+        "ai_telemedicine_health_panel": "Panel : IA, Télémédecine et Santé axée sur les Données : Bâtir un Système de Santé Inclusif",
+        "lunch_exhibition_time": "Déjeuner et Temps d'Exposition",
+        "first_thematic_tracks_day2": "Première Session de Pistes Thématiques",
+        "networking_break": "Pause Réseautage",
+        "second_thematic_tracks_day2": "Deuxième Session de Pistes Thématiques",
+        
+        // Day 3 events - Nouvelles traductions détaillées
+        "final_day_welcome": "Accueil Dernière Journée",
+        "telecom_infrastructure_keynote": "KEYNOTE : Les infrastructures de Télécommunications en République Démocratique du Congo",
+        "regulation_innovation_keynote": "KEYNOTE : De la Réglementation à l'Innovation : Le Rôle du Secteur Privé dans l'Édification du Numérique en RDC",
+        "best_practices_transformation_keynote": "KEYNOTE : Meilleures Pratiques : Gérer la Transformation, Favoriser l'Innovation et Préparer l'Investissement Étranger",
+        "public_infrastructure_modernization_keynote": "KEYNOTE : Modernisation des infrastructures publiques : Identité Numérique, Échange de Données et Transformation de la Gouvernance",
+        "digital_education_panel": "Panel Exécutif : L'Éducation Numérique pour un Avenir Connecté en RDC",
+        "short_break": "Pause",
+        "first_final_tracks": "Première Session de Pistes Finales",
+        "mini_break": "Mini Pause",
+        "second_final_tracks": "Deuxième Session de Pistes Finales",
+        "networking_lunch_final": "Déjeuner de Réseautage Final",
+        "conference_restitution_keynote": "Keynote : Restitution de la Conférence",
+        "conference_closing_cocktail": "Clôture de la Conférence et Cocktail",
+
+        // Legacy events (garde pour compatibilité)
         "registration_breakfast": "Inscription et Petit-déjeuner Réseautage",
         "opening_keynote": "Conférence Inaugurale: Sécurité et Souveraineté Numérique: Un Impératif pour une Nation Moderne",
-
         "strategic_banking": "Le Rôle Stratégique de la Banque Centrale",
-
         "drc_investment": "Stratégie pour l'Investissement en RDC et l'Engagement Global",
         "break_morning": "Pause",
         "executive_panel": "Panel Exécutif: \"Diriger à l'Ère Numérique\"",
@@ -459,8 +570,6 @@ export const translations = {
         "networking_exhibits": "Réseautage et Hall d'Exposition",
         "evening_keynote": "Conférencier Invité",
         "welcome_dinner": "Réception Réseautage & Dîner de Bienvenue",
-        
-        // Day 2 events
         "breakfast_networking": "Petit-déjeuner Réseautage",
         "cyber_threats": "Session Inaugurale: Le Paysage Évolutif des Cybermenaces",
         "mining_energy": "Conférence: Stratégie pour la Modernisation des Industries Minières et Énergétiques en RDC",
@@ -492,7 +601,35 @@ export const translations = {
       
       // Track descriptions
       tracks: {
-        // Day 1 tracks
+        // Day 1 tracks - Nouvelles pistes détaillées
+        "cybersecurity_critical_sectors": "Piste A: Cybersécurité Fondamentale pour les Secteurs Critiques",
+        "hybrid_cloud_resilience": "Piste B: Cloud Hybride et Résilience : Moderniser les Infrastructures en RDC",
+        "financial_services_security": "Piste C: Services Financiers et Entreprises Publiques : Équilibrer Innovation et Sécurité des Données",
+        "digital_identity_pki": "Piste D: Identité Numérique, PKI et E-Gouvernance : Bâtir des Services Publics Modernes",
+        "cybersecurity_trust_panel": "Piste A (Panel): Cybersécurité, Confiance et Résilience : Les Fondations de l'Économie Numérique",
+        "next_gen_telecom": "Piste B: Télécommunications de nouvelle génération : Connecter la RDC pour une croissance inclusive",
+        "ai_pandemic_prediction": "Piste C: Intelligence artificielle et prédiction pandémique",
+        "blockchain_mobile_money": "Piste D (Panel): Monnaie Mobile, Blockchain et Inclusion Financière Numérique",
+
+        // Day 2 tracks - Nouvelles pistes détaillées
+        "ict_certifications_panel": "Piste A (Panel): Certifications Clés pour Accélérer l'Évolution de Carrière dans les TIC et les Télécoms",
+        "smart_energy_grids": "Piste B: Systèmes d'Énergie et Réseaux Intelligents (Smart Grids)",
+        "africell_telecom_strategy": "Piste C: L'avenir des télécommunications en RDC : modernisation des réseaux, accès inclusif et comment la transformation numérique accélère la stratégie de croissance d'Africell",
+        "ai_mining_automation": "Piste D (Panel): IA, Automatisation et Infrastructure Numérique pour la Modernisation Minière et Énergétique",
+        "nyota_connect_telemedicine": "Piste A: Nyota Connect : Télémédecine, Dossiers Patients et Continuité des Soins en RDC",
+        "electronic_mining_cadastre": "Piste B: Cadastre Minier Électronique (E-Mining) et Traçabilité : Transparence et Drones",
+        "telecom_datacenter_security": "Piste C: Conversation au coin du feu : Sécuriser les Réseaux de Télécommunications et les Centres de Données",
+        "microservices_architecture": "Piste D: Du Monolithe aux Microservices: Architecturer l'agilité à l'ère du numérique",
+
+        // Day 3 tracks - Nouvelles pistes détaillées
+        "machine_learning_systems": "Piste A: L'Apport des Méthodes d'Apprentissage Automatique (Machine Learning) dans la Fiabilisation des Systèmes Décisionnels en Entreprise et dans l'Éducation",
+        "energy_smart_grids": "Piste B: Énergie : Réseaux Intelligents et Transition Énergétique pour la RDC",
+        "5g_edge_computing": "Piste C: 5G et Edge Computing – Catalyser l'Ère de l'Hyperconnectivité",
+        "cyber_resilience_norms": "Piste D: Normes de Cyber-Résilience",
+        "portfolio_ministry_session": "Piste A: Session Ministère du portefeuille",
+        "devsecops_lab_sprint": "Piste B: Labo Sprint de Compétences : Modernisation du \"Legacy\" au Cloud (DevSecOps & SRE)",
+
+        // Legacy tracks (garde pour compatibilité)
         "cybersecurity_fundamentals": "Piste A: Fondamentaux de la Cybersécurité dans les Industries Critiques",
         "legacy_infrastructure": "Piste B: Moderniser l'Infrastructure Héritée: Modèles Cloud vs. Hybrides", 
         "future_talent": "Piste C: Développer les Talents Prêts pour l'Avenir en RDC",
@@ -504,8 +641,6 @@ export const translations = {
         "telecom_modernization": "Télécommunications: Modernisation de la RDC",
         "financial_security": "Services Financiers & Gouvernement: Équilibrer Innovation et Sécurité des Données",
         "satellite_observation": "Services de Santé: Observation par Satellite de la RDC",
-        
-        // Day 2 tracks  
         "zero_trust": "Piste A: Construire un Réseau Zéro Confiance",
         "cloud_solutions": "Piste B: Technologie et Solutions Cloud",
         "telemedicine": "Piste C: Nyota Connect: Télémédecine en RDC",
